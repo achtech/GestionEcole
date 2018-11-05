@@ -138,7 +138,7 @@ if ($action == "ajouter_eleves"){
 		$_REQUEST['id_'.$tab_table[$i]]=mysql_insert_id(); 
 		doQuery("COMMIT");
 		
-		echo $sql2  ="insert into inscriptions(num_inscription,date_inscription,id_eleves) values(".$_REQUEST['num_inscription'].",'".date('Y-m-d')."',".$identif.")";
+		$sql2  ="insert into inscriptions(num_inscription,date_inscription,id_eleves,id_classes) values(".$_REQUEST['num_inscription'].",'".date('Y-m-d')."',".$identif.",".$_REQUEST['id_classes'].")";
 		doQuery($sql2);
 		doQuery("COMMIT");
 		
@@ -582,5 +582,5 @@ if(isset($_REQUEST['msg_retour'])){
 	$msg = $_REQUEST['msg_retour'];
 }
 
- redirect($page."?".$chaine_retour."&m=".$msg."&er=".$msg_err."#ancre");
+redirect($page."?".$chaine_retour."&m=".$msg."&er=".$msg_err."#ancre");
 ?>

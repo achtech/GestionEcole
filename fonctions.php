@@ -310,7 +310,7 @@ function Ajout($table,$tab_champs,$tab_requetes){
 		}		
 	}	
 				
-		echo $sql = "
+		 $sql = "
 				insert into 
 				".$table."(".$champs.") 
 				values(".$valeurs.")
@@ -1878,5 +1878,20 @@ function traiter_pj($subject) {
 	$replacement = '_';
 	
 	echo preg_replace($pattern, $replacement, $subject);
+}
+
+function getLastInscription($idEleves) {
+	$sql = "select max(id) as maxIds from inscriptions where id_eleves=".$idEleves;
+	$res = doQuery($sql);
+	
+	if (mysql_num_rows($res) == 0){
+		return "";	
+	}
+	else
+	{
+		$ligne = mysql_fetch_array($res);
+		$droit = $ligne['maxIds'];
+		return $droit;
+	}
 }
 ?>

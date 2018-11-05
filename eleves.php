@@ -76,6 +76,12 @@
 								                </a>
 												
 												&nbsp;
+
+												<a href="modifier_inscriptions.php?eleves=<?php echo $ligne['id'] ?>" class="modifier2" title="modifier">
+													&nbsp;
+								                </a>
+												
+												&nbsp;
 												
 								            	<a href="detail_eleves.php?eleves=<?php echo $ligne['id'] ?>" class="details2" title="Fiche technique">
 													&nbsp;
