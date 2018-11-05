@@ -35,13 +35,13 @@
                             <span>Home</span>
                         </a>
                     </li>
-                    <li>
+                    <li class="active">
                         <a href="javascript:void(0);" class="menu-toggle">
                             <i class="material-icons">widgets</i>
                             <span><?php echo _GESTION ?> <?php echo _SCOLAIRES ?></span>
                         </a>
                         <ul class="ml-menu">
-                            <li> <a href="eleves.php"> <?php echo _ELEVES ?> </a> </li>
+                            <li class="active"> <a href="eleves.php"> <?php echo _ELEVES ?> </a> </li>
                             <li> <a href="absence_eleves.php"> <?php echo _ABSENCES ?> </a> </li>
                             <li> <a href="paiements_eleves.php"> <?php echo _PAIEMENTS ?> </a> </li>
                         </ul>
@@ -81,7 +81,7 @@
                             <li> <a href="mode_paiements.php"> <?php echo _MODE ?> <?php echo _DE ?> <?php echo _PAIEMENTS ?> 100%</a> </li>
                             <li> <a href="etablissements.php"> <?php echo _ETABLISSEMENTS ?>80% </a> </li>
                             <li> <a href="users.php"> <?php echo _UTILISATEURS ?>100% </a> </li>
-                            <li> <a href="classes.php"> <?php echo _CLASSES ?> </a> </li>
+                            <li> <a href="classes.php"> <?php echo _CLASSES ?>100% </a> </li>
                             <li> <a href="logs.php"> <?php echo _JOURNAL ?> </a> </li>
                         </ul>
                     </li>

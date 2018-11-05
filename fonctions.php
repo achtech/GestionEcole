@@ -310,7 +310,7 @@ function Ajout($table,$tab_champs,$tab_requetes){
 		}		
 	}	
 				
-		$sql = "
+		echo $sql = "
 				insert into 
 				".$table."(".$champs.") 
 				values(".$valeurs.")

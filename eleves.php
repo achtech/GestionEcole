@@ -2,11 +2,11 @@
 <?php require_once('menu.php'); ?>
             <div class="block-header">
                 <h2>
-                    <?php echo _GESTION ?> <?php echo _NIVEAUX ?>
+                    <?php echo _GESTION ?> des <?php echo _ELEVES ?>
                 </h2>
                 <div> 
-                    	<a href="ajouter_niveaux.php" class="ajouter">
-			        		<?php echo _AJOUTER ?> <?php echo _NIVEAUX ?> 
+                    	<a href="ajouter_eleves.php" class="ajouter">
+			        		<?php echo _NOUVELLE ?> <?php echo _INSCRIPTION ?> 
 			    		 </a>		
 				</div>
  
@@ -18,7 +18,7 @@
                           <div class="body">
                             <div class="table-responsive">
                             	<?php 
-									$sql = "select * from niveaux order by id";		
+									$sql = "select * from eleves order by id";		
 									$res = doQuery($sql);
 
 									$nb = mysql_num_rows($res);
@@ -33,12 +33,18 @@
                                     <thead>
                                         <tr>
                                             <th><?php echo _NOM ?></th>
+                                            <th><?php echo _TEL ?></th>
+                                            <th><?php echo _ADRESSE ?></th>
+                                            <th><?php echo _DATE." de "._NAISSANCE ?></th>
 											<th class="op"> <?php echo _OP ?> </th>
                                         </tr>
                                     </thead>
                                     <tfoot>
                                         <tr>
                                             <th><?php echo _NOM ?></th>
+                                            <th><?php echo _TEL ?></th>
+                                            <th><?php echo _ADRESSE ?></th>
+                                            <th><?php echo _DATE." de "._NAISSANCE ?></th>
 											<th class="op"> <?php echo _OP ?> </th>
                                         </tr>
                                     </tfoot>
@@ -55,24 +61,44 @@
 											?>
                                         <tr>
                                             <td>
-								            	<a href="classes.php?niveaux=<?php echo $ligne['id'] ?>">
-													<?php echo $ligne['libelle'] ?>
-								                </a>
+												<?php echo $ligne['prenom']." ".$ligne['nom'] ?>
+										</td><td>
+												<?php echo $ligne['tel_domicile'] ?>
+										</td><td>
+												<?php echo $ligne['adresse_parents'] ?>
+										</td><td>		
+												<?php echo $ligne['date_naissance'] ?>
 								            </td>
 											
 											<td class="op">
-												<a href="modifier_niveaux.php?niveaux=<?php echo $ligne['id'] ?>" class="modifier2">
+												<a href="modifier_eleves.php?eleves=<?php echo $ligne['id'] ?>" class="modifier2" title="modifier">
 													&nbsp;
 								                </a>
 												
 												&nbsp;
 												
-								                <a href="#ancre" 
+								            	<a href="detail_eleves.php?eleves=<?php echo $ligne['id'] ?>" class="details2" title="Fiche technique">
+													&nbsp;
+								                </a>
+												
+												&nbsp;
+								            	<a href="paiements_eleves.php?eleves=<?php echo $ligne['id'] ?>" class="paiements2" title="Paiement">
+													&nbsp;
+								                </a>
+												
+												
+												&nbsp;
+								            	<a href="absences_eleves.php?eleves=<?php echo $ligne['id'] ?>" class="absences2" title="Absences">
+													&nbsp;
+								                </a>
+
+												&nbsp;
+											    <a href="#ancre" 
 								                class="supprimer2" 
 								                onclick="javascript:supprimer(
-								                							'niveaux',
+								                							'eleves',
 								                                            '<?php echo $ligne['id'] ?>',
-								                                            'niveaux.php',
+								                                            'eleves.php',
 								                                            '1',
 								                                            '1')
 														" 

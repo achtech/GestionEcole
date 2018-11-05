@@ -2,7 +2,7 @@
 <?php require_once('menu.php'); ?>
             <div class="block-header">
                 <h2>
-                    <?php echo _AJOUTER ?> <?php echo _SALLES ?>
+                    <?php echo _AJOUTER ?> <?php echo _CLASSES ?>
                 </h2>
             </div>
             <!-- Vertical Layout -->
@@ -13,8 +13,8 @@
 							<form action="gestion.php" name="frm" method="post" 
 							onsubmit="return checkForm(document.frm);" >
 								<input type="hidden" name="act" value="a"/>
-							    <input type="hidden" name="table" value="salles"/>
-								<input type="hidden" name="page" value="salles.php"/>
+							    <input type="hidden" name="table" value="classes"/>
+								<input type="hidden" name="page" value="classes.php"/>
 
                                 <label for="email_address"><?php echo _NOM ?> : </label>
                                 <div class="form-group">
@@ -22,16 +22,17 @@
                                         <input type="text" id="libelle" name="libelle" class="form-control" >
                                     </div>
                                 </div>
-                                <label for="nbr_place"><?php echo _NOMBRE_PLACES ?> : </label>
+                                <label for="nbr_place"><?php echo _NIVEAUX ?> : </label>
                                 <div class="form-group">
                                     <div class="form-line">
-                                        <?php getTabList($tab_salles,"type",$valeur,$change,_ETAT); ?>
+                                        <?php  echo getTableList('niveaux','id_niveaux','','libelle','','','id_niveaux') ?>
+
                                     </div>
                                 </div>
-                                <label for="nbr_place"><?php echo _TYPE ?> : </label>
+                                <label for="nbr_place"><?php echo _ANNEES." "._SCOLAIRES ?> : </label>
                                 <div class="form-group">
                                     <div class="form-line">
-                                        <?php getTabList($tab_salles,"type",$valeur,$change,_ETAT); ?>
+                                        <?php  echo getTableList('annees_scolaires','id_annees_scolaire','','libelle','','','id_annees_scolaire') ?>
                                     </div>
                                 </div>
                                 <br>

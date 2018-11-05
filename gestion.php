@@ -101,6 +101,81 @@ if ($action == "a"){
 	//redirect($page."?m=".$msg."&er=".$msg_err.$chaine_retour.$_REQUEST['ancre']);
 }
 
+//AJOUT
+if ($action == "ajouter_eleves"){	
+	//Rendre les dates du format 11-30-2009 => 1235543267654
+	$tab_dates = array(	"date",
+					   "date_reglement",
+					   "date_cheque",
+					   "date_facture"
+						);
+	
+	foreach($tab_dates as $v){
+		if (isset($_REQUEST[$v])){
+			
+			$tab_d = explode("/",$_REQUEST[$v]);
+			
+			$jour = $tab_d[0];
+			$mois = $tab_d[1];
+			$annee = $tab_d[2];
+			
+			$hr = date("G");
+			$mint = date("i");
+			$sec = date("s");
+			
+			$_REQUEST[$v] = mktime($hr,$mint,$sec,$mois,$jour,$annee);
+		}
+	}
+	
+
+		 
+	doQuery("BEGIN");
+	 	
+	for($i=0;$i<sizeof($tab_table);$i++){ 
+	
+		$var[$i]= Ajout($tab_table[$i],getNomChamps($tab_table[$i]),$_REQUEST);
+		$identif=mysql_insert_id(); 
+		$_REQUEST['id_'.$tab_table[$i]]=mysql_insert_id(); 
+		doQuery("COMMIT");
+		
+		echo $sql2  ="insert into inscriptions(num_inscription,date_inscription,id_eleves) values(".$_REQUEST['num_inscription'].",'".date('Y-m-d')."',".$identif.")";
+		doQuery($sql2);
+		doQuery("COMMIT");
+		
+		if(isset($_FILES['photo']) and getChamp($tab_table[$i], "image")){
+			$retour2 = upload_image($tab_table[$i],$_FILES['photo'],$identif);
+			unset($_FILES);
+			
+			if($retour2){
+				echo _UPLOAD_OK;
+			}
+			else
+			{
+				echo _UPLOAD_NOK;
+			}
+		}
+		
+	}
+	
+	for($i=0 ; $i<sizeof($var) ; $i++){ 
+		if( !$var[$i] ){
+			doQuery("ROLLBACK");
+		$m=1;
+		}	
+	}
+	
+	if($m==1) $msg_err=_AJOUT_NOK;	
+	else {
+		$msg= _AJOUT_OK;
+		doQuery("COMMIT");
+	}	
+		
+	if(isset($_REQUEST['msg_retour'])){
+		$msg = $_REQUEST['msg_retour'];
+	}
+
+}
+
 //MODIFICATION
 if ($action == "m"){
 	
@@ -507,5 +582,5 @@ if(isset($_REQUEST['msg_retour'])){
 	$msg = $_REQUEST['msg_retour'];
 }
 
-redirect($page."?".$chaine_retour."&m=".$msg."&er=".$msg_err."#ancre");
+ redirect($page."?".$chaine_retour."&m=".$msg."&er=".$msg_err."#ancre");
 ?>

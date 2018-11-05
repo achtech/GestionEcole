@@ -1,5 +1,12 @@
 <?php 
 define('_ROLES','Role(s)');
+define('_LIEUX','Lieux');
+define('_CIN','C.I.N');
+define('_ECOLE','Ecole');
+define('_PRECEDENTE','pr&eacute;edente');
+define('_ROLES','Role(s)');
+define('_ROLES','Role(s)');
+define('_ROLES','Role(s)');
 
 define('_CLASSES','CLasse(s)');
 define('_ABSENCES','Absence(s)');

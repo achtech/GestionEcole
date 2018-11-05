@@ -2,11 +2,11 @@
 <?php require_once('menu.php'); ?>
             <div class="block-header">
                 <h2>
-                    <?php echo _GESTION ?> <?php echo _NIVEAUX ?>
+                    <?php echo _GESTION ?> <?php echo _CLASSES ?>
                 </h2>
                 <div> 
-                    	<a href="ajouter_niveaux.php" class="ajouter">
-			        		<?php echo _AJOUTER ?> <?php echo _NIVEAUX ?> 
+                    	<a href="ajouter_classes.php" class="ajouter">
+			        		<?php echo _AJOUTER ?> <?php echo _CLASSES ?> 
 			    		 </a>		
 				</div>
  
@@ -18,7 +18,7 @@
                           <div class="body">
                             <div class="table-responsive">
                             	<?php 
-									$sql = "select * from niveaux order by id";		
+									$sql = "select * from classes order by id";		
 									$res = doQuery($sql);
 
 									$nb = mysql_num_rows($res);
@@ -33,12 +33,16 @@
                                     <thead>
                                         <tr>
                                             <th><?php echo _NOM ?></th>
+                                            <th><?php echo _NIVEAUX ?></th>
+                                            <th><?php echo _ANNEES_SCOLAIRES ?></th>
 											<th class="op"> <?php echo _OP ?> </th>
                                         </tr>
                                     </thead>
                                     <tfoot>
                                         <tr>
                                             <th><?php echo _NOM ?></th>
+                                            <th><?php echo _NIVEAUX ?></th>
+                                            <th><?php echo _ANNEES_SCOLAIRES ?></th>
 											<th class="op"> <?php echo _OP ?> </th>
                                         </tr>
                                     </tfoot>
@@ -55,13 +59,17 @@
 											?>
                                         <tr>
                                             <td>
-								            	<a href="classes.php?niveaux=<?php echo $ligne['id'] ?>">
 													<?php echo $ligne['libelle'] ?>
-								                </a>
+								            </td>
+                                            <td>
+													<?php echo getValeurChamp('libelle','niveaux','id',$ligne['id_niveaux']) ?>
+								            </td>
+                                            <td>
+													<?php echo getValeurChamp('libelle','annees_scolaires','id',$ligne['id_annees_scolaire']); ?>
 								            </td>
 											
 											<td class="op">
-												<a href="modifier_niveaux.php?niveaux=<?php echo $ligne['id'] ?>" class="modifier2">
+												<a href="modifier_classes.php?classes=<?php echo $ligne['id'] ?>" class="modifier2">
 													&nbsp;
 								                </a>
 												
@@ -70,9 +78,9 @@
 								                <a href="#ancre" 
 								                class="supprimer2" 
 								                onclick="javascript:supprimer(
-								                							'niveaux',
+								                							'classes',
 								                                            '<?php echo $ligne['id'] ?>',
-								                                            'niveaux.php',
+								                                            'classes.php',
 								                                            '1',
 								                                            '1')
 														" 

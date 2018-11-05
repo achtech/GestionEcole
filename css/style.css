@@ -8064,3 +8064,26 @@ a.supprimer2{
   padding-left:12px;
   padding-top:2px;
 }
+
+
+a.details2{
+  background:url(../images/Document.png) no-repeat left;
+  padding-left:12px;
+  padding-top:2px;
+}
+
+
+
+a.paiements2{
+  background:url(../images/wallet.png) no-repeat left;
+  padding-left:12px;
+  padding-top:2px;
+}
+
+
+
+a.absences2{
+  background:url(../images/absences2.png) no-repeat left;
+  padding-left:12px;
+  padding-top:2px;
+}

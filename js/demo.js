@@ -52,7 +52,7 @@ function setSettingListHeightAndScroll(isFirstTime) {
 
     if (!isFirstTime){
       $el.slimScroll({ destroy: true }).height('auto');
-      $el.parent().find('.slimScrollBar, .slimScrollRail').remove();
+3      $el.parent().find('.slimScrollBar, .slimScrollRail').remove();
     }
 
     $el.slimscroll({
