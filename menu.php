@@ -41,7 +41,8 @@
                             <span><?php echo _GESTION ?> <?php echo _SCOLAIRES ?></span>
                         </a>
                         <ul class="ml-menu">
-                            <li class="active"> <a href="eleves.php"> <?php echo _ELEVES ?> </a> </li>
+                            <li class="active"> <a href="eleves.php"> <?php echo _ELEVES ?> 75 % </a> </li>
+                            <li> <a href="absence_eleves.php"> <?php echo _RETARDS ?> </a> </li>
                             <li> <a href="absence_eleves.php"> <?php echo _ABSENCES ?> </a> </li>
                             <li> <a href="paiements_eleves.php"> <?php echo _PAIEMENTS ?> </a> </li>
                         </ul>

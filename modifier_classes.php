@@ -26,20 +26,20 @@
                                 <label for="email_address"><?php echo _NOM ?> : </label>
                                 <div class="form-group">
                                     <div class="form-line">
-                                        <input type="text" id="libelle" name="libelle" class="form-control" value="<?php echo getValeurChamp('libelle','classes','id',$ligne['classes']) ?>">
+                                        <input type="text" id="libelle" name="libelle" class="form-control" value="<?php echo getValeurChamp('libelle','classes','id',$_REQUEST['classes']) ?>">
                                     </div>
                                 </div>
                                 <label for="nbr_place"><?php echo _NIVEAUX ?> : </label>
                                 <div class="form-group">
                                     <div class="form-line">
-                                        <?php  echo getTableList('niveaux','id_niveaux',getValeurChamp('id_niveaux','classes','id',$ligne['classes']),'libelle','','','id_niveaux') ?>
+                                        <?php  echo getTableList('niveaux','id_niveaux',getValeurChamp('id_niveaux','classes','id',$_REQUEST['classes']),'libelle','','','id_niveaux') ?>
 
                                     </div>
                                 </div>
                                 <label for="nbr_place"><?php echo _ANNEES." "._SCOLAIRES ?> : </label>
                                 <div class="form-group">
                                     <div class="form-line">
-                                        <?php  echo getTableList('annees_scolaires','id_annees_scolaire',getValeurChamp('id_annees_scolaire','classes','id',$ligne['classes']),'libelle','','','id_annees_scolaire') ?>
+                                        <?php  echo getTableList('annees_scolaires','id_annees_scolaire',getValeurChamp('id_annees_scolaire','classes','id',$_REQUEST['classes']),'libelle','','','id_annees_scolaire') ?>
                                     </div>
                                 </div>
                                 <br>

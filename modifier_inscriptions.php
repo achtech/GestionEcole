@@ -6,25 +6,29 @@
                 </h2>
             </div>
             <!-- Vertical Layout -->
-            <form action="gestion.php" name="frm" method="post" 
-            onsubmit="return checkForm(document.frm);" >
-                <input type="hidden" name="act" value="m"/>
-                <input type="hidden" name="table" value="inscriptions"/>
-                <input type="hidden" name="page" value="eleves.php"/>
-
+            <form action="" name="f1" method="post"  >
                 <?php 
                     $idInscription = getLastInscription($_REQUEST['eleves']);
                 ?>
 
-                <input type="hidden" name="id_nom" value="id"/>
-                <input type="hidden" name="id_valeur" value="<?php echo $idInscription ?>"/>  
+                <input type="hidden" name="eleves" value="<?php echo $_REQUEST['eleves'] ?>"/>
                 
                 <input type="hidden" name="id_noms_retour" value="eleves"/>
                 <input type="hidden" name="id_valeurs_retour" value="<?php echo $_REQUEST['eleves'] ?>"/>  
                 <?php 
-                    $id_classes=isset($_REQUEST['id_classes'])?$_REQUEST['id_classes']:getValeurChamp('id_classes','inscriptions','id',$idInscription);
-                    $id_niveaux=isset($_REQUEST['id_niveaux'])?$_REQUEST['id_niveaux']:!empty($id_classes)?getValeurChamp('id_niveaux','classes','id',$id_classes):'';
-                    $id_annees_scolaire=isset($_REQUEST['id_annees_scolaire'])?$_REQUEST['id_annees_scolaire']:!empty($id_classes)?getValeurChamp('id_annees_scolaire','classes','id',$idInscription):'';
+                    if(isset($_REQUEST['id_annees_scolaire'])){
+                        $id_classes=isset($_REQUEST['id_classes'])?$_REQUEST['id_classes']:'';
+                        $id_niveaux=isset($_REQUEST['id_niveaux'])?$_REQUEST['id_niveaux']:'';    
+                        $id_annees_scolaire=isset($_REQUEST['id_annees_scolaire'])?$_REQUEST['id_annees_scolaire']:'';
+                    }else if(isset($_REQUEST['id_niveaux'])){
+                        $id_classes=isset($_REQUEST['id_classes'])?$_REQUEST['id_classes']:'';
+                        $id_niveaux=isset($_REQUEST['id_niveaux'])?$_REQUEST['id_niveaux']:'';    
+                        $id_annees_scolaire=isset($_REQUEST['id_annees_scolaire'])?$_REQUEST['id_annees_scolaire']:'';
+                    }else{
+                        $id_classes=isset($_REQUEST['id_classes'])?$_REQUEST['id_classes']:getValeurChamp('id_classes','inscriptions','id',$idInscription);
+                        $id_niveaux=isset($_REQUEST['id_niveaux'])?$_REQUEST['id_niveaux']:!empty($id_classes)?getValeurChamp('id_niveaux','classes','id',$id_classes):'';
+                        $id_annees_scolaire=isset($_REQUEST['id_annees_scolaire'])?$_REQUEST['id_annees_scolaire']:!empty($id_classes)?getValeurChamp('id_annees_scolaire','classes','id',$id_classes):'';                        
+                    }
                 ?>
                  <div class="row clearfix">
                         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
@@ -36,7 +40,7 @@
                                             <label for="nbr_place"><?php echo _ANNEES ?> <?php echo _SCOLAIRES ?> : </label>
                                             <div class="form-group">
                                                 <div class="form-line">
-        <?php  echo getTableList('annees_scolaires','id_annees_scolaire',$id_classes,'libelle','','','id_annees_scolaire') ?>
+        <?php  echo getTableList('annees_scolaires','id_annees_scolaire',$id_annees_scolaire,'libelle','onchange="document.f1.submit()"','','id_annees_scolaire') ?>
                                                 </div>
                                             </div>
                                         </div>
@@ -61,6 +65,28 @@
                             </div>
                         </div>
                     </div>
+            </form>
+           <!-- Vertical Layout -->
+            <form action="gestion.php" name="frm" method="post" 
+            onsubmit="return checkForm(document.frm);" >
+                <input type="hidden" name="act" value="m"/>
+                <input type="hidden" name="table" value="inscriptions"/>
+                <input type="hidden" name="page" value="eleves.php"/>
+                <input type="hidden" name="id_classes" value="<?php echo $_REQUEST['id_classes']; ?>"/>
+                <input type="hidden" name="id_niveaux" value="<?php echo $_REQUEST['id_niveaux']; ?>"/>
+                <input type="hidden" name="id_annees_scolaire" value="<?php echo $_REQUEST['id_annees_scolaire']; ?>"/>
+
+                <?php 
+                    $idInscription = getLastInscription($_REQUEST['eleves']);
+
+                ?>
+
+                <input type="hidden" name="id_nom" value="id"/>
+                <input type="hidden" name="id_valeur" value="<?php echo $idInscription ?>"/>  
+                
+                <input type="hidden" name="id_noms_retour" value="eleves"/>
+                <input type="hidden" name="id_valeurs_retour" value="<?php echo $_REQUEST['eleves'] ?>"/>  
+ 
                 <input type="submit" class="btn btn-primary m-t-15 waves-effect" value="<?php echo _MODIFIER ?>" />
             </form>
 <?php require_once('footer.php'); ?>

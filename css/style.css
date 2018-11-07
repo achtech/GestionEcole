@@ -8087,3 +8087,10 @@ a.absences2{
   padding-left:12px;
   padding-top:2px;
 }
+
+
+a.inscription2{
+  background:url(../images/pencil-rename.png) no-repeat left;
+  padding-left:12px;
+  padding-top:2px;
+}

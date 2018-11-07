@@ -2,23 +2,80 @@
 <?php require_once('menu.php'); ?>
             <div class="block-header">
                 <h2>
-                    <?php echo _GESTION ?> <?php echo _NIVEAUX ?>
+                    <?php echo _GESTION ?> <?php echo _ABSENCES ?>
                 </h2>
                 <div> 
-                    	<a href="ajouter_niveaux.php" class="ajouter">
-			        		<?php echo _AJOUTER ?> <?php echo _NIVEAUX ?> 
+                    	<a href="ajouter_absences.php" class="ajouter">
+			        		<?php echo _AJOUTER ?> <?php echo _ABSENCES ?> 
 			    		 </a>		
 				</div>
  
             </div>
+            <form action="" name="f1" method="post"  >
+                <?php 
+	                $id_classes=0;
+                    $id_niveaux=0;    
+                    $id_annees_scolaire=0;
+                    $whereClass ="";
+                    if(isset($_REQUEST['id_annees_scolaire'])){
+                        $id_classes=isset($_REQUEST['id_classes'])?$_REQUEST['id_classes']:'';
+                        $id_niveaux=isset($_REQUEST['id_niveaux'])?$_REQUEST['id_niveaux']:'';    
+                        $id_annees_scolaire=isset($_REQUEST['id_annees_scolaire'])?$_REQUEST['id_annees_scolaire']:'';
+                    }else if(isset($_REQUEST['id_niveaux'])){
+                        $id_classes=isset($_REQUEST['id_classes'])?$_REQUEST['id_classes']:'';
+                        $id_niveaux=isset($_REQUEST['id_niveaux'])?$_REQUEST['id_niveaux']:'';    
+                        $id_annees_scolaire=isset($_REQUEST['id_annees_scolaire'])?$_REQUEST['id_annees_scolaire']:'';
+                    }
+                    if(isset($_REQUEST['id_niveaux']) && isset($_REQUEST['id_annees_scolaire']) && !empty($_REQUEST['id_niveaux']) && !empty($_REQUEST['id_annees_scolaire'])){
+                    	 $whereClass = ' where id_niveaux='.$_REQUEST['id_niveaux'].' and id_annees_scolaire='.$_REQUEST['id_annees_scolaire'];
+                    }
+                ?>
+                 <div class="row clearfix">
+                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                            <h5 class="card-inside-title">Inscription</h5 >
+                            <div class="card">
+                                <div class="body">
+                                    <div class="row clearfix">
+                                        <div class="col-sm-4">
+                                            <label for="nbr_place"><?php echo _ANNEES ?> <?php echo _SCOLAIRES ?> : </label>
+                                            <div class="form-group">
+                                                <div class="form-line">
+        											<?php  echo getTableList('annees_scolaires','id_annees_scolaire',$id_annees_scolaire,'libelle','onchange="document.f1.submit()"','','id_annees_scolaire') ?>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-4">
+                                            <label for="email_address"><?php echo _NIVEAUX ?> : </label>
+                                            <div class="form-group">
+                                                <div class="form-line">
+        											<?php  echo getTableList('niveaux','id_niveaux',$id_niveaux,'libelle','onchange="document.f1.submit()"','','id_niveaux') ?>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-4">
+                                            <label for="email_address"><?php echo _CLASSES ?> : </label>
+                                            <div class="form-group">
+                                                <div class="form-line">
+													<?php   echo getTableList('classes','id_classes', $id_classes,'libelle','onchange="document.f1.submit()"',$whereClass,'id_classes') ?>
+                                                </div>
+                                            </div>
+                                        </div>
+                 					</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+            </form>
+
 <!-- Exportable Table -->
-            <div class="row clearfix">
+		<?php if(isset($_REQUEST['id_classes']) && !empty($_REQUEST['id_classes'])){?>
+			<div class="row clearfix">
                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                     <div class="card">
                           <div class="body">
                             <div class="table-responsive">
                             	<?php 
-									$sql = "select * from niveaux order by id";		
+									$sql = "select * from eleves where id in(select id_eleves from inscriptions where id_classes=".$_REQUEST['id_classes'].") order by id";		
 									$res = doQuery($sql);
 
 									$nb = mysql_num_rows($res);
@@ -33,13 +90,18 @@
                                     <thead>
                                         <tr>
                                             <th><?php echo _NOM ?></th>
-											<th class="op"> <?php echo _OP ?> </th>
+											<?php for($i=1;$i<=count($tab_mois);$i++){
+												echo "<th>".$tab_mois[$i]."</th>";
+											} ?>
                                         </tr>
                                     </thead>
                                     <tfoot>
                                         <tr>
                                             <th><?php echo _NOM ?></th>
-											<th class="op"> <?php echo _OP ?> </th>
+											<?php for($i=1;$i<=count($tab_mois);$i++){
+												echo "<th>".$tab_mois[$i]."</th>";
+											} ?>
+											
                                         </tr>
                                     </tfoot>
                                     <tbody>
@@ -55,33 +117,12 @@
 											?>
                                         <tr>
                                             <td>
-								            	<a href="classes.php?niveaux=<?php echo $ligne['id'] ?>">
-													<?php echo $ligne['libelle'] ?>
-								                </a>
+								            		<?php echo $ligne['prenom']." ".$ligne['nom'] ?>
 								            </td>
-											
-											<td class="op">
-												<a href="modifier_niveaux.php?niveaux=<?php echo $ligne['id'] ?>" class="modifier2">
-													&nbsp;
-								                </a>
-												
-												&nbsp;
-												
-								                <a href="#ancre" 
-								                class="supprimer2" 
-								                onclick="javascript:supprimer(
-								                							'niveaux',
-								                                            '<?php echo $ligne['id'] ?>',
-								                                            'niveaux.php',
-								                                            '1',
-								                                            '1')
-														" 
-												title="<?php echo _SUPPRIMER ?>">
-								                	
-								                    &nbsp;
-								                </a>
-											</td>
-                                        </tr>
+											<?php for($i=1;$i<=count($tab_mois);$i++){
+												echo "<td>".$tab_mois[$i]."</td>";
+											} ?>
+										</tr>
                                         <?php
 											$i++; 
 										}
@@ -96,6 +137,5 @@
                     </div>
                 </div>
             </div>
-            <!-- #END# Exportable Table -->
-
+        	<?php } ?>
 <?php require_once('footer.php'); ?>
