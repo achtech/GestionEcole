@@ -1963,4 +1963,51 @@ function getCurrentClasses($idEleves){
 	}
 	return $id;
 }
+
+function getCurrentAnneesScolaires(){
+	$currentYear = date('Y');
+	$currentMonth = date('m');
+	if($currentMonth>7){ 
+		$libelle = $currentYear."-".($currentYear+1);
+	} else {
+		$libelle = ($currentYear-1)."-".($currentYear);
+	}
+	return getValeurChamp('id','annees_scolaires', 'libelle', $libelle);
+}
+
+function getIdInscription($idEleves,$idAnneScolaire){
+
+	$sql = "select id from inscriptions where id_eleves=".$idEleves." and id_classes in (select id from classes where id_annees_scolaire=".$idAnneScolaire.")" ;
+	$res = doQuery($sql);
+	$nb = mysql_num_rows($res);
+
+	$id =0;
+	if( $nb==0){
+		$id= 0;
+	}
+	else
+	{
+		while ($ligne = mysql_fetch_array($res)){
+			$id = $ligne['id'];
+		}
+	}
+	return $id;	
+}
+
+function getSumMontantEleveAnneScolaire($idEleves,$id_annees_scolaire,$mois){
+	$sql="select sum(montant) as tot from paiements_eleves where id_eleves=".$idEleves." and id_annees_scolaire=".$id_annees_scolaire." and mois=".$mois;
+	$res = doQuery($sql);
+	$nb = mysql_num_rows($res);
+
+	$tot =0;
+	while ($ligne = mysql_fetch_array($res)){
+		$tot = $ligne['tot'];
+	}
+	$result = array();
+	$result[0] = $tot<0?0:$tot;	
+	$fraisMensuelle = getValeurChamp('frais_mensuelle','inscriptions','id',getIdInscription($idEleves,$id_annees_scolaire));
+	$result[1] = $tot == 0 ? 'red':($tot < $fraisMensuelle ? 'yellow':'green');
+	$result[2] = $tot == 0 ? 'white':($tot < $fraisMensuelle ? 'black':'white');
+	return $result;
+}
 ?>

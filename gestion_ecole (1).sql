@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1:3306
--- Généré le :  Dim 11 nov. 2018 à 01:24
+-- Généré le :  Dim 11 nov. 2018 à 22:52
 -- Version du serveur :  5.7.19
 -- Version de PHP :  5.6.31
 
@@ -208,7 +208,7 @@ CREATE TABLE IF NOT EXISTS `eleves` (
   `tel_parents` text,
   `cin_mere` text NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=latin1;
 
 --
 -- Déchargement des données de la table `eleves`
@@ -218,7 +218,8 @@ INSERT INTO `eleves` (`id`, `num_ordre`, `nom`, `prenom`, `nom_mere`, `professio
 (11, 1, 'Saloumi', 'Malak', 'N', 'Ing informatik', '2016-02-05', 'Marrakech', '  Achraf', 'Ing informatik', 'HA132209', '+212 6 53 90 36 59', '+212 5 24 64 51 28', 'Derb derraz N1 zaouia ', 'Marrakech', 'Enfant de soleil', '+212 6 53 90 36 59', 'EE260999'),
 (12, 2, 'Saloumi', 'Fatima zahra', 'N', 'Ing informatik', '2018-11-01', 'Marrakech', 'Achraf', 'Ing informatik', 'HA132209', '+212 6 53 90 36 59', '+212 5 24 64 51 28', 'Derb derraz N1 zaouia ', 'Marrakech', 'Enfant de soleil', '+212 6 53 90 36 59', 'EE260999'),
 (13, 3, 'Saloumi', 'Abdel Rahmane', 'R', 'Elec', '2011-08-12', 'Marrakech', 'Simo', 'Elec', 'HA132209', '+212 6 53 90 36 59', '+212 5 24 64 51 28', 'Derb derraz N1 zaouia ', 'Marrakech', 'Enfant de soleil', '+212 6 53 90 36 59', 'EE260999'),
-(14, 4, 'Saloumi', 'Imane', 'R', 'Elec', '2014-12-12', 'Marrakech', 'Simo', 'Elec', 'HA132209', '+212 6 53 90 36 59', '+212 5 24 64 51 28', 'Derb derraz N1 zaouia ', 'Marrakech', 'Enfant de soleil', '+212 6 53 90 36 59', 'EE260999');
+(14, 4, 'Saloumi', 'Imane', 'R', 'Elec', '2014-12-12', 'Marrakech', 'Simo', 'Elec', 'HA132209', '+212 6 53 90 36 59', '+212 5 24 64 51 28', 'Derb derraz N1 zaouia ', 'Marrakech', 'Enfant de soleil', '+212 6 53 90 36 59', 'EE260999'),
+(15, 100, 'saloumi', 'tarik', 'test', 'test', '1985-07-09', 'test', 'test', 'test', 'test', 'test', 'test', 'kech', 'kech', 'test', 'test', 'test');
 
 -- --------------------------------------------------------
 
@@ -337,20 +338,22 @@ CREATE TABLE IF NOT EXISTS `inscriptions` (
   `id_classes` int(11) DEFAULT NULL,
   `id_eleves` int(11) DEFAULT NULL,
   `frais_inscription` int(11) DEFAULT NULL,
+  `frais_mensuelle` int(11) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `id_classes` (`id_classes`),
   KEY `id_eleves` (`id_eleves`)
-) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=latin1;
 
 --
 -- Déchargement des données de la table `inscriptions`
 --
 
-INSERT INTO `inscriptions` (`id`, `num_inscription`, `date_inscription`, `id_classes`, `id_eleves`, `frais_inscription`) VALUES
-(8, 10, '2018-11-06', 3, 11, NULL),
-(9, 11, '2018-11-06', 3, 11, NULL),
-(10, 12, '2018-11-06', 3, 13, NULL),
-(11, 13, '2018-11-06', 3, 14, NULL);
+INSERT INTO `inscriptions` (`id`, `num_inscription`, `date_inscription`, `id_classes`, `id_eleves`, `frais_inscription`, `frais_mensuelle`) VALUES
+(8, 10, '2018-11-06', 3, 11, 1500, 900),
+(9, 11, '2018-11-06', 3, 11, 1500, 900),
+(10, 12, '2018-11-06', 3, 13, 1500, 900),
+(11, 13, '2018-11-06', 3, 14, 1500, 900),
+(12, 1000, '2018-11-11', 1, 15, 1500, 900);
 
 -- --------------------------------------------------------
 
@@ -429,7 +432,14 @@ CREATE TABLE IF NOT EXISTS `paiements_eleves` (
   KEY `id_employes` (`id_eleves`),
   KEY `id_mode_paiements` (`id_mode_paiements`),
   KEY `id_annee_scolaires` (`id_annees_scolaire`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
+
+--
+-- Déchargement des données de la table `paiements_eleves`
+--
+
+INSERT INTO `paiements_eleves` (`id`, `id_eleves`, `id_mode_paiements`, `id_annees_scolaire`, `date_paiements`, `mois`, `motif`, `montant`) VALUES
+(1, 11, 1, 3, '2018-11-01', '9', 'mois 9', 900);
 
 -- --------------------------------------------------------
 
@@ -528,7 +538,7 @@ CREATE TABLE IF NOT EXISTS `users` (
 --
 
 INSERT INTO `users` (`id`, `id_employes`, `login`, `password`, `role`) VALUES
-(1, 1, 'achraf.saloumi@bmw.de', 'testPassword', '1');
+(1, 1, 'achraf.saloumi@bmw.de', 'test', '1');
 
 --
 -- Contraintes pour les tables déchargées

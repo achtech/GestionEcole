@@ -12,12 +12,12 @@
     <?php require_once('tabs.php'); ?>
     <!--////////////////////////////////// Include PHP //////////////////////////////////-->
     <?php 
-    /*
-    if($_SESSION['admin']!="alwassila")
+    
+    if(!isset($_SESSION['employe']) || empty($_SESSION['employe']))
     {
-        redirect('login.php');
+        redirect('log-in.php');
     }
-    */
+    
     ?>
 <!--////////////////////////////////// Include JS //////////////////////////////////-->
 <script type="text/javascript" src="js/javascript.js"></script>

@@ -138,7 +138,7 @@ if ($action == "ajouter_eleves"){
 		$_REQUEST['id_'.$tab_table[$i]]=mysql_insert_id(); 
 		doQuery("COMMIT");
 		
-		$sql2  ="insert into inscriptions(num_inscription,date_inscription,id_eleves,id_classes) values(".$_REQUEST['num_inscription'].",'".date('Y-m-d')."',".$identif.",".$_REQUEST['id_classes'].")";
+		$sql2  ="insert into inscriptions(num_inscription,date_inscription,id_eleves,id_classes,frais_inscription,frais_mensuelle) values(".$_REQUEST['num_inscription'].",'".date('Y-m-d')."',".$identif.",".$_REQUEST['id_classes'].",".$_REQUEST['frais_inscription'].",".$_REQUEST['frais_mensuelle'].")";
 		doQuery($sql2);
 		doQuery("COMMIT");
 		
@@ -561,16 +561,19 @@ if ($action == "messagerie_reponses"){
 
 if ($action == 'conexion')
 {
-	$email=$_POST['email'];
-	$password=$_POST['password'];
+	$login=$_REQUEST['login'];
+	$password=$_REQUEST['password'];
 //	$sql="select * from administration where email='".$email."' and password='".md5($password)."'";
-	$sql="select * from administration where email='".$email."' and password='".$password."'";
+	$sql="select * from users where login='".$login."' and password='".$password."'";
 	$res=doQuery($sql);
 	$nbr=mysql_num_rows($res);
+	$ligne=mysql_fetch_array($res);
 	if($nbr==1)
 	{
-		$_SESSION['admin']="alwassila";
+		 $_SESSION['employe']=$ligne['id_employes'];
 		redirect("index.php");
+	}else{
+		redirect("log-in.php?msg_retour=error authentification)");
 	}
 }
 
