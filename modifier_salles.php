@@ -1,3 +1,4 @@
+<?php $categorie=4;$page="salles"; ?>
 <?php require_once('header.php'); ?>  
 <?php require_once('menu.php'); ?>
             <div class="block-header">

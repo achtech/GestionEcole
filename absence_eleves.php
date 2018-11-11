@@ -1,17 +1,13 @@
+<?php $categorie=1;$page="absence_eleves"; ?>
 <?php require_once('header.php'); ?>  
 <?php require_once('menu.php'); ?>
             <div class="block-header">
                 <h2>
                     <?php echo _GESTION ?> <?php echo _ABSENCES ?>
                 </h2>
-                <div> 
-                    	<a href="ajouter_absences.php" class="ajouter">
-			        		<?php echo _AJOUTER ?> <?php echo _ABSENCES ?> 
-			    		 </a>		
-				</div>
  
             </div>
-            <form action="" name="f1" method="post"  >
+            <form action="" name="f1" method="get"  >
                 <?php 
 	                $id_classes=0;
                     $id_niveaux=0;    
@@ -60,13 +56,12 @@
                                                 </div>
                                             </div>
                                         </div>
-                 					</div>
-                                </div>
+                    			</div>
                             </div>
                         </div>
                     </div>
+                </div>
             </form>
-
 <!-- Exportable Table -->
 		<?php if(isset($_REQUEST['id_classes']) && !empty($_REQUEST['id_classes'])){?>
 			<div class="row clearfix">
@@ -116,11 +111,9 @@
 													
 											?>
                                         <tr>
-                                            <td>
-								            		<?php echo $ligne['prenom']." ".$ligne['nom'] ?>
-								            </td>
+                                            <td><a href="details_absences_eleves.php?eleves=<?php echo $ligne['id'] ?>&classes=<?php echo $_REQUEST['id_classes'] ?>"><?php echo $ligne['prenom']." ".$ligne['nom'] ?></a></td>
 											<?php for($i=1;$i<=count($tab_mois);$i++){
-												echo "<td>".$tab_mois[$i]."</td>";
+												echo "<td>".getSumAbsenceEleveByMonth($ligne['id'], $i,$_REQUEST['id_annees_scolaire'])."</td>";
 											} ?>
 										</tr>
                                         <?php

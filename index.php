@@ -1,4 +1,5 @@
-﻿<?php require_once('header.php'); ?>  
+﻿<?php $page='home' ?>
+<?php require_once('header.php'); ?>  
 <?php require_once('menu.php'); ?>
             <div class="block-header">
                 <h2>DASHBOARD</h2>

@@ -1,3 +1,4 @@
+<?php $categorie=1;$page="eleves"; ?>
 <?php require_once('header.php'); ?>  
 <?php require_once('menu.php'); ?>
             <div class="block-header">
@@ -93,13 +94,13 @@
                                     <label for="email_address"><?php echo _NUMERO." "._INSCRIPTION ?> : </label>
                                     <div class="form-group">
                                         <div class="form-line">
-                                            <input type="text" id="num_inscription" name="num_inscription" class="form-control date" value="<?php echo isset($_REQUEST['num_inscription'])?$_REQUEST['num_inscription']:'' ?>">
+                                            <input type="text" id="num_inscription" name="num_inscription" class="form-control" value="<?php echo isset($_REQUEST['num_inscription'])?$_REQUEST['num_inscription']:'' ?>">
                                         </div>
                                     </div>
                                     <label for="nbr_place"><?php echo _DATE." de "._NAISSANCES ?> : </label>
                                     <div class="form-group">
                                         <div class="form-line">
-                                            <input type="text" class="form-control date" name="date_naissance" value="2016-02-05">
+                                            <input type="text" class="datepicker form-control" name="date_naissance" placeholder="Please choose a date...">
                                         </div>
                                     </div>
                                     <label for="nbr_place"><?php echo _LIEUX." de "._NAISSANCES ?> : </label>

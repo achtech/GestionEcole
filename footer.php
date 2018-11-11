@@ -15,6 +15,19 @@
     <!-- Waves Effect Plugin Js -->
     <script src="plugins/node-waves/waves.js"></script>
 
+
+
+    <!-- Autosize Plugin Js -->
+    <script src="plugins/autosize/autosize.js"></script>
+
+    <!-- Moment Plugin Js -->
+    <script src="plugins/momentjs/moment.js"></script>
+
+    <!-- Bootstrap Material Datetime Picker Plugin Js -->
+    <script src="plugins/bootstrap-material-datetimepicker/js/bootstrap-material-datetimepicker.js"></script>
+
+
+
     <!-- Jquery DataTable Plugin Js -->
     <script src="plugins/jquery-datatable/jquery.dataTables.js"></script>
     <script src="plugins/jquery-datatable/skin/bootstrap/js/dataTables.bootstrap.js"></script>
@@ -51,6 +64,9 @@
     <script src="js/admin.js"></script>
      <script src="js/pages/index.js"></script>
     <script src="js/pages/tables/jquery-datatable.js"></script>
+    <!-- Custom Js -->
+
+    <script src="js/pages/forms/basic-form-elements.js"></script>
 
     <!-- Demo Js -->
     <script src="js/demo.js"></script>

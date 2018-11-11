@@ -8,7 +8,7 @@
 
 <?php 
 echo "<center><h2>"._REDIRECT."</h2></center>";
-//print_r($_REQUEST);
+print_r($_REQUEST);
 connect ();
 //detection de la table et des champs concerné
 $tab_table = split(',',$_REQUEST['table']);
@@ -250,7 +250,6 @@ if ($action == "m"){
 				echo _UPLOAD_NOK;
 			}
 		}
-	echo "TEST";
 		if(isset($_FILES['logo'])){
 
 			$retour2 = upload_image($tab_table[$i],$_FILES['logo'],$id_valeur);
@@ -304,8 +303,6 @@ else
 	if($_REQUEST['password']==$_REQUEST['password2'])
 	{
 		$ligne=mysql_fetch_array($res);
-		echo $_REQUEST['password']."<br>";
-		echo $_REQUEST['email']=$ligne['email'];
 		
 		$_REQUEST['password']=md5($_REQUEST['password']);
 		if(isset($_REQUEST['id_nom'])){

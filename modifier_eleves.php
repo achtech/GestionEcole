@@ -1,3 +1,4 @@
+<?php $categorie=1;$page="eleves"; ?>
 <?php require_once('header.php'); ?>  
 <?php require_once('menu.php'); ?>
             <div class="block-header">
@@ -71,7 +72,7 @@
                                     <label for="nbr_place"><?php echo _DATE." de "._NAISSANCES ?> : </label>
                                     <div class="form-group">
                                         <div class="form-line">
-                                            <input type="text" class="form-control date" name="date_naissance" value="<?php echo  getValeurChamp('date_naissance','eleves','id',$_REQUEST['eleves']) ?>">
+                                            <input type="text" class="datepicker form-control" name="date_naissance"  value="<?php echo  getValeurChamp('date_naissance','eleves','id',$_REQUEST['eleves']) ?>">
                                         </div>
                                     </div>
                                     <label for="nbr_place"><?php echo _LIEUX." de "._NAISSANCES ?> : </label>

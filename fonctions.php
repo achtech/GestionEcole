@@ -310,7 +310,7 @@ function Ajout($table,$tab_champs,$tab_requetes){
 		}		
 	}	
 				
-		 $sql = "
+		$sql = "
 				insert into 
 				".$table."(".$champs.") 
 				values(".$valeurs.")
@@ -1121,7 +1121,7 @@ redirect($page."?msg=".$msg."&err=".$msg_err);
 function getTabList($tab,$nom,$valeur,$change,$libelle){
 ?>
 
-<select name = "<?php echo $nom ?>" <?php echo $change ?> id="<?php echo $libelle ?>_required">	
+<select class="form-control show-tick" data-live-search="true" name = "<?php echo $nom ?>" <?php echo $change ?> id="<?php echo $libelle ?>_required">	
 	
     <option value="">____</option>
 	
@@ -1893,5 +1893,74 @@ function getLastInscription($idEleves) {
 		$droit = $ligne['maxIds'];
 		return $droit;
 	}
+}
+
+
+function getSumAbsenceEleveByMonth($idEleves,$mois,$anneScolaire){
+	$m = $mois <=4 ? $mois + 8 : $mois - 4;
+	$anneScolaire= getValeurChamp('libelle','annees_scolaires','id',$anneScolaire);	
+	$year = split("-", $anneScolaire);
+	$y = $mois <=4 ? $year[0] : $year[1];
+	$startMonth = date("Y-m-d",strtotime($y."-".($m<10?"0".$m:$m)."-01"));
+	$endMonth = date("Y-m-t",strtotime($y."-".($m<10?"0".$m:$m)."-01"));
+	
+	$sql = "select sum(nbr_heurs) as tot from absences_eleves where id_eleves=".$idEleves." and ((date_debut>'$startMonth' and date_debut<'$endMonth') or (date_debut<'$startMonth' and date_fin>'$startMonth'))";
+	$res = doQuery($sql);
+	 $nb = mysql_num_rows($res);
+
+	$tot =0;
+	if( $nb==0){
+		return 0;
+	}
+	else
+	{
+		while ($ligne = mysql_fetch_array($res)){
+			$tot = $ligne['tot'];
+		}
+	}
+	return $tot>0?$tot:"0";
+}
+
+function getSumRetardsEleveByMonth($idEleves,$mois,$anneScolaire){
+	$m = $mois <=4 ? $mois + 8 : $mois - 4;
+	$anneScolaire= getValeurChamp('libelle','annees_scolaires','id',$anneScolaire);	
+	$year = split("-", $anneScolaire);
+	$y = $mois <=4 ? $year[0] : $year[1];
+	$startMonth = date("Y-m-d",strtotime($y."-".($m<10?"0".$m:$m)."-01"));
+	$endMonth = date("Y-m-t",strtotime($y."-".($m<10?"0".$m:$m)."-01"));
+	
+    $sql = "select sum(nbr_heurs) as tot from retards_eleves where id_eleves=".$idEleves." and date_retards>='$startMonth' and date_retards<='$endMonth'";
+	$res = doQuery($sql);
+	$nb = mysql_num_rows($res);
+
+	$tot =0;
+	if( $nb==0){
+		return 0;
+	}
+	else
+	{
+		while ($ligne = mysql_fetch_array($res)){
+			$tot = $ligne['tot'];
+		}
+	}
+	return $tot>0?$tot:"0";
+}
+
+function getCurrentClasses($idEleves){
+    $sql = "select id_classes from inscriptions where id=(select max(id) from inscriptions where id_eleves=".$idEleves.")" ;
+	$res = doQuery($sql);
+	$nb = mysql_num_rows($res);
+
+	$id =0;
+	if( $nb==0){
+		$id= 0;
+	}
+	else
+	{
+		while ($ligne = mysql_fetch_array($res)){
+			$id = $ligne['id_classes'];
+		}
+	}
+	return $id;
 }
 ?>

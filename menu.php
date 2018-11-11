@@ -1,5 +1,4 @@
- 
- <section>
+     <section>
         <!-- Left Sidebar -->
         <aside id="leftsidebar" class="sidebar">
             <!-- User Info -->
@@ -29,61 +28,61 @@
             <div class="menu">
                 <ul class="list">
                     <li class="header">MAIN NAVIGATION</li>
-                    <li>
+                    <li class="<?php if($page=='home') echo 'active'; ?>">
                         <a href="index.php">
                             <i class="material-icons">home</i>
                             <span>Home</span>
                         </a>
                     </li>
-                    <li class="active">
+                    <li class="<?php if($categorie==1) echo 'active'; ?>">
                         <a href="javascript:void(0);" class="menu-toggle">
                             <i class="material-icons">widgets</i>
                             <span><?php echo _GESTION ?> <?php echo _SCOLAIRES ?></span>
                         </a>
                         <ul class="ml-menu">
-                            <li class="active"> <a href="eleves.php"> <?php echo _ELEVES ?> 75 % </a> </li>
-                            <li> <a href="absence_eleves.php"> <?php echo _RETARDS ?> </a> </li>
-                            <li> <a href="absence_eleves.php"> <?php echo _ABSENCES ?> </a> </li>
-                            <li> <a href="paiements_eleves.php"> <?php echo _PAIEMENTS ?> </a> </li>
+                            <li class="<?php if($page=='eleves') echo 'active'; ?>"> <a href="eleves.php"> <?php echo _ELEVES ?> 75 % </a> </li>
+                            <li class="<?php if($page=='retards_eleves') echo 'active'; ?>"> <a href="retards_eleves.php"> <?php echo _RETARDS ?> </a> </li>
+                            <li class="<?php if($page=='absence_eleves') echo 'active'; ?>"> <a href="absence_eleves.php"> <?php echo _ABSENCES ?> </a> </li>
+                            <li class="<?php if($page=='paiements_eleves') echo 'active'; ?>"> <a href="paiements_eleves.php"> <?php echo _PAIEMENTS ?> </a> </li>
                         </ul>
                     </li>
-                    <li>
+                    <li class="<?php if($categorie==2) echo 'active'; ?>">
                         <a href="javascript:void(0);" class="menu-toggle">
                             <i class="material-icons">swap_calls</i>
                             <span><?php echo _TRESORIE ?></span>
                         </a>
                         <ul class="ml-menu">
-                            <li> <a href="caisse_mensuelles.php"> <?php echo _CAISSE ?> <?php echo _MENSUELLES ?> </a> </li>
-                            <li> <a href="charges_depenses.php"> <?php echo _CHARGES ?> <?php echo _ET ?> <?php echo _DEPENSES ?> </a> </li>
+                            <li class="<?php if($page=='caisse_mensuelles') echo 'active'; ?>"> <a href="caisse_mensuelles.php"> <?php echo _CAISSE ?> <?php echo _MENSUELLES ?> </a> </li>
+                            <li class="<?php if($page=='charges_depenses') echo 'active'; ?>"> <a href="charges_depenses.php"> <?php echo _CHARGES ?> <?php echo _ET ?> <?php echo _DEPENSES ?> </a> </li>
                         </ul>
                     </li>
-                    <li>
+                    <li class="<?php if($categorie==3) echo 'active'; ?>">
                         <a href="javascript:void(0);" class="menu-toggle">
                             <i class="material-icons">assignment</i>
                             <span><?php echo _RESOURCES ?> <?php echo _HUMAINES ?></span>
                         </a>
                         <ul class="ml-menu">
-                            <li> <a href="employes.php"> <?php echo _EMPLOYES ?> </a> </li>
-                            <li> <a href="paiements_employes.php"> <?php echo _PAIEMENTS ?> </a> </li>
-                            <li> <a href="avances_employes.php"> <?php echo _AVANCES ?> </a> </li>
-                            <li> <a href="absences_employes.php"> <?php echo _ABSENCES ?> </a> </li>
-                            <li> <a href="conges.php"> <?php echo _CONGES ?> </a> </li>
+                            <li class="<?php if($page=='employes') echo 'active'; ?>"> <a href="employes.php"> <?php echo _EMPLOYES ?> </a> </li>
+                            <li class="<?php if($page=='paiements_employes') echo 'active'; ?>"> <a href="paiements_employes.php"> <?php echo _PAIEMENTS ?> </a> </li>
+                            <li class="<?php if($page=='avances_employes') echo 'active'; ?>"> <a href="avances_employes.php"> <?php echo _AVANCES ?> </a> </li>
+                            <li class="<?php if($page=='absences_employes') echo 'active'; ?>"> <a href="absences_employes.php"> <?php echo _ABSENCES ?> </a> </li>
+                            <li class="<?php if($page=='conges') echo 'active'; ?>"> <a href="conges.php"> <?php echo _CONGES ?> </a> </li>
                         </ul>
                     </li>
-                    <li class="active">
+                    <li class="<?php if($categorie==4) echo 'active'; ?>">
                         <a href="javascript:void(0);" class="menu-toggle">
                             <i class="material-icons">view_list</i>
                             <span><?php echo _PARAM ?></span>
                         </a>
                         <ul class="ml-menu">
-                            <li> <a href="annes_scolaire.php"> <?php echo _ANNEES ?> <?php echo _SCOLAIRES ?>100% </a> </li>
-                            <li> <a href="niveaux.php"> <?php echo _NIVEAUX ?>100%</a></li>
-                            <li> <a href="salles.php"> <?php echo _SALLES ?>100%</a> </li>
-                            <li> <a href="mode_paiements.php"> <?php echo _MODE ?> <?php echo _DE ?> <?php echo _PAIEMENTS ?> 100%</a> </li>
-                            <li> <a href="etablissements.php"> <?php echo _ETABLISSEMENTS ?>80% </a> </li>
-                            <li> <a href="users.php"> <?php echo _UTILISATEURS ?>100% </a> </li>
-                            <li> <a href="classes.php"> <?php echo _CLASSES ?>100% </a> </li>
-                            <li> <a href="logs.php"> <?php echo _JOURNAL ?> </a> </li>
+                            <li class="<?php if($page=='annes_scolaire') echo 'active'; ?>"> <a href="annes_scolaire.php"> <?php echo _ANNEES ?> <?php echo _SCOLAIRES ?>100% </a> </li>
+                            <li class="<?php if($page=='niveaux') echo 'active'; ?>"> <a href="niveaux.php"> <?php echo _NIVEAUX ?>100%</a></li>
+                            <li class="<?php if($page=='salles') echo 'active'; ?>"> <a href="salles.php"> <?php echo _SALLES ?>100%</a> </li>
+                            <li class="<?php if($page=='mode_paiements') echo 'active'; ?>"> <a href="mode_paiements.php"> <?php echo _MODE ?> <?php echo _DE ?> <?php echo _PAIEMENTS ?> 100%</a> </li>
+                            <li class="<?php if($page=='etablissements') echo 'active'; ?>"> <a href="etablissements.php"> <?php echo _ETABLISSEMENTS ?>80% </a> </li>
+                            <li class="<?php if($page=='users') echo 'active'; ?>"> <a href="users.php"> <?php echo _UTILISATEURS ?>100% </a> </li>
+                            <li class="<?php if($page=='classes') echo 'active'; ?>"> <a href="classes.php"> <?php echo _CLASSES ?>100% </a> </li>
+                            <li class="<?php if($page=='logs') echo 'active'; ?>"> <a href="logs.php"> <?php echo _JOURNAL ?> </a> </li>
                         </ul>
                     </li>
                 </ul>
@@ -101,99 +100,6 @@
             <!-- #Footer -->
         </aside>
         <!-- #END# Left Sidebar -->
-        <!-- Right Sidebar -->
-        <aside id="rightsidebar" class="right-sidebar">
-            <ul class="nav nav-tabs tab-nav-right" role="tablist">
-                <li role="presentation" class="active"><a href="#skins" data-toggle="tab">SKINS</a></li>
-            </ul>
-            <div class="tab-content">
-                <div role="tabpanel" class="tab-pane fade in active in active" id="skins">
-                    <ul class="demo-choose-skin">
-                        <li data-theme="red" class="active">
-                            <div class="red"></div>
-                            <span>Red</span>
-                        </li>
-                        <li data-theme="pink">
-                            <div class="pink"></div>
-                            <span>Pink</span>
-                        </li>
-                        <li data-theme="purple">
-                            <div class="purple"></div>
-                            <span>Purple</span>
-                        </li>
-                        <li data-theme="deep-purple">
-                            <div class="deep-purple"></div>
-                            <span>Deep Purple</span>
-                        </li>
-                        <li data-theme="indigo">
-                            <div class="indigo"></div>
-                            <span>Indigo</span>
-                        </li>
-                        <li data-theme="blue">
-                            <div class="blue"></div>
-                            <span>Blue</span>
-                        </li>
-                        <li data-theme="light-blue">
-                            <div class="light-blue"></div>
-                            <span>Light Blue</span>
-                        </li>
-                        <li data-theme="cyan">
-                            <div class="cyan"></div>
-                            <span>Cyan</span>
-                        </li>
-                        <li data-theme="teal">
-                            <div class="teal"></div>
-                            <span>Teal</span>
-                        </li>
-                        <li data-theme="green">
-                            <div class="green"></div>
-                            <span>Green</span>
-                        </li>
-                        <li data-theme="light-green">
-                            <div class="light-green"></div>
-                            <span>Light Green</span>
-                        </li>
-                        <li data-theme="lime">
-                            <div class="lime"></div>
-                            <span>Lime</span>
-                        </li>
-                        <li data-theme="yellow">
-                            <div class="yellow"></div>
-                            <span>Yellow</span>
-                        </li>
-                        <li data-theme="amber">
-                            <div class="amber"></div>
-                            <span>Amber</span>
-                        </li>
-                        <li data-theme="orange">
-                            <div class="orange"></div>
-                            <span>Orange</span>
-                        </li>
-                        <li data-theme="deep-orange">
-                            <div class="deep-orange"></div>
-                            <span>Deep Orange</span>
-                        </li>
-                        <li data-theme="brown">
-                            <div class="brown"></div>
-                            <span>Brown</span>
-                        </li>
-                        <li data-theme="grey">
-                            <div class="grey"></div>
-                            <span>Grey</span>
-                        </li>
-                        <li data-theme="blue-grey">
-                            <div class="blue-grey"></div>
-                            <span>Blue Grey</span>
-                        </li>
-                        <li data-theme="black">
-                            <div class="black"></div>
-                            <span>Black</span>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </aside>
-        <!-- #END# Right Sidebar -->
     </section>
 
     <section class="content">

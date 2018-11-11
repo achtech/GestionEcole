@@ -131,9 +131,7 @@ Licensed under the MIT license.
 
 	Canvas.prototype.resize = function(width, height) {
 
-		if (width <= 0 || height <= 0) {
-			throw new Error("Invalid dimensions for plot, width = " + width + ", height = " + height);
-		}
+		if (width != null || height != null) {
 
 		var element = this.element,
 			context = this.context,
@@ -170,6 +168,7 @@ Licensed under the MIT license.
 		// appear at the same size; the extra pixels will just make them crisper.
 
 		context.scale(pixelRatio, pixelRatio);
+	}
 	};
 
 	// Clears the entire canvas area, not including any overlaid HTML text

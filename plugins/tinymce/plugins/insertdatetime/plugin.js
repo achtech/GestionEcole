@@ -11,10 +11,10 @@
 /*global tinymce:true */
 
 tinymce.PluginManager.add('insertdatetime', function(editor) {
-	var daysShort = "Sun Mon Tue Wed Thu Fri Sat Sun".split(' ');
-	var daysLong = "Sunday Monday Tuesday Wednesday Thursday Friday Saturday Sunday".split(' ');
-	var monthsShort = "Jan Feb Mar Apr May Jun Jul Aug Sep Oct Nov Dec".split(' ');
-	var monthsLong = "January February March April May June July August September October November December".split(' ');
+	var daysShort = "Dim Lun Mar Mer Jeu Ven Sam Dim".split(' ');
+	var daysLong = "Dimanche Lundi Mardi Mercredi Jeudi Vendredi Samedi Dimanche".split(' ');
+	var monthsShort = "Janv. Févr. Mars Avr. Mai Juin Juil. Août Sept. Oct. Nov. Déc.".split(' ');
+	var monthsLong = "Janvier Février Mars Avril Mai Juin Juillet Août Septembre Octobre Novembre Décembre".split(' ');
 	var menuItems = [], lastFormat, defaultButtonTimeFormat;
 
 	function getDateTime(fmt, date) {

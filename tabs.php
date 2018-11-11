@@ -26,18 +26,18 @@ $tab_etats = array(
 					);
 
 $tab_mois = array(
-				  	1=>"Janvier",
+				  	1=>"Septembre",
+					"Octobre",
+					"Novembre",
+					"Decembre",
+					"Janvier",
 					"Fevrier",
 					"Mars",
 					"Avril",
 					"Mai",
 					"Juin",
 					"Jullets",
-					"Aôut",
-					"Septembre",
-					"Octobre",
-					"Novembre",
-					"Decembre"
+					"Aôut"
 					);
 
 $tab_modules = array(

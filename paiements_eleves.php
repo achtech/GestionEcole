@@ -1,3 +1,4 @@
+<?php $categorie=1;$page="paiements_eleves"; ?>
 <?php require_once('header.php'); ?>  
 <?php require_once('menu.php'); ?>
             <div class="block-header">

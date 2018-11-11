@@ -4,6 +4,9 @@ define('_LIEUX','Lieux');
 define('_CIN','C.I.N');
 define('_ECOLE','Ecole');
 define('_PRECEDENTE','pr&eacute;edente');
+define('_RETARDS','Retard(s)');
+define('_JUSTIFIER','Justifier');
+define('_EDUCATRICES','Educatrice(s)');
 
 define('_DOSSIER','Dossier');
 define('_CLASSES','CLasse(s)');
