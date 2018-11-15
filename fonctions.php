@@ -1159,7 +1159,7 @@ function getTableList($table,$nom,$valeur,$champ,$change,$where,$libelle){
 	$res = doQuery($sql);
 	?>
 	
-	<select name="<?php echo $nom ?>" <?php echo $change ?> 
+	<select class="form-control show-tick" data-live-search="true"  name="<?php echo $nom ?>" <?php echo $change ?> 
 	id="<?php echo $libelle ?>_required">
 		
 		<option value="">____</option>

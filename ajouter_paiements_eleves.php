@@ -1,22 +1,22 @@
-<?php $categorie=1;$page="absence_eleves"; ?>
+<?php $categorie=1;$page="paiements_eleves"; ?>
 <?php require_once('header.php'); ?>  
 <?php require_once('menu.php'); ?>
             <div class="block-header">
                 <h5>
-                    <?php echo _AJOUTER ?> <?php echo _ABSENCE ?> 
+                    <?php echo _AJOUTER ?> <?php echo _RETARDS ?> 
                 </h5>
             </div>
             <!-- Vertical Layout -->
             <form action="gestion.php" name="frm" method="post" 
         onsubmit="return checkForm(document.frm);" >
             <input type="hidden" name="act" value="a"/>
-            <input type="hidden" name="table" value="absences_eleves"/>
-            <input type="hidden" name="page" value="details_absences_eleves.php" />
+            <input type="hidden" name="table" value="paiements_eleves"/>
+            <input type="hidden" name="page" value="details_paiement_eleves.php" />
             <input type="hidden" name="id_eleves" value="<?php echo isset($_REQUEST['eleves'])?$_REQUEST['eleves']:'' ?>"/>
-            <input type="hidden" name="id_classes" value="<?php echo isset($_REQUEST['classes'])?$_REQUEST['classes']:'' ?>"/>
+            <input type="hidden" name="id_annees_scolaire" value="<?php echo isset($_REQUEST['annees_scolaire'])?$_REQUEST['annees_scolaire']:'' ?>"/>
             
-            <input type="hidden" name="id_noms_retour" value="eleves,classes"/>
-            <input type="hidden" name="id_valeurs_retour" value="<?php echo $_REQUEST['eleves'] ?>,<?php echo $_REQUEST['classes'] ?>"/>  
+            <input type="hidden" name="id_noms_retour" value="eleves,annees_scolaire"/>
+            <input type="hidden" name="id_valeurs_retour" value="<?php echo $_REQUEST['eleves'] ?>,<?php echo $_REQUEST['annees_scolaire'] ?>"/>  
 
             <div class="row clearfix">
                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
@@ -25,31 +25,32 @@
                             <div class="row clearfix">
                                 <div class="col-sm-6">
 
-                                    <label for="email_address"><?php echo _DATE." "._DEBUT ?> : </label>
+                                    <label for="nbr_place"><?php echo _DATE." "._PAIEMENTS ?> : </label>
                                     <div class="form-group">
                                         <div class="form-line">
-                                            <input type="text" id="date_debut" name="date_debut" class="datepicker form-control" >
+                                            <input type="text" id="date_paiements" name="date_paiements" class="datepicker form-control date"  >
                                         </div>
                                     </div>
-                                    
-                                    <label for="nbr_place"><?php echo _DATE." "._FIN ?> : </label>
+                                    <label for="nbr_place"><?php echo _MOIS ?> : </label>
                                     <div class="form-group">
                                         <div class="form-line">
-                                            <input type="text" id="date_fin" name="date_fin" class="form-control date"  >
+                                            <?php getTabList($tab_mois,"mois",$valeur,$change,_ETAT); ?>
                                         </div>
                                     </div>
-                                    <label for="nbr_place"><?php echo _NOMBRE." d'"._HEURE ?> : </label>
+                                    <label for="email_address"><?php echo _MODE." de "._PAIEMENTS ?> : </label>
                                     <div class="form-group">
                                         <div class="form-line">
-                                            <input type="text" id="nbr_heur" name="nbr_heurs" class="form-control" >
-                                        </div>
+                                        <?php  echo getTableList('mode_paiements','id_mode_paiements','','libelle','','','id_mode_paiements') ?>
+
+                                        </div>                                        
                                     </div>
                                 </div>
                                 <div class="col-sm-6">
-                                    <label for="email_address"><?php echo _JUSTIFIER ?> : </label>
+                                    <label for="email_address"><?php echo _MONTANT ?> : </label>
                                     <div class="form-group">
-                                            Oui<input type="radio" name="justifier" style="position:unset;opacity:unset;height:20px" value="1" class="form-control " />
-                                            NOn<input type="radio" name="justifier" style="position:unset;opacity:unset;height:20px" value="0" class="form-control " />
+                                        <div class="form-line">
+                                            <input type="text" id="montant" name="montant" class="form-control" >
+                                        </div>
                                         
                                     </div>
                                     <label for="nbr_place"><?php echo _MOTIFS ?> : </label>

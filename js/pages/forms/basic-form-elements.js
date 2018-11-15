@@ -10,10 +10,12 @@ $(function () {
     });
 
     $('.datepicker').bootstrapMaterialDatePicker({
-        format: 'dddd DD MMMM YYYY',
-        clearButton: true,
+        format: 'YYYY-MM-DD',
+        clearButton: false,
+        lang : 'fr',
         weekStart: 1,
-        time: false
+        time: false ,
+        cancelText : 'ANNULER'   
     });
 
     $('.timepicker').bootstrapMaterialDatePicker({
