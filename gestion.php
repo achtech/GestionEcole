@@ -8,7 +8,7 @@
 
 <?php 
 echo "<center><h2>"._REDIRECT."</h2></center>";
-print_r($_REQUEST);
+//print_r($_REQUEST);
 connect ();
 //detection de la table et des champs concerné
 $tab_table = split(',',$_REQUEST['table']);
@@ -99,6 +99,49 @@ if ($action == "a"){
 
 	//if (isset($_REQUEST['parent'])) { $parent=$_REQUEST['parent']; }
 	//redirect($page."?m=".$msg."&er=".$msg_err.$chaine_retour.$_REQUEST['ancre']);
+}
+
+if($action == "ajouter_paiements_eleves"){
+	$frais = getValeurChamp('frais_mensuelle','inscriptions','id',getLastInscription($_REQUEST['id_eleves']));
+	$dateInscription = getValeurChamp('date_inscription','inscriptions','id',getLastInscription($_REQUEST['id_eleves']));
+	$sumMontant = getSum('paiements_eleves','montant','id_eleves,id_annees_scolaire',$_REQUEST['id_eleves'].",".$_REQUEST['id_annees_scolaire']);
+	$month = date('m');
+	$monthInscription = split("-",$dateInscription)[1];
+	$montant = $_REQUEST['montant'];
+ 
+	if($monthInscription>=9){
+		for ($i=$monthInscription; $i <= 12 ; $i++) { 
+			
+			if($montant>0){
+				$p = getValeurChamp('montant','paiements_eleves','id_eleves,id_annees_scolaire,mois',$_REQUEST['id_eleves'].','.$_REQUEST['id_annees_scolaire'].','.$i);
+				$p = empty($p)?0:$p;
+				if($p<$frais){
+					if($p+$montant > $frais) {
+						addPaiement($_REQUEST,$i,$frais);
+				 		 $montant = $p+$montant-$frais;
+					}else{
+						addPaiement($_REQUEST,$i,$montant);
+						$montant = 0;
+					}
+				}
+			}
+		}
+	}
+		for ($i=$monthInscription<6?$monthInscription:1; $i <= 6 ; $i++) { 
+			if($montant>0){
+				$p = getValeurChamp('montant','paiements_eleves','id_eleves,id_annees_scolaire,mois',$_REQUEST['id_eleves'].','.$_REQUEST['id_annees_scolaire'].','.$i);
+				if($p<$frais){
+					if($p+$montant > $frais) {
+						addPaiement($_REQUEST,$i,$frais);
+						$montant = $p+$montant-$frais;
+					}else{
+						addPaiement($_REQUEST,$i,$montant);
+						$montant = 0;
+					}
+				}
+			}
+		}
+	
 }
 
 //AJOUT

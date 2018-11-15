@@ -1883,16 +1883,8 @@ function traiter_pj($subject) {
 function getLastInscription($idEleves) {
 	$sql = "select max(id) as maxIds from inscriptions where id_eleves=".$idEleves;
 	$res = doQuery($sql);
-	
-	if (mysql_num_rows($res) == 0){
-		return "";	
-	}
-	else
-	{
-		$ligne = mysql_fetch_array($res);
-		$droit = $ligne['maxIds'];
-		return $droit;
-	}
+	$ligne = mysql_fetch_array($res);
+	return  $ligne['maxIds'];		 
 }
 
 
@@ -2009,5 +2001,36 @@ function getSumMontantEleveAnneScolaire($idEleves,$id_annees_scolaire,$mois){
 	$result[1] = $tot == 0 ? 'red':($tot < $fraisMensuelle ? 'yellow':'green');
 	$result[2] = $tot == 0 ? 'white':($tot < $fraisMensuelle ? 'black':'white');
 	return $result;
+}
+
+function addPaiement($req,$mon,$frais){
+	$sql = "INSERT INTO `paiements_eleves` ( `id_eleves`, `id_mode_paiements`, `id_annees_scolaire`, `date_paiements`, `mois`, `motif`, `montant`) VALUES ( '".$req['id_eleves']."','".$req['id_mode_paiements']."', '".$req['id_annees_scolaire']."', '".$req['date_paiements']."', '".$mon."', '".$req['motif']."', '".$frais."')";
+    $res = doQuery($sql);
+}
+
+function getMontantAPayer($id_eleves){
+	 $idInscription = getLastInscription($id_eleves);
+	$id_annees_scolaire = getValeurChamp('id_annees_scolaire','classes','id',getValeurChamp('id_classes','inscriptions','id',$idInscription));
+	$fraisInscription = getValeurChamp('frais_inscription','inscriptions','id',$idInscription);
+	$fraisMensuelle = getValeurChamp('frais_mensuelle','inscriptions','id',$idInscription);
+	$nbrMonth = 0;
+	$moisInscription = split("-",getValeurChamp('date_inscription','inscriptions','id',$idInscription))[1];
+	$mm = intval($moisInscription);
+	$mm  = $mm<9 ?9:$m; 
+	while ($mm!=date("m")) {
+		$nbrMonth = $nbrMonth + 1;
+		$mm=$mm+1;
+		$mm = $mm==13?1:$mm;
+	}
+	$nbrMonth = $nbrMonth + 1;
+	$fraisApayer = $nbrMonth*$fraisMensuelle + $fraisInscription;
+	$sql = "select sum(montant) as sommeP from paiements_eleves where id_annees_scolaire=".$id_annees_scolaire." and id_eleves=".$id_eleves;
+	$res = doQuery($sql);
+
+	$montantPayer =0;
+	while ($ligne = mysql_fetch_array($res)){
+		$montantPayer = $ligne['sommeP'];
+	}
+	return $fraisApayer - $montantPayer;
 }
 ?>

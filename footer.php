@@ -22,7 +22,8 @@
 
     <!-- Moment Plugin Js -->
     <script src="plugins/momentjs/moment.js"></script>
-
+    <script src="plugins/momentjs/moment-with-locales.js"></script>
+    
     <!-- Bootstrap Material Datetime Picker Plugin Js -->
     <script src="plugins/bootstrap-material-datetimepicker/js/bootstrap-material-datetimepicker.js"></script>
 

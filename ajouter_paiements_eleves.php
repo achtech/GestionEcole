@@ -7,9 +7,8 @@
                 </h5>
             </div>
             <!-- Vertical Layout -->
-            <form action="gestion.php" name="frm" method="post" 
-        onsubmit="return checkForm(document.frm);" >
-            <input type="hidden" name="act" value="a"/>
+            <form action="gestion.php" name="frm" method="post" onsubmit="return checkForm(document.frm);" >
+            <input type="hidden" name="act" value="ajouter_paiements_eleves"/>
             <input type="hidden" name="table" value="paiements_eleves"/>
             <input type="hidden" name="page" value="details_paiement_eleves.php" />
             <input type="hidden" name="id_eleves" value="<?php echo isset($_REQUEST['eleves'])?$_REQUEST['eleves']:'' ?>"/>
@@ -31,12 +30,6 @@
                                             <input type="text" id="date_paiements" name="date_paiements" class="datepicker form-control date"  >
                                         </div>
                                     </div>
-                                    <label for="nbr_place"><?php echo _MOIS ?> : </label>
-                                    <div class="form-group">
-                                        <div class="form-line">
-                                            <?php getTabList($tab_mois,"mois",$valeur,$change,_ETAT); ?>
-                                        </div>
-                                    </div>
                                     <label for="email_address"><?php echo _MODE." de "._PAIEMENTS ?> : </label>
                                     <div class="form-group">
                                         <div class="form-line">
@@ -49,7 +42,7 @@
                                     <label for="email_address"><?php echo _MONTANT ?> : </label>
                                     <div class="form-group">
                                         <div class="form-line">
-                                            <input type="text" id="montant" name="montant" class="form-control" >
+                                            <input type="text" id="montant" name="montant" class="form-control" value="<?php echo getMontantAPayer($_REQUEST['eleves']); ?>" >
                                         </div>
                                         
                                     </div>
