@@ -55,10 +55,10 @@ onsubmit="return checkForm(document.frm);" >
     <input type="hidden" name="id_classes" value="<?php echo isset($_REQUEST['id_classes'])?$_REQUEST['id_classes']:'' ?>"/>
     <input type="hidden" name="num_ordre" value="<?php echo isset($_REQUEST['num_ordre'])?$_REQUEST['num_ordre']:'' ?>"/>
     <input type="hidden" name="num_inscription" value="<?php echo isset($_REQUEST['num_inscription'])?$_REQUEST['num_inscription']:'' ?>"/>
-    
+    <fieldset>
     <div class="row clearfix">
         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-            <h5 class="card-inside-title">El&eacute;ve</h5>
+            <h3 class="card-inside-title">El&eacute;ve</h3>
             <div class="card">
                 <div class="body">
                     <div class="row clearfix">
@@ -101,7 +101,7 @@ onsubmit="return checkForm(document.frm);" >
                             <div class="form-group">
                                 <div class="form-line">
                                  <!--   <input type="text" class="datepicker form-control" name="date_naissance" placeholder="Please choose a date..."> -->
-                                    <input type="text" class="form-control" name="date_naissance" placeholder="Please choose a date..."> 
+                                    <input type="text" class="datepicker form-control" name="date_naissance" placeholder="Please choose a date..."> 
                                 </div>
                             </div>
                             <label for="nbr_place"><?php echo _LIEUX." de "._NAISSANCES ?> : </label>
@@ -123,9 +123,11 @@ onsubmit="return checkForm(document.frm);" >
             </div>
         </div>
     </div>
+    </fieldset>
+    <fieldset>
     <div class="row clearfix">
         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-            <h5 class="card-inside-title">Parents</h5>
+            <h3 class="card-inside-title">Parents</h3>
             <div class="card">
                 <div class="body">
                     <div class="row clearfix">
@@ -205,10 +207,11 @@ onsubmit="return checkForm(document.frm);" >
             </div>
         </div>
     </div>
-          
+    </fieldset>  
+    <fieldset>   
     <div class="row clearfix">
         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-            <h5 class="card-inside-title">Paiements</h5>
+            <h3 class="card-inside-title">Paiements</h3>
             <div class="card">
                 <div class="body">
                     <div class="row clearfix">
@@ -232,7 +235,8 @@ onsubmit="return checkForm(document.frm);" >
                 </div>
             </div>
         </div>
-    </div>                      
+    </div> 
+    </fieldset>                     
 	<input type="submit" class="btn btn-primary m-t-15 waves-effect" value="<?php echo _AJOUTER ?>" />
 </form>
                        

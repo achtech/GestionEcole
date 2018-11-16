@@ -85,6 +85,9 @@ window.onload = function () {
     <!-- Wait Me Css -->
     <link href="plugins/waitme/waitMe.css" rel="stylesheet" />
 
+    <!-- Sweet Alert Css -->
+    <link href="plugins/sweetalert/sweetalert.css" rel="stylesheet" />
+
     <!-- Custom Css -->
     <link href="css/style.css" rel="stylesheet">
 

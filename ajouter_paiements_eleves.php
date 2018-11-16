@@ -27,7 +27,7 @@
                                     <label for="nbr_place"><?php echo _DATE." "._PAIEMENTS ?> : </label>
                                     <div class="form-group">
                                         <div class="form-line">
-                                            <input type="text" id="date_paiements" name="date_paiements" class="datepicker form-control date"  >
+                                            <input type="text" id="date_paiements" name="date_paiements" class="datepicker form-control"  >
                                         </div>
                                     </div>
                                     <label for="email_address"><?php echo _MODE." de "._PAIEMENTS ?> : </label>

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1:3306
--- Généré le :  Dim 11 nov. 2018 à 22:52
+-- Généré le :  ven. 16 nov. 2018 à 21:50
 -- Version du serveur :  5.7.19
 -- Version de PHP :  5.6.31
 
@@ -352,7 +352,7 @@ INSERT INTO `inscriptions` (`id`, `num_inscription`, `date_inscription`, `id_cla
 (8, 10, '2018-11-06', 3, 11, 1500, 900),
 (9, 11, '2018-11-06', 3, 11, 1500, 900),
 (10, 12, '2018-11-06', 3, 13, 1500, 900),
-(11, 13, '2018-11-06', 3, 14, 1500, 900),
+(11, 13, '2018-08-22', 3, 14, 1500, 900),
 (12, 1000, '2018-11-11', 1, 15, 1500, 900);
 
 -- --------------------------------------------------------
@@ -432,14 +432,18 @@ CREATE TABLE IF NOT EXISTS `paiements_eleves` (
   KEY `id_employes` (`id_eleves`),
   KEY `id_mode_paiements` (`id_mode_paiements`),
   KEY `id_annee_scolaires` (`id_annees_scolaire`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=20 DEFAULT CHARSET=latin1;
 
 --
 -- Déchargement des données de la table `paiements_eleves`
 --
 
 INSERT INTO `paiements_eleves` (`id`, `id_eleves`, `id_mode_paiements`, `id_annees_scolaire`, `date_paiements`, `mois`, `motif`, `montant`) VALUES
-(1, 11, 1, 3, '2018-11-01', '9', 'mois 9', 900);
+(15, 11, 1, 3, '2018-11-15', '11', '3000', 900),
+(16, 11, 1, 3, '2018-11-15', '12', '3000', 900),
+(17, 11, 1, 3, '2018-11-15', '1', '3000', 900),
+(18, 11, 1, 3, '2018-11-15', '2', '3000', 300),
+(19, 11, 1, 3, '2018-11-16', '2', 'fin du mois 2', 600);
 
 -- --------------------------------------------------------
 

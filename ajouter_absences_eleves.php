@@ -35,7 +35,7 @@
                                     <label for="nbr_place"><?php echo _DATE." "._FIN ?> : </label>
                                     <div class="form-group">
                                         <div class="form-line">
-                                            <input type="text" id="date_fin" name="date_fin" class="form-control date"  >
+                                            <input type="text" id="date_fin" name="date_fin" class="datepicker form-control"  >
                                         </div>
                                     </div>
                                     <label for="nbr_place"><?php echo _NOMBRE." d'"._HEURE ?> : </label>
@@ -47,10 +47,11 @@
                                 </div>
                                 <div class="col-sm-6">
                                     <label for="email_address"><?php echo _JUSTIFIER ?> : </label>
-                                    <div class="form-group">
-                                            Oui<input type="radio" name="justifier" style="position:unset;opacity:unset;height:20px" value="1" class="form-control " />
-                                            NOn<input type="radio" name="justifier" style="position:unset;opacity:unset;height:20px" value="0" class="form-control " />
-                                        
+                                    <div class="demo-radio-button">
+                                            <input type="radio" name="justifier" id="oui"  value="1"/>
+                                            <label for="oui">Oui</label>
+                                            <input type="radio" name="justifier" id="non" value="0" />
+                                            <label for="non">Non</label>
                                     </div>
                                     <label for="nbr_place"><?php echo _MOTIFS ?> : </label>
                                     <div class="form-group">

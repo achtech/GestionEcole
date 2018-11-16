@@ -28,7 +28,7 @@
                                     <label for="nbr_place"><?php echo _DATE." "._RETARDS ?> : </label>
                                     <div class="form-group">
                                         <div class="form-line">
-                                            <input type="text" id="date_retards" name="date_retards" class="form-control date"  >
+                                            <input type="text" id="date_retards" name="date_retards" class="datepicker form-control"  >
                                         </div>
                                     </div>
                                     <label for="nbr_place"><?php echo _NOMBRE." d'"._HEURE ?> : </label>

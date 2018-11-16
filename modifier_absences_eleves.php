@@ -31,14 +31,14 @@
                                     <label for="email_address"><?php echo _DATE." "._DEBUT ?> : </label>
                                     <div class="form-group">
                                         <div class="form-line">
-                                            <input type="text" id="date_debut" name="date_debut" class="form-control date" value="<?php echo getValeurChamp('date_debut','absences_eleves','id',$_REQUEST['absences']); ?>">
+                                            <input type="text" id="date_debut" name="date_debut" class="datepicker form-control" value="<?php echo getValeurChamp('date_debut','absences_eleves','id',$_REQUEST['absences']); ?>">
                                         </div>
                                     </div>
                                     
                                     <label for="nbr_place"><?php echo _DATE." "._FIN ?> : </label>
                                     <div class="form-group">
                                         <div class="form-line">
-                                            <input type="text" id="date_fin" name="date_fin" class="form-control date" value="<?php echo getValeurChamp('date_fin','absences_eleves','id',$_REQUEST['absences']); ?>" >
+                                            <input type="text" id="date_fin" name="date_fin" class="datepicker form-control" value="<?php echo getValeurChamp('date_fin','absences_eleves','id',$_REQUEST['absences']); ?>" >
                                         </div>
                                     </div>
                                     <label for="nbr_place"><?php echo _NOMBRE." d'"._HEURE ?> : </label>
