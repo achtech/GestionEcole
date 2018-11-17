@@ -3,11 +3,11 @@
 <?php require_once('menu.php'); ?>
             <div class="block-header">
                 <h2>
-                    <?php echo _GESTION ?> <?php echo _NIVEAUX ?>
+                    <?php echo _GESTION ?> <?php echo _EMPLOYES ?>
                 </h2>
                 <div> 
-                    	<a href="ajouter_niveaux.php" class="ajouter">
-			        		<?php echo _AJOUTER ?> <?php echo _NIVEAUX ?> 
+                    	<a href="ajouter_employes.php" class="ajouter">
+			        		<?php echo _AJOUTER ?> <?php echo _EMPLOYES ?> 
 			    		 </a>		
 				</div>
  
@@ -19,7 +19,7 @@
                           <div class="body">
                             <div class="table-responsive">
                             	<?php 
-									$sql = "select * from niveaux order by id";		
+									$sql = "select * from employes order by id";		
 									$res = doQuery($sql);
 
 									$nb = mysql_num_rows($res);
@@ -34,12 +34,18 @@
                                     <thead>
                                         <tr>
                                             <th><?php echo _NOM ?></th>
+                                            <th><?php echo _EMAIL ?></th>
+                                            <th><?php echo _TEL ?></th>
+                                            <th><?php echo _FONCTION ?></th>
 											<th class="op"> <?php echo _OP ?> </th>
                                         </tr>
                                     </thead>
                                     <tfoot>
                                         <tr>
                                             <th><?php echo _NOM ?></th>
+                                            <th><?php echo _EMAIL ?></th>
+                                            <th><?php echo _TEL ?></th>
+                                            <th><?php echo _FONCTION ?></th>
 											<th class="op"> <?php echo _OP ?> </th>
                                         </tr>
                                     </tfoot>
@@ -55,25 +61,39 @@
 													
 											?>
                                         <tr>
-                                            <td>
-								            	<a href="classes.php?niveaux=<?php echo $ligne['id'] ?>">
-													<?php echo $ligne['libelle'] ?>
-								                </a>
+	                                         <td>
+												<?php echo $ligne['prenom']." ".$ligne['nom'] ?>
+										</td><td>
+												<?php echo $ligne['email'] ?>
+										</td><td>
+												<?php echo $ligne['tel'] ?>
+										</td><td>		
+												<?php echo $ligne['fonction'] ?>
 								            </td>
 											
 											<td class="op">
-												<a href="modifier_niveaux.php?niveaux=<?php echo $ligne['id'] ?>" class="modifier2">
+												<a href="modifier_employes.php?employes=<?php echo $ligne['id'] ?>" class="modifier2" title="modifier fiche employes">
+													&nbsp;
+								                </a>
+												&nbsp;
+												
+								            	<a href="detail_employes.php?employes=<?php echo $ligne['id'] ?>" class="details2" title="Fiche technique">
 													&nbsp;
 								                </a>
 												
 												&nbsp;
+
+												<a href="class_formateur.php?employes=<?php echo $ligne['id'] ?>" class="inscription2" title="les class du formateur">
+													&nbsp;
+								                </a>
 												
-								                <a href="#ancre" 
+												&nbsp;
+											    <a href="#ancre" 
 								                class="supprimer2" 
 								                onclick="javascript:supprimer(
-								                							'niveaux',
+								                							'employes',
 								                                            '<?php echo $ligne['id'] ?>',
-								                                            'niveaux.php',
+								                                            'employes.php',
 								                                            '1',
 								                                            '1')
 														" 

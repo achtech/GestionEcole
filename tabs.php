@@ -4,6 +4,15 @@ $tab_salles = array(
 					_COURS,
 					_ACTIVITES
 					);
+$tab_politesse = array(
+					1=>"Melle",
+					"Madame",
+					"Mr."
+					);
+$tab_sexe = array(
+					1=>_FEMININ,
+					_MASCULIN
+					);
 $tab_roles = array(
 					1=>_ADMIN,
 					_UTILISATEURS
