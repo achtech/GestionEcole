@@ -7,6 +7,14 @@ define('_PRECEDENTE','pr&eacute;edente');
 define('_RETARDS','Retard(s)');
 define('_JUSTIFIER','Justifier');
 define('_EDUCATRICES','Educatrice(s)');
+define('_POLITESSE','Politesse');
+define('_FONCTION','Fonction');
+define('_FORMATEUR','Formateur');
+define('_VACATAIRE','Vacataire');
+define('_EMBAUCHE','embauche');
+define('_ARRET','arr&ecirc;t');
+define('_CNSS','C.N.S.S');
+
 
 define('_DOSSIER','Dossier');
 define('_CLASSES','CLasse(s)');
@@ -271,8 +279,8 @@ define('_MALADIES','Maladie(s)');
 define('_DIFFICULTES','Difficult&eacute;(s)');
 define('_DIFFICULTES_SCOLAIRES','Difficult&eacute;(s) scolaire(s)');
 define('_HORAIRES','Horaire(s)');
-define('_FEMININ','Garçon');
-define('_MASCULIN','Fille');
+define('_FEMININ','Feminin');
+define('_MASCULIN','Masculin');
 define('_MEDECINS','M&eacute;decin(s)');
 define('_ACTIVES','Active(s)');
 define('_PREINSCRIPTION','Pr&eacute;-inscription(s)');
