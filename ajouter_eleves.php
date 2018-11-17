@@ -45,9 +45,12 @@
         </div>
     </div>
     </form>
-    <form action="gestion.php" name="frm" method="post" 
-onsubmit="return checkForm(document.frm);" >
-    <input type="hidden" name="act" value="ajouter_eleves"/>
+            <div class="row clearfix">
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                    <div class="card">
+                        <div class="body">
+                            <form id="wizard_with_validation" method="POST">
+                                <input type="hidden" name="act" value="ajouter_eleves"/>
     <input type="hidden" name="table" value="eleves"/>
     <input type="hidden" name="page" value="eleves.php"/>
     <input type="hidden" name="id_annees_scolaire" value="<?php echo isset($_REQUEST['id_annees_scolaire'])?$_REQUEST['id_annees_scolaire']:'' ?>"/>
@@ -55,13 +58,9 @@ onsubmit="return checkForm(document.frm);" >
     <input type="hidden" name="id_classes" value="<?php echo isset($_REQUEST['id_classes'])?$_REQUEST['id_classes']:'' ?>"/>
     <input type="hidden" name="num_ordre" value="<?php echo isset($_REQUEST['num_ordre'])?$_REQUEST['num_ordre']:'' ?>"/>
     <input type="hidden" name="num_inscription" value="<?php echo isset($_REQUEST['num_inscription'])?$_REQUEST['num_inscription']:'' ?>"/>
-    <fieldset>
-    <div class="row clearfix">
-        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-            <h3 class="card-inside-title">El&eacute;ve</h3>
-            <div class="card">
-                <div class="body">
-                    <div class="row clearfix">
+                                <h3>El&eacute;ve</h3>
+                                <fieldset>
+                                    <div class="row clearfix">
                         <div class="col-sm-6">
                             <label for="nbr_place"><?php echo _NUMERO." d' "._ORDRE ?> : </label>
                             <div class="form-group">
@@ -119,18 +118,11 @@ onsubmit="return checkForm(document.frm);" >
                             </div>
                         </div>
                     </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    </fieldset>
-    <fieldset>
-    <div class="row clearfix">
-        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-            <h3 class="card-inside-title">Parents</h3>
-            <div class="card">
-                <div class="body">
-                    <div class="row clearfix">
+                    </fieldset>
+
+                    <h3>Parents</h3>
+                    <fieldset>
+                        <div class="row clearfix">
                         <div class="col-sm-6">
                             <label for="email_address"><?php echo _PRENOM." du "._PERE ?> : </label>
                             <div class="form-group">
@@ -203,18 +195,10 @@ onsubmit="return checkForm(document.frm);" >
                             </div>
                         </div>
                     </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    </fieldset>  
-    <fieldset>   
-    <div class="row clearfix">
-        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-            <h3 class="card-inside-title">Paiements</h3>
-            <div class="card">
-                <div class="body">
-                    <div class="row clearfix">
+                  </fieldset>
+                   <h3>Paiements</h3>
+                    <fieldset>
+                       <div class="row clearfix">
                         <div class="col-sm-6">
                             <label for="nbr_place"><?php echo _FRAIS." d'"._INSCRIPTION ?> : </label>
                             <div class="form-group">
@@ -232,14 +216,13 @@ onsubmit="return checkForm(document.frm);" >
                             </div>
                         </div>
                     </div>
-                </div>
+                  </fieldset>
+                  <div style="padding:10px;">
+                    <input type="submit" class="btn btn-primary m-t-15 waves-effect" value="<?php echo _AJOUTER ?>" />
+                  </div>
+                </form>
             </div>
         </div>
-    </div> 
-    </fieldset>                     
-	<input type="submit" class="btn btn-primary m-t-15 waves-effect" value="<?php echo _AJOUTER ?>" />
-</form>
-                       
-            
-
+    </div>
+</div>
 <?php require_once('footer.php'); ?>
