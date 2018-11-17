@@ -875,7 +875,7 @@ function getSum($table,$colonne,$champ,$id){
 	
 	//
 	//echo "______<br>";
-	$sql_get = "
+echo	$sql_get = "
 			select sum(". $colonne .") as total 
 			
 			from ". $table ."

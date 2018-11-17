@@ -66,7 +66,7 @@
                             <tr><td>
                                     <?php echo $ligne['date_paiements'] ?>
                             </td><td>
-                                    <?php echo $ligne['mois'] ?>
+                                    <?php echo $ligne['mois']==0?"Frais d'inscription":$ligne['mois'] ?>
                             </td><td>       
                                     <?php echo $ligne['motif'] ?>
                                 </td>

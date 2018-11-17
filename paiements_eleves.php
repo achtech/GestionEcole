@@ -26,6 +26,7 @@
                     if(isset($_REQUEST['id_niveaux']) && isset($_REQUEST['id_annees_scolaire']) && !empty($_REQUEST['id_niveaux']) && !empty($_REQUEST['id_annees_scolaire'])){
                     	 $whereClass = ' where id_niveaux='.$_REQUEST['id_niveaux'].' and id_annees_scolaire='.$_REQUEST['id_annees_scolaire'];
                     }
+
                 ?>
                  <div class="row clearfix">
                         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
@@ -122,14 +123,17 @@
 													$c = "c";
 												else
 													$c = "";
-													
+$montantInscription = getValeurChamp('montant','paiements_eleves','id_eleves,id_annees_scolaire,mois',$ligne['id'].','.$id_annees_scolaire.',0');
+$fraisInscription = getValeurChamp('frais_inscription','inscriptions','id',getLastInscription($ligne['id']));
+$back = $montantInscription == 0 ? 'red':($montantInscription < $fraisInscription ? 'yellow':'green');
+$font = $montantInscription == 0 ? 'white':($montantInscription < $fraisInscription ? 'black':'white');
 											?>
                                         <tr>
                                             <td>
         										<a href="details_paiement_eleves.php?eleves=<?php echo  $ligne['id']?>&annees_scolaire=<?php echo  $id_annees_scolaire ?>"><?php echo $ligne['prenom']." ".$ligne['nom'] ?></a>
 										    </td>
-                                            <td>
-												<?php echo getValeurChamp('frais_inscription','inscriptions','id',getIdInscription($ligne['id'],$id_annees_scolaire)); ?>
+                                            <td style="background:<?php echo $back ?>;color:<?php echo $font ?>;text-align:center">
+												<?php echo $montantInscription; ?>
 										    </td>
                                             <?php for($i=1;$i<=count($tab_mois);$i++){
                                                 $tab = getSumMontantEleveAnneScolaire($ligne['id'],$id_annees_scolaire,$i>4?$i-4:$i+8);

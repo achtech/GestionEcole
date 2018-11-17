@@ -102,18 +102,31 @@ if ($action == "a"){
 }
 
 if($action == "ajouter_paiements_eleves"){
+	$montantInscription = getValeurChamp('montant','paiements_eleves','id_eleves,id_annees_scolaire,mois',$_REQUEST['id_eleves'].','.$_REQUEST['id_annees_scolaire'].',0');
+	$fraisInscription = getValeurChamp('frais_inscription','inscriptions','id',getLastInscription($_REQUEST['id_eleves']));
+	
 	$frais = getValeurChamp('frais_mensuelle','inscriptions','id',getLastInscription($_REQUEST['id_eleves']));
 	$dateInscription = getValeurChamp('date_inscription','inscriptions','id',getLastInscription($_REQUEST['id_eleves']));
 	$sumMontant = getSum('paiements_eleves','montant','id_eleves,id_annees_scolaire',$_REQUEST['id_eleves'].",".$_REQUEST['id_annees_scolaire']);
 	$month = date('m');
 	$monthInscription = split("-",$dateInscription)[1];
 	$montant = $_REQUEST['montant'];
- 
-	if($monthInscription>=9){
+	$montantInscription = empty($montantInscription) ? 0 : $montantInscription;
+	if($montantInscription<$fraisInscription){
+					if($montantInscription+$montant > $fraisInscription) {
+						addPaiement($_REQUEST,0,$fraisInscription);
+				 		 $montant = $montantInscription+$montant-$fraisInscription;
+					}else{
+						addPaiement($_REQUEST,0,$montant);
+						$montant = 0;
+					}
+	}
+
+ 	if($monthInscription>=9){
 		for ($i=$monthInscription; $i <= 12 ; $i++) { 
 			
 			if($montant>0){
-				$p = getValeurChamp('montant','paiements_eleves','id_eleves,id_annees_scolaire,mois',$_REQUEST['id_eleves'].','.$_REQUEST['id_annees_scolaire'].','.$i);
+				$p = getSum('paiements_eleves','montant','id_eleves,id_annees_scolaire,mois',$_REQUEST['id_eleves'].','.$_REQUEST['id_annees_scolaire'].','.$i);
 				$p = empty($p)?0:$p;
 				if($p<$frais){
 					if($p+$montant > $frais) {
@@ -127,21 +140,20 @@ if($action == "ajouter_paiements_eleves"){
 			}
 		}
 	}
-		for ($i=$monthInscription<6?$monthInscription:1; $i <= 6 ; $i++) { 
-			if($montant>0){
-				$p = getValeurChamp('montant','paiements_eleves','id_eleves,id_annees_scolaire,mois',$_REQUEST['id_eleves'].','.$_REQUEST['id_annees_scolaire'].','.$i);
-				if($p<$frais){
-					if($p+$montant > $frais) {
-						addPaiement($_REQUEST,$i,$frais);
-						$montant = $p+$montant-$frais;
-					}else{
-						addPaiement($_REQUEST,$i,$montant);
-						$montant = 0;
-					}
+	for ($i=$monthInscription<6?$monthInscription:1; $i <= 6 ; $i++) { 
+		if($montant>0){
+			$p = getSum('paiements_eleves','montant','id_eleves,id_annees_scolaire,mois',$_REQUEST['id_eleves'].','.$_REQUEST['id_annees_scolaire'].','.$i);
+			if($p<$frais){
+				if($p+$montant > $frais) {
+					addPaiement($_REQUEST,$i,$frais);
+					$montant = $p+$montant-$frais;
+				}else{
+					addPaiement($_REQUEST,$i,$montant);
+					$montant = 0;
 				}
 			}
 		}
-	
+	}
 }
 
 //AJOUT
