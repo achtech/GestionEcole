@@ -32,11 +32,11 @@
                             <div class="card">
                                 <div class="body">
                                     <div class="row clearfix">
-                                        <div class="col-sm-4">
+                                      <div class="col-sm-4">
                                             <label for="nbr_place"><?php echo _ANNEES ?> <?php echo _SCOLAIRES ?> : </label>
                                             <div class="form-group">
                                                 <div class="form-line">
-        											<?php  echo getTableList('annees_scolaires','id_annees_scolaire',$id_annees_scolaire,'libelle','onchange="document.f1.submit()"','','id_annees_scolaire') ?>
+                                                    <?php  echo getTableList('annees_scolaires','id_annees_scolaire',$id_annees_scolaire,'libelle','','','id_annees_scolaire') ?>
                                                 </div>
                                             </div>
                                         </div>
@@ -44,7 +44,7 @@
                                             <label for="email_address"><?php echo _NIVEAUX ?> : </label>
                                             <div class="form-group">
                                                 <div class="form-line">
-        											<?php  echo getTableList('niveaux','id_niveaux',$id_niveaux,'libelle','onchange="document.f1.submit()"','','id_niveaux') ?>
+                                                    <?php  echo getTableList('niveaux','id_niveaux',$id_niveaux,'libelle','','','id_niveaux') ?>
                                                 </div>
                                             </div>
                                         </div>
@@ -52,10 +52,12 @@
                                             <label for="email_address"><?php echo _CLASSES ?> : </label>
                                             <div class="form-group">
                                                 <div class="form-line">
-													<?php   echo getTableList('classes','id_classes', $id_classes,'libelle','onchange="document.f1.submit()"',$whereClass,'id_classes') ?>
+                                                    <?php   echo getTableList('classes','id_classes', $id_classes,'libelle','','','id_classes') ?>
                                                 </div>
                                             </div>
                                         </div>
+
+                                        <input type="submit" class="btn btn-primary m-t-15 waves-effect" value="<?php echo _CHERCHER ?>" />
                     			</div>
                             </div>
                         </div>

@@ -14,7 +14,7 @@ define('_VACATAIRE','Vacataire');
 define('_EMBAUCHE','embauche');
 define('_ARRET','arr&ecirc;t');
 define('_CNSS','C.N.S.S');
-
+define('_RETOURE','Retour');
 
 define('_DOSSIER','Dossier');
 define('_CLASSES','CLasse(s)');

@@ -1913,6 +1913,31 @@ function getSumAbsenceEleveByMonth($idEleves,$mois,$anneScolaire){
 	return $tot>0?$tot:"0";
 }
 
+function getSumAbsenceEmployeByMonth($idEmploye,$mois,$anneScolaire){
+	$m = $mois <=4 ? $mois + 8 : $mois - 4;
+	$anneScolaire= getValeurChamp('libelle','annees_scolaires','id',$anneScolaire);	
+	$year = split("-", $anneScolaire);
+	$y = $mois <=4 ? $year[0] : $year[1];
+	$startMonth = date("Y-m-d",strtotime($y."-".($m<10?"0".$m:$m)."-01"));
+	$endMonth = date("Y-m-t",strtotime($y."-".($m<10?"0".$m:$m)."-01"));
+	
+	$sql = "select sum(nbr_heurs) as tot from absences_employes where id_employes=".$idEmploye." and ((date_debut>'$startMonth' and date_debut<'$endMonth') or (date_debut<'$startMonth' and date_fin>'$startMonth'))";
+	$res = doQuery($sql);
+	 $nb = mysql_num_rows($res);
+
+	$tot =0;
+	if( $nb==0){
+		return 0;
+	}
+	else
+	{
+		while ($ligne = mysql_fetch_array($res)){
+			$tot = $ligne['tot'];
+		}
+	}
+	return $tot>0?$tot:"0";
+}
+
 function getSumRetardsEleveByMonth($idEleves,$mois,$anneScolaire){
 	$m = $mois <=4 ? $mois + 8 : $mois - 4;
 	$anneScolaire= getValeurChamp('libelle','annees_scolaires','id',$anneScolaire);	
