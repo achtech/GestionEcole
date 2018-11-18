@@ -77,9 +77,12 @@
     <!-- Custom Js -->
 
     <script src="js/pages/forms/basic-form-elements.js"></script>
+    
+       <!-- Custom Js -->
+    <script src="js/pages/forms/form-wizard.js"></script>
 
     <!-- Demo Js -->
     <script src="js/demo.js"></script>
-</body>
+ </body>
 
 </html>

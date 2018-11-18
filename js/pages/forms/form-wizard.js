@@ -62,7 +62,7 @@ $(function () {
             return form.valid();
         },
         onFinished: function (event, currentIndex) {
-            swal("Good job!", "Submitted!", "success");
+            swal("tous les champs obligatoire sont remplis!", "valider!", "reussie");
         }
     });
 
