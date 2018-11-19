@@ -2,9 +2,9 @@
 <?php require_once('header.php'); ?>  
 <?php require_once('menu.php'); ?>
             <div class="block-header">
-                <h5>
+                <h2>
                     <?php echo _NOUVELLE ?> <?php echo _INSCRIPTION ?> 
-                </h5>
+                </h2>
             </div>
             <!-- Vertical Layout -->
 <form action="" name="f1" method="post" >
@@ -65,7 +65,7 @@
                             <label for="nbr_place"><?php echo _NUMERO." d' "._ORDRE ?> : </label>
                             <div class="form-group">
                                 <div class="form-line">
-                                    <input type="text" id="num_ordre" name="num_ordre" class="form-control" >
+                                    <input type="text" id="num_ordre" name="num_ordre" class="form-control" required="true">
                                 </div>
                             </div>
 
@@ -153,7 +153,7 @@
                             <div class="form-group">
                                 <label for="form-label"><?php echo _ADRESSE." des "._PARENTS ?></label>
                                 <div class="form-line">
-                                    <textarea name="adresse_parents" cols="30" rows="5" class="form-control no-resize" required="" aria-required="true"></textarea>
+                                    <textarea name="adresse_parents" cols="30" rows="5" class="form-control no-resize"  aria-required="true"></textarea>
                                 </div>
                             </div>
                         </div>
@@ -190,7 +190,7 @@
                             <div class="form-group">
                                 <label ><?php echo _ADRESSE." "._PERSONNELS ?></label>
                                 <div class="form-line">
-                                    <textarea name="adresse_personnels" cols="30" rows="5" class="form-control no-resize" required="" aria-required="true"></textarea>
+                                    <textarea name="adresse_personnels" cols="30" rows="5" class="form-control no-resize"  aria-required="true"></textarea>
                                 </div>
                             </div>
                         </div>
@@ -203,7 +203,7 @@
                             <label for="nbr_place"><?php echo _FRAIS." d'"._INSCRIPTION ?> : </label>
                             <div class="form-group">
                                 <div class="form-line">
-                                    <input type="text" id="frais_inscription" name="frais_inscription" class="form-control" value="2500">
+                                    <input type="text" id="frais_inscription" name="frais_inscription" required="true" class="form-control" value="2500">
                                 </div>
                             </div>
                         </div>
@@ -211,7 +211,7 @@
                              <label for="nbr_place"><?php echo _FRAIS." "._MENSUELLE ?> : </label>
                             <div class="form-group">
                                 <div class="form-line">
-                                    <input type="text" id="frais_mensuelle" name="frais_mensuelle" class="form-control" value="1100">
+                                    <input type="text" id="frais_mensuelle" name="frais_mensuelle" required="true" class="form-control" value="1100">
                                 </div>
                             </div>
                         </div>
