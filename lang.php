@@ -15,6 +15,9 @@ define('_EMBAUCHE','embauche');
 define('_ARRET','arr&ecirc;t');
 define('_CNSS','C.N.S.S');
 define('_RETOURE','Retour');
+define('_CONGE','Cong&eacute;');
+define('_DEMANDE','demande');
+define('_SANS','Sans');
 
 define('_DOSSIER','Dossier');
 define('_CLASSES','CLasse(s)');

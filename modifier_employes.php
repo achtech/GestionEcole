@@ -43,7 +43,7 @@ onsubmit="return checkForm(document.frm);" >
                             <label for="nbr_place"><?php echo _TEL ?> : </label>
                             <div class="form-group">
                                 <div class="form-line">
-                                    <input type="text" value="<?php echo getValeurChamp('tel','employes','id',$_REQUEST['employes']) ?>" id="tel" name="tel" class="form-control" value="test">
+                                    <input type="text" value="<?php echo getValeurChamp('tel','employes','id',$_REQUEST['employes']) ?>" id="tel" name="tel" class="form-control" >
                                 </div>
                             </div>
                             <label for="email_address"><?php echo _EMAIL ?> : </label>
@@ -112,7 +112,7 @@ onsubmit="return checkForm(document.frm);" >
                             <label for="email_address"><?php echo _FONCTION ?> : </label>
                             <div class="form-group">
                                 <div class="form-line">
-                                    <input type="text" value="<?php echo getValeurChamp('fonction','employes','id',$_REQUEST['employes']) ?>"  id="fonction" name="fonction" class="form-control" value="test">
+                                    <input type="text" value="<?php echo getValeurChamp('fonction','employes','id',$_REQUEST['employes']) ?>"  id="fonction" name="fonction" class="form-control" >
                                 </div>
                             </div>
                         </div>
@@ -120,8 +120,8 @@ onsubmit="return checkForm(document.frm);" >
                             <label for="nbr_place"><?php echo _FORMATEUR ?>? </label>
                             <div class="form-group">
                                 <div class="form-line">
-                                    <input type="radio" id="isFormateur" name="isFormateur2" class="form-control" value="0">Oui
-                                    <input type="radio" id="isFormateur1" name="isFormateur1" class="form-control" value="1">Non
+                                    <input type="radio" id="isFormateur" name="isFormateur" class="form-control" value="0">Oui
+                                    <input type="radio" id="isFormateur" name="isFormateur" class="form-control" value="1">Non
                                 </div>
                             </div>
                         </div>
@@ -139,7 +139,7 @@ onsubmit="return checkForm(document.frm);" >
                             <label for="nbr_place"><?php echo _DATE." "._EMBAUCHE ?> : </label>
                             <div class="form-group">
                                 <div class="form-line">
-                                    <input type="text" value="<?php echo getValeurChamp('date_embauche','employes','id',$_REQUEST['employes']) ?>"  id="date_embauche" name="date_embauche" class="datepicker form-control" value="2018-01-01">
+                                    <input type="text" value="<?php echo getValeurChamp('date_embauche','employes','id',$_REQUEST['employes']) ?>"  id="date_embauche" name="date_embauche" class="datepicker form-control" >
                                 </div>
                             </div>
                         </div>
@@ -148,7 +148,7 @@ onsubmit="return checkForm(document.frm);" >
                             <label for="nbr_place"><?php echo _DATE." d'"._ARRET ?> : </label>
                             <div class="form-group">
                                 <div class="form-line">
-                                    <input type="text" value="<?php echo getValeurChamp('date_arret','employes','id',$_REQUEST['employes']) ?>"  id="date_arret" name="date_arret" class="datepicker form-control" value="2019-01-01">
+                                    <input type="text" value="<?php echo getValeurChamp('date_arret','employes','id',$_REQUEST['employes']) ?>"  id="date_arret" name="date_arret" class="datepicker form-control">
                                 </div>
                             </div>
                         </div>
@@ -181,13 +181,29 @@ onsubmit="return checkForm(document.frm);" >
                                 </div>
                             </div>
                         </div>
+                        <div class="col-sm-6">
+                            <label for="nbr_place"><?php echo _SALAIRE." "._MENSUELLE ?> : </label>
+                            <div class="form-group">
+                                <div class="form-line">
+                                    <input type="text" id="salaire_mensuelle" name="salaire_mensuelle" class="form-control" value="<?php echo getValeurChamp('salaire_mensuelle','employes','id',$_REQUEST['employes']) ?>">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                             <label for="nbr_place"><?php echo _SALAIRE." par "._HEURS ?> : </label>
+                            <div class="form-group">
+                                <div class="form-line">
+                                    <input type="text" id="salaire_par_heurs" name="salaire_par_heurs" class="form-control" value="<?php echo getValeurChamp('salaire_par_heurs','employes','id',$_REQUEST['employes']) ?>">
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </div> 
     </fieldset>                     
-	<input type="submit" class="btn btn-primary m-t-15 waves-effect" value="<?php echo _AJOUTER ?>" />
+	<input type="submit" class="btn btn-primary m-t-15 waves-effect" value="<?php echo _MODIFIER ?>" />
 </form>
                        
             

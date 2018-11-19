@@ -170,7 +170,23 @@ onsubmit="return checkForm(document.frm);" >
                              <label for="nbr_place"><?php echo _RIB ?> : </label>
                             <div class="form-group">
                                 <div class="form-line">
-                                    <input type="text" id="rib" name="rib" class="form-control" value="212212212212212212212212">
+                                    <input type="text" id="rib" name="rib" class="form-control" value="21">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <label for="nbr_place"><?php echo _SALAIRE." "._MENSUELLE ?> : </label>
+                            <div class="form-group">
+                                <div class="form-line">
+                                    <input type="text" id="salaire_mensuelle" name="salaire_mensuelle" class="form-control" value="123456">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                             <label for="nbr_place"><?php echo _SALAIRE." par "._HEURS ?> : </label>
+                            <div class="form-group">
+                                <div class="form-line">
+                                    <input type="text" id="salaire_par_heurs" name="salaire_par_heurs" class="form-control" value="">
                                 </div>
                             </div>
                         </div>

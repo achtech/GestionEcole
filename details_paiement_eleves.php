@@ -3,7 +3,7 @@
 <?php require_once('menu.php'); ?>
 <div class="block-header">
     <h2>
-        <?php echo _GESTION ?> des  <?php echo _ABSENCES ?>
+        <?php echo _GESTION ?> des  <?php echo _PAIEMENTS ?>
     </h2>
     <div> 
             <a href="ajouter_paiements_eleves.php?annees_scolaire=<?php echo $_REQUEST['annees_scolaire'] ?>&eleves=<?php echo $_REQUEST['eleves'] ?>" class="ajouter">

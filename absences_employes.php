@@ -49,7 +49,7 @@
                                         </div>
                                         <div class="col-sm-3">
                                                 <div class="form-line">
-                                                    <input type="submit" class="btn btn-primary m-t-15 waves-effect" value="<?php echo _CHERCHER ?>" />
+                                                    <input type="submit" class="btn btn-primary m-t-15 waves-effect" value="<?php echo _RECHERCHER ?>" />
                                                 </div>
                                             
                                         </div>

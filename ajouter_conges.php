@@ -3,27 +3,36 @@
 <?php require_once('menu.php'); ?>
             <div class="block-header">
                 <h5>
-                    <?php echo _AJOUTER ?> <?php echo _ABSENCE ?> 
+                    <?php echo _AJOUTER ?> <?php echo _CONGE ?> 
                 </h5>
             </div>
             <!-- Vertical Layout -->
             <form action="gestion.php" name="frm" method="post" 
         onsubmit="return checkForm(document.frm);" >
             <input type="hidden" name="act" value="a"/>
-            <input type="hidden" name="table" value="absences_eleves"/>
-            <input type="hidden" name="page" value="details_absences_eleves.php" />
-            <input type="hidden" name="id_eleves" value="<?php echo isset($_REQUEST['eleves'])?$_REQUEST['eleves']:'' ?>"/>
-            <input type="hidden" name="id_classes" value="<?php echo isset($_REQUEST['classes'])?$_REQUEST['classes']:'' ?>"/>
+            <input type="hidden" name="table" value="conges"/>
+            <input type="hidden" name="page" value="conges.php" />
             
-            <input type="hidden" name="id_noms_retour" value="eleves,classes"/>
-            <input type="hidden" name="id_valeurs_retour" value="<?php echo $_REQUEST['eleves'] ?>,<?php echo $_REQUEST['classes'] ?>"/>  
-
             <div class="row clearfix">
                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                     <div class="card">
                         <div class="body">
                             <div class="row clearfix">
                                 <div class="col-sm-6">
+                                    <label for="email_address"><?php echo _EMPLOYES ?> : </label>
+                                    <div class="form-group">
+                                        <div class="form-line">
+<?php  echo getTableList3('employes','id_employes','','nom','prenom','','','id_employes') ?>
+                                        </div>
+                                    </div>
+
+                                    <label for="email_address"><?php echo _DATE." "._DEMANDE ?> : </label>
+                                    <div class="form-group">
+                                        <div class="form-line">
+                                            <input type="text" id="date_demande" name="date_demande" class="datepicker form-control" >
+                                        </div>
+                                    </div>
+
 
                                     <label for="email_address"><?php echo _DATE." "._DEBUT ?> : </label>
                                     <div class="form-group">
@@ -38,20 +47,29 @@
                                             <input type="text" id="date_fin" name="date_fin" class="datepicker form-control"  >
                                         </div>
                                     </div>
-                                    <label for="nbr_place"><?php echo _NOMBRE." d'"._HEURE ?> : </label>
-                                    <div class="form-group">
-                                        <div class="form-line">
-                                            <input type="text" id="nbr_heur" name="nbr_heurs" class="form-control" >
-                                        </div>
-                                    </div>
+                                   
                                 </div>
                                 <div class="col-sm-6">
-                                    <label for="email_address"><?php echo _JUSTIFIER ?> : </label>
+                                    <label for="nbr_place"><?php echo _ANNEES." "._SCOLAIRES ?> : </label>
+                                    <div class="form-group">
+                                        <div class="form-line">
+                                            <?php  echo getTableList('annees_scolaires','id_annees_scolaire','','libelle','','','id_annees_scolaire') ?>
+                                        </div>
+                                    </div>
+
+                                    <label for="email_address"><?php echo _SANS." "._SOLDE ?> : </label>
                                     <div class="demo-radio-button">
-                                            <input type="radio" name="justifier" id="oui"  value="1"/>
+                                            <input type="radio" name="sans_solde" id="oui"  value="1"/>
                                             <label for="oui">Oui</label>
-                                            <input type="radio" name="justifier" id="non" value="0" />
+                                            <input type="radio" name="sans_solde" id="non" value="0" />
                                             <label for="non">Non</label>
+                                    </div>
+                                    <label for="email_address"><?php echo _VALIDER ?> : </label>
+                                    <div class="demo-radio-button">
+                                            <input type="radio" name="valider" id="oui1"  value="1"/>
+                                            <label for="oui1">Oui</label>
+                                            <input type="radio" name="valider" id="non1" value="0" />
+                                            <label for="non1">Non</label>
                                     </div>
                                     <label for="nbr_place"><?php echo _MOTIFS ?> : </label>
                                     <div class="form-group">

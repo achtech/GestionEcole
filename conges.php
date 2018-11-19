@@ -6,8 +6,8 @@
                     <?php echo _GESTION ?> <?php echo _CONGES ?>
                 </h2>
                 <div> 
-	                <a href="ajouter_classes.php" class="ajouter">
-			        	<?php echo _AJOUTER ?> <?php echo _CLASSES ?> 
+	                <a href="ajouter_conges.php" class="ajouter">
+			        	<?php echo _AJOUTER ?> <?php echo _CONGES ?> 
 	   	    		</a>		
 				</div>
             </div>
@@ -39,7 +39,8 @@
                                             <th><?php echo _SANS." "._SOLDE ?></th>
                                             <th><?php echo _VALIDER ?></th>
                                             <th><?php echo _MOTIF ?></th>
-                                            <th><?php echo _ANNEES." "._SCOLAIRE ?></th>
+                                            <th><?php echo _ANNEES." "._SCOLAIRES ?></th>
+                                            <th><?php echo _OP ?></th>
                                         </tr>
                                     </thead>
                                     <tfoot>
@@ -51,7 +52,8 @@
                                             <th><?php echo _SANS." "._SOLDE ?></th>
                                             <th><?php echo _VALIDER ?></th>
                                             <th><?php echo _MOTIF ?></th>
-                                            <th><?php echo _ANNEES." "._SCOLAIRE ?></th>
+                                            <th><?php echo _ANNEES." "._SCOLAIRES ?></th>
+                                            <th><?php echo _OP ?></th>
                                         </tr>
                                     </tfoot>
                                     <tbody>
@@ -70,10 +72,31 @@
 <td><?php echo $ligne['date_demande'] ?></td>
 <td><?php echo $ligne['date_debut'] ?></td>
 <td><?php echo $ligne['date_fin'] ?></td>
-<td><?php echo $ligne['sans_solde'] ?></td>
-<td><?php echo $ligne['valider'] ?></td>
+<?php $chV=$ligne['valider']==1?"checked":"";$chSS=$ligne['sans_solde']==1?"checked":""; ?>
+<td><input type="checkbox" disabled="disabled" <?php echo $chSS ?> id="ch1" class="filled-in chk-col-red" /><label for="ch1"></label></td>
+<td><input type="checkbox" disabled="disabled" <?php echo $chV ?>  id="ch2" class="filled-in chk-col-green"/><label for="ch2"></label></td>
 <td><?php echo $ligne['motif'] ?></td>
-<td><?php echo getValeurChamp('libelle','annees_scolaire','id',$ligne['id_annees_scolaire']) ?></td>
+<td><?php echo getValeurChamp('libelle','annees_scolaires','id',$ligne['id_annees_scolaire']) ?></td>
+<td class="op">
+	<a href="modifier_conges.php?conges=<?php echo $ligne['id'] ?>" class="modifier2" title="modifier fiche conges">
+		&nbsp;
+    </a>
+	&nbsp;
+	<a href="#ancre" 
+    class="supprimer2" 
+    onclick="javascript:supprimer(
+    							'conges',
+                                '<?php echo $ligne['id'] ?>',
+                                'conges.php',
+                                '1',
+                                '1')
+			" 
+	title="<?php echo _SUPPRIMER ?>">
+    	
+        &nbsp;
+    </a>
+</td>
+
 										</tr>
                                         <?php
 											$i++; 
