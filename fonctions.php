@@ -375,7 +375,7 @@ function Modification($table,$tab_champs,$tab_requetes,$id_nom,$id_valeur){
 	}	
 		
 	if($champs_mod!=''){
-		$sql="update ".$table." set ".$champs_mod." where ".$where." ";
+		echo $sql="update ".$table." set ".$champs_mod." where ".$where." ";
 	}	
 	return $bool = doQuery($sql) or die("ERREUR MODIFICATION CAT : ".mysql_error());
 }
@@ -1161,9 +1161,7 @@ function getTableList($table,$nom,$valeur,$champ,$change,$where,$libelle){
 	
 	<select class="form-control show-tick" data-live-search="true"  name="<?php echo $nom ?>" <?php echo $change ?> 
 	id="<?php echo $libelle ?>_required">
-		
 		<option value="">____</option>
-		
 	<?php
 	while($ligne = mysql_fetch_array($res)){	
 		
@@ -1180,7 +1178,6 @@ function getTableList($table,$nom,$valeur,$champ,$change,$where,$libelle){
 	}
 	?>
 	</select>
-
 <?php
 }
 
@@ -1190,7 +1187,7 @@ function getTableList3($table,$nom,$valeur,$champ,$champ2,$change,$where,$libell
 	$res = doQuery($sql);
 	?>
 	
-	<select name="<?php echo $nom ?>" <?php echo $change ?> 
+	<select class="form-control show-tick" data-live-search="true" name="<?php echo $nom ?>" <?php echo $change ?> 
 	id="<?php echo $libelle ?>_required">
 		
 		<option value="">____</option>
@@ -1951,15 +1948,9 @@ function getSumRetardsEleveByMonth($idEleves,$mois,$anneScolaire){
 	$nb = mysql_num_rows($res);
 
 	$tot =0;
-	if( $nb==0){
-		return 0;
-	}
-	else
-	{
 		while ($ligne = mysql_fetch_array($res)){
 			$tot = $ligne['tot'];
 		}
-	}
 	return $tot>0?$tot:"0";
 }
 

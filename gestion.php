@@ -8,7 +8,7 @@
 
 <?php 
 echo "<center><h2>"._REDIRECT."</h2></center>";
-//print_r($_REQUEST);
+print_r($_REQUEST);
 connect ();
 //detection de la table et des champs concerné
 $tab_table = split(',',$_REQUEST['table']);

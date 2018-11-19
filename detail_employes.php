@@ -169,6 +169,22 @@ onsubmit="return checkForm(document.frm);" >
                                 </div>
                             </div>
                         </div>
+                        <div class="col-sm-6">
+                            <label for="nbr_place"><?php echo _SALAIRE." "._MENSUELLE ?> : </label>
+                            <div class="form-group">
+                                <div class="form-line">
+                                    <?php echo getValeurChamp('salaire_mensuelle','employes','id',$_REQUEST['employes']) ?>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <label for="nbr_place"><?php echo _SALAIRE." par "._HEURS ?> : </label>
+                            <div class="form-group">
+                                <div class="form-line">
+                                    <?php echo getValeurChamp('salaire_par_heurs','employes','id',$_REQUEST['employes']) ?>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
