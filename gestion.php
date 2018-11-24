@@ -625,7 +625,8 @@ if ($action == 'conexion')
 	$ligne=mysql_fetch_array($res);
 	if($nbr==1)
 	{
-		 $_SESSION['employe']=$ligne['id_employes'];
+		 $_SESSION['employe']=$ligne;
+		 $_SESSION['employeId']=$ligne['id_employes'];
 		redirect("index.php");
 	}else{
 		redirect("log-in.php?msg_retour=error authentification)");

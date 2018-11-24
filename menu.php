@@ -2,23 +2,24 @@
         <!-- Left Sidebar -->
         <aside id="leftsidebar" class="sidebar">
             <!-- User Info -->
+            <?php $userFirstName=getValeurChamp('prenom','employes','id',$_SESSION['employeId']); ?>
+            <?php $userLastName=getValeurChamp('nom','employes','id',$_SESSION['employeId']); ?>
+            <?php $userEmail=getValeurChamp('email','employes','id',$_SESSION['employeId']); ?>
+            <?php $userId=$_SESSION['employeId']; ?>
+            <?php $userPhoto=getValeurChamp('photo','employes','id',$_SESSION['employeId']); ?>
             <div class="user-info">
                 <div class="image">
-                    <img src="images/user.png" width="48" height="48" alt="User" />
+                    <img src="images/<?php echo $userPhoto ?>" width="48" height="48" alt="User" />
                 </div>
                 <div class="info-container">
-                    <div class="name" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Achraf Saloumi</div>
-                    <div class="email">a.mareshal@gmail.com</div>
+                    <div class="name" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><?php echo $userFirstName." ".$userLastName ?></div>
+                    <div class="email"><?php echo $userEmail ?></div>
                     <div class="btn-group user-helper-dropdown">
                         <i class="material-icons" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">keyboard_arrow_down</i>
                         <ul class="dropdown-menu pull-right">
-                            <li><a href="javascript:void(0);"><i class="material-icons">person</i>Profile</a></li>
+                            <li><a href="modifier_employes.php?employes=<?php echo $userId; ?>"><i class="material-icons">person</i>Profile</a></li>
                             <li role="separator" class="divider"></li>
-                            <li><a href="javascript:void(0);"><i class="material-icons">group</i>Followers</a></li>
-                            <li><a href="javascript:void(0);"><i class="material-icons">shopping_cart</i>Sales</a></li>
-                            <li><a href="javascript:void(0);"><i class="material-icons">favorite</i>Likes</a></li>
-                            <li role="separator" class="divider"></li>
-                            <li><a href="javascript:void(0);"><i class="material-icons">input</i>Sign Out</a></li>
+                            <li><a href="deconnexion.php"><i class="material-icons">input</i><?php echo _DECONNEXION ?></a></li>
                         </ul>
                     </div>
                 </div>
