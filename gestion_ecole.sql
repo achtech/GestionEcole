@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1:3306
--- Généré le :  sam. 24 nov. 2018 à 14:50
+-- Généré le :  sam. 24 nov. 2018 à 16:44
 -- Version du serveur :  5.7.21
 -- Version de PHP :  5.6.35
 
@@ -41,7 +41,14 @@ CREATE TABLE IF NOT EXISTS `absences_eleves` (
   PRIMARY KEY (`id`),
   KEY `id_employes` (`id_eleves`),
   KEY `id_classes` (`id_classes`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
+
+--
+-- Déchargement des données de la table `absences_eleves`
+--
+
+INSERT INTO `absences_eleves` (`id`, `id_eleves`, `id_classes`, `date_debut`, `date_fin`, `nbr_heurs`, `justifier`, `motif`) VALUES
+(1, 11, 3, '2018-11-24', '2018-11-30', 40, 1, 'holiday');
 
 -- --------------------------------------------------------
 
@@ -81,7 +88,7 @@ INSERT INTO `absences_employes` (`id`, `id_employes`, `id_annees_scolaire`, `dat
 DROP TABLE IF EXISTS `annees_scolaires`;
 CREATE TABLE IF NOT EXISTS `annees_scolaires` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `libelle` text NOT NULL,
+  `libelle` varchar(20) NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
 
@@ -141,11 +148,10 @@ DROP TABLE IF EXISTS `classes`;
 CREATE TABLE IF NOT EXISTS `classes` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `id_niveaux` int(11) NOT NULL,
-  `id_annees_scolaire` int(11) NOT NULL,
+  `id_annees_scolaire` int(11) DEFAULT NULL,
   `libelle` text NOT NULL,
   PRIMARY KEY (`id`),
-  KEY `fk_classes_niveaux` (`id_niveaux`),
-  KEY `fk_classes_annees_scolaire` (`id_annees_scolaire`)
+  KEY `fk_classes_niveaux` (`id_niveaux`)
 ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
 
 --
@@ -153,9 +159,9 @@ CREATE TABLE IF NOT EXISTS `classes` (
 --
 
 INSERT INTO `classes` (`id`, `id_niveaux`, `id_annees_scolaire`, `libelle`) VALUES
-(1, 1, 3, 'C1'),
-(2, 4, 3, 'C2'),
-(3, 4, 3, 'C3');
+(1, 4, NULL, 'C1'),
+(2, 4, NULL, 'C2'),
+(3, 4, NULL, 'C3');
 
 -- --------------------------------------------------------
 
@@ -200,7 +206,7 @@ CREATE TABLE IF NOT EXISTS `detail_tasks` (
   `description` text NOT NULL,
   `status` text NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=38 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=46 DEFAULT CHARSET=latin1;
 
 --
 -- Déchargement des données de la table `detail_tasks`
@@ -241,7 +247,15 @@ INSERT INTO `detail_tasks` (`id`, `id_tasks`, `description`, `status`) VALUES
 (34, 3, 'ajouter dans le journal', '1'),
 (35, 13, 'comboBow Class change when we change Niveau or AnneScolaire', '1'),
 (36, 13, 'Geston des URL : on doit avoir comme   http://localhost/gestionEcole/modifier_eleves-13  instead of http://localhost/gestionEcole/modifier_eleves.php?eleves=13', '1'),
-(37, 14, 'changer lcione de fiche technik d\'un eleve', '1');
+(37, 14, 'changer lcione de fiche technik d\'un eleve', '1'),
+(38, 14, 'class doit lier just au  niveau', '1'),
+(39, 14, 'ajouter anne_scolaire dans inscription', '1'),
+(40, 14, 'cherccher dans tt les fonction ou anne scolaire est lier a class', '1'),
+(41, 14, 'detail des etudiant : Etape des Ã©tudes dans l\'etablissement', '1'),
+(42, 14, 'problem dans les details d\'un etudiant', '1'),
+(43, 14, 'modifier absence eleve : radio', '1'),
+(44, 13, 'ajouter button annuler or close qui permet de retourne au page precedent', '1'),
+(45, 14, 'reviser la somme a payer', '1');
 
 -- --------------------------------------------------------
 
@@ -282,22 +296,6 @@ INSERT INTO `eleves` (`id`, `num_ordre`, `nom`, `prenom`, `nom_mere`, `professio
 (13, 3, 'Saloumi', 'Abdel Rahmane', 'R', 'Elec', '2011-08-12', 'Marrakech', 'Simo', 'Elec', 'HA132209', '+212 6 53 90 36 59', '+212 5 24 64 51 28', 'Derb derraz N1 zaouia ', 'Marrakech', 'Enfant de soleil', '+212 6 53 90 36 59', 'EE260999'),
 (14, 4, 'Saloumi', 'Imane', 'R', 'Elec', '2014-12-12', 'Marrakech', 'Simo', 'Elec', 'HA132209', '+212 6 53 90 36 59', '+212 5 24 64 51 28', 'Derb derraz N1 zaouia ', 'Marrakech', 'Enfant de soleil', '+212 6 53 90 36 59', 'EE260999'),
 (15, 100, 'saloumi', 'tarik', 'test', 'test', '1985-07-09', 'test', 'test', 'test', 'test', 'test', 'test', 'kech', 'kech', 'test', 'test', 'test');
-
--- --------------------------------------------------------
-
---
--- Structure de la table `eleves_classes`
---
-
-DROP TABLE IF EXISTS `eleves_classes`;
-CREATE TABLE IF NOT EXISTS `eleves_classes` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `id_eleves` int(11) NOT NULL,
-  `id_classes` int(11) NOT NULL,
-  PRIMARY KEY (`id`),
-  KEY `id_eleves` (`id_eleves`),
-  KEY `id_classes` (`id_classes`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
@@ -409,21 +407,23 @@ CREATE TABLE IF NOT EXISTS `inscriptions` (
   `id_eleves` int(11) DEFAULT NULL,
   `frais_inscription` int(11) DEFAULT NULL,
   `frais_mensuelle` int(11) NOT NULL,
+  `id_annees_scolaire` int(11) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `id_classes` (`id_classes`),
-  KEY `id_eleves` (`id_eleves`)
+  KEY `id_eleves` (`id_eleves`),
+  KEY `id_annees_scolaire` (`id_annees_scolaire`)
 ) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=latin1;
 
 --
 -- Déchargement des données de la table `inscriptions`
 --
 
-INSERT INTO `inscriptions` (`id`, `num_inscription`, `date_inscription`, `id_classes`, `id_eleves`, `frais_inscription`, `frais_mensuelle`) VALUES
-(8, 10, '2018-11-06', 3, 11, 1500, 900),
-(9, 11, '2018-11-06', 3, 11, 1500, 900),
-(10, 12, '2018-11-06', 3, 13, 1500, 900),
-(11, 13, '2018-08-22', 3, 14, 1500, 900),
-(12, 1000, '2018-11-11', 1, 15, 1500, 900);
+INSERT INTO `inscriptions` (`id`, `num_inscription`, `date_inscription`, `id_classes`, `id_eleves`, `frais_inscription`, `frais_mensuelle`, `id_annees_scolaire`) VALUES
+(8, 10, '2018-11-06', 3, 11, 1500, 900, 3),
+(9, 11, '2018-11-06', 3, 11, 1500, 900, 3),
+(10, 12, '2018-11-06', 1, 13, 1500, 900, 3),
+(11, 13, '2018-08-22', 3, 14, 1500, 900, 3),
+(12, 1000, '2018-11-11', 3, 15, 1500, 900, 3);
 
 -- --------------------------------------------------------
 
@@ -608,7 +608,7 @@ CREATE TABLE IF NOT EXISTS `tasks` (
   `description` text NOT NULL,
   `taux` int(11) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=15 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=latin1;
 
 --
 -- Déchargement des données de la table `tasks`
@@ -616,8 +616,8 @@ CREATE TABLE IF NOT EXISTS `tasks` (
 
 INSERT INTO `tasks` (`id`, `description`, `taux`) VALUES
 (1, 'Gestion des caisse mensuelle', 0),
-(3, 'Gestion des Journaux', 0),
 (2, 'Gestion des charges et depenses', 0),
+(3, 'Gestion des Journaux', 0),
 (4, 'Gestion de DASHBOARD', 0),
 (5, 'Gestion d\'etablissement', 80),
 (6, 'Gestion des utilisateurs', 90),
@@ -683,8 +683,7 @@ ALTER TABLE `avances`
 -- Contraintes pour la table `classes`
 --
 ALTER TABLE `classes`
-  ADD CONSTRAINT `classes_ibfk_1` FOREIGN KEY (`id_niveaux`) REFERENCES `niveaux` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  ADD CONSTRAINT `fk1` FOREIGN KEY (`id_annees_scolaire`) REFERENCES `annees_scolaires` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+  ADD CONSTRAINT `classes_ibfk_1` FOREIGN KEY (`id_niveaux`) REFERENCES `niveaux` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
 -- Contraintes pour la table `conges`
@@ -692,13 +691,6 @@ ALTER TABLE `classes`
 ALTER TABLE `conges`
   ADD CONSTRAINT `conges_ibfk_1` FOREIGN KEY (`id_employes`) REFERENCES `employes` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   ADD CONSTRAINT `conges_ibfk_2` FOREIGN KEY (`id_annees_scolaire`) REFERENCES `annees_scolaires` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
-
---
--- Contraintes pour la table `eleves_classes`
---
-ALTER TABLE `eleves_classes`
-  ADD CONSTRAINT `eleves_classes_ibfk_1` FOREIGN KEY (`id_classes`) REFERENCES `classes` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  ADD CONSTRAINT `eleves_classes_ibfk_2` FOREIGN KEY (`id_eleves`) REFERENCES `eleves` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
 -- Contraintes pour la table `employes_classes`
@@ -712,7 +704,8 @@ ALTER TABLE `employes_classes`
 --
 ALTER TABLE `inscriptions`
   ADD CONSTRAINT `inscriptions_ibfk_1` FOREIGN KEY (`id_classes`) REFERENCES `classes` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  ADD CONSTRAINT `inscriptions_ibfk_2` FOREIGN KEY (`id_eleves`) REFERENCES `eleves` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+  ADD CONSTRAINT `inscriptions_ibfk_2` FOREIGN KEY (`id_eleves`) REFERENCES `eleves` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  ADD CONSTRAINT `inscriptions_ibfk_3` FOREIGN KEY (`id_annees_scolaire`) REFERENCES `annees_scolaires` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
 -- Contraintes pour la table `logs`
