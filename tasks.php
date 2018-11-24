@@ -6,6 +6,9 @@
                     <?php echo _GESTION ?> <?php echo _TASKS ?>
                 </h2>
                 <div> 
+                    	<a href="details_tasks.php" class="ajouter">
+			        		<?php echo _ALL ?> <?php echo _TASKS ?> 
+			    		 </a>		
                     	<a href="ajouter_task.php" class="ajouter">
 			        		<?php echo _AJOUTER ?> <?php echo _TASKS ?> 
 			    		 </a>		

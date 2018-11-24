@@ -1153,13 +1153,13 @@ function getPrixTtc($prix,$taux){
 }
 
 
-function getTableList($table,$nom,$valeur,$champ,$change,$where,$libelle){
+function getTableList($table,$nom,$valeur,$champ,$change,$where,$libelle,$update){
 	
 	$sql = "select * from ". $table ." ". $where ." order by ". $champ;
 	$res = doQuery($sql);
 	?>
 	
-	<select class="form-control show-tick" data-live-search="true"  name="<?php echo $nom ?>" <?php echo $change ?> 
+	<select class="form-control show-tick" data-live-search="true"  id ="<?php echo $update ?>" name="<?php echo $nom ?>" <?php echo $change ?> 
 	id="<?php echo $libelle ?>_required">
 		<option value="">____</option>
 	<?php
@@ -2083,6 +2083,7 @@ function getAllTasks(){
 	while ($ligne = mysql_fetch_array($res)){
 			$tab[$i][0]=$ligne['description'];
 			$tab[$i][1]=$ligne['taux'];
+			$tab[$i][2]=$ligne['id'];
 			$i=$i+1;
 	}
 	return $tab;

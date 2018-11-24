@@ -153,8 +153,7 @@ window.onload = function () {
                                             </div>
                                         </a>
                                     </li>
-
-                                 <?php   } ?>
+                                 <?php } ?>
 
                                 </ul>
                             </li>
@@ -179,7 +178,7 @@ window.onload = function () {
                                         for($i=0;$i<count($tabTasks);$i++){
                                      ?>
                                     <li>
-                                        <a href="javascript:void(0);">
+                                        <a href="details_tasks.php?tasks=<?php echo $tabTasks[$i][2] ?>">
                                             <h4>
                                                 <?php echo $tabTasks[$i][0] ?>
                                                 <small><?php echo $tabTasks[$i][1] ?></small>

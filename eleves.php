@@ -1,6 +1,20 @@
 <?php $categorie=1;$page="eleves"; ?>
 <?php require_once('header.php'); ?>  
 <?php require_once('menu.php'); ?>
+<script type="text/javascript">
+    $(document).ready(function(){
+        $('#choose').change(function(event) {    
+          $.post(
+           'eleves.php',
+            $(this).serialize(),
+            function(data){
+              $("#update").html(data)
+            }
+          );
+          return false;   
+        });   
+    });
+</script>
             <div class="block-header">
                 <h2>
                     <?php echo _GESTION ?> des <?php echo _ELEVES ?>
@@ -41,7 +55,7 @@
                                             <label for="nbr_place"><?php echo _ANNEES ?> <?php echo _SCOLAIRES ?> : </label>
                                             <div class="form-group">
                                                 <div class="form-line">
-        											<?php  echo getTableList('annees_scolaires','id_annees_scolaire',$id_annees_scolaire,'libelle','onchange="document.f1.submit()"','','id_annees_scolaire') ?>
+        											<?php  echo getTableList('annees_scolaires','id_annees_scolaire',$id_annees_scolaire,'libelle','onchange="document.f1.submit()"','','id_annees_scolaire','choose') ?>
                                                 </div>
                                             </div>
                                         </div>
@@ -73,6 +87,7 @@
                     <div class="card">
                           <div class="body">
                             <div class="table-responsive">
+                                <div id="update">
                             	<?php 
                             	$whereEleves ="where 1=1";
                             	if(isset($_REQUEST['id_classes']) && !empty($_REQUEST['id_classes'])){
@@ -182,6 +197,7 @@
                                 <?php 
 								} //Fin If
 								?>
+                            </div>
                             </div>
                         </div>
                     </div>

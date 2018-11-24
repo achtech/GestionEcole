@@ -5,12 +5,15 @@
                 <h2>
                     <?php echo _GESTION ?> <?php echo _DETAILS." des "._TASKS ?>
                 </h2>
+                <?php if(isset($_REQUEST['tasks']) && !empty($_REQUEST['tasks'])){ ?>
                 <div> 
                     	<a href="ajouter_detail_task.php?tasks=<?php echo $_REQUEST['tasks'] ?>" class="ajouter">
 			        		<?php echo _AJOUTER ?> <?php echo _DETAILS." des "._TASKS ?> 
 			    		 </a>		
 				</div>
- 
+ 					<?php 
+ 					$where = " where id_tasks=".$_REQUEST['tasks'];
+ 				} ?>
             </div>
 <!-- Exportable Table -->
             <div class="row clearfix">
@@ -19,7 +22,7 @@
                           <div class="body">
                             <div class="table-responsive">
                             	<?php 
-									$sql = "select * from detail_tasks where id_tasks=".$_REQUEST['tasks']." order by id";		
+									$sql = "select * from detail_tasks ".$where." order by id";		
 									$res = doQuery($sql);
 
 									$nb = mysql_num_rows($res);
@@ -33,15 +36,19 @@
                                 <table class="table table-bordered table-striped table-hover dataTable js-exportable">
                                     <thead>
                                         <tr>
+                                            <th><?php echo _PRIORITE ?></th>
                                             <th><?php echo _DESCRIPTION ?></th>
                                             <th><?php echo _STATUS ?></th>
+                                            <th><?php echo _MANAGER ?></th>
 											<th class="op"> <?php echo _OP ?> </th>
                                         </tr>
                                     </thead>
                                     <tfoot>
                                         <tr>
+                                        	<th><?php echo _PRIORITE ?></th>
                                             <th><?php echo _DESCRIPTION ?></th>
                                             <th><?php echo _STATUS ?></th>
+                                            <th><?php echo _MANAGER ?></th>
 											<th class="op"> <?php echo _OP ?> </th>
                                         </tr>
                                     </tfoot>
@@ -58,12 +65,18 @@
 											?>
                                         <tr>
                                             <td>
+													<?php echo $tab_priorite[$ligne['priorite']] ?>
+								            </td>                                            
+								            <td>
 													<?php echo $ligne['description'] ?>
 								            </td>
 								            <td>
 													<img src="images/_<?php echo $ligne['status'] ?>.png">
 								            </td>
-											
+											<td>
+													<?php echo $ligne['manager'] ?>
+								            </td>                                            
+								            
 											<td class="op">
 												<a href="modifier_detail_tasks.php?tasks=<?php echo $_REQUEST['tasks'] ?>&detail_tasks=<?php echo $ligne['id'] ?>" class="modifier2">
 													&nbsp;

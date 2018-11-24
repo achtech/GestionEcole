@@ -629,7 +629,7 @@ if ($action == 'conexion')
 		 $_SESSION['employeId']=$ligne['id_employes'];
 		redirect("index.php");
 	}else{
-		redirect("log-in.php?msg_retour=error authentification)");
+		redirect("log-in.php?msg_retour=login or mot de passe erronee");
 	}
 }
 

@@ -21,6 +21,8 @@ define('_SANS','Sans');
 define('_TASKS','Taches');
 define('_COURS','Cours');
 define('_STATUS','Status');
+define('_MANAGER','Manager');
+define('_PRIORITE','Priorite');
 
 define('_DOSSIER','Dossier');
 define('_CLASSES','CLasses');

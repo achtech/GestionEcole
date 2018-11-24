@@ -10,6 +10,12 @@ $tab_politesse = array(
 					"Madame",
 					"Mr."
 					);
+$tab_priorite = array(
+					1=>"Low",
+					"Medium",
+					"High"
+					);
+
 $tab_sexe = array(
 					1=>_FEMININ,
 					_MASCULIN

@@ -33,11 +33,23 @@
                                 <label for="email_address"><?php echo _STATUS ?> : </label>
                                  <div class="form-group">
                                     <div class="form-line">
-                                         <?php getTabList($tab_status,"status",$valeur,$change,_ETAT); ?>
+                                         <?php getTabList($tab_status,"status",$valeur,$change,_STATUS); ?>
+                                    </div>
+                                </div>
+                                <label for="email_address"><?php echo _PRIORITE ?> : </label>
+                                 <div class="form-group">
+                                    <div class="form-line">
+                                         <?php getTabList($tab_priorite,"priorite",$valeur,$change,_PRIORITE); ?>
+                                    </div>
+                                </div>
+                                <label for="email_address"><?php echo _MANAGER ?> : </label>
+                                <div class="form-group">
+                                    <div class="form-line">
+                                        <input type="text" id="manager" name="manager" class="form-control" >
                                     </div>
                                 </div>
                                 <br>
-                                		<input type="submit" class="btn btn-primary m-t-15 waves-effect" value="<?php echo _AJOUTER ?>" />
+                          		<input type="submit" class="btn btn-primary m-t-15 waves-effect" value="<?php echo _AJOUTER ?>" />
 
                             </form>
                         </div>

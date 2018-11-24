@@ -36,6 +36,19 @@
                                          <?php getTabList($tab_status,"status",getValeurChamp('status','detail_tasks','id',$_REQUEST['detail_tasks']),$change,_ETAT); ?>
                                     </div>
                                 </div>
+
+                                <label for="email_address"><?php echo _PRIORITE ?> : </label>
+                                 <div class="form-group">
+                                    <div class="form-line">
+                                         <?php getTabList($tab_priorite,"priorite",getValeurChamp('priorite','detail_tasks','id',$_REQUEST['detail_tasks']),$change,_PRIORITE); ?>
+                                    </div>
+                                </div>
+                                <label for="email_address"><?php echo _MANAGER ?> : </label>
+                                <div class="form-group">
+                                    <div class="form-line">
+                                        <input type="text" id="manager" name="manager" class="form-control"  value="<?php echo getValeurChamp('manager','detail_tasks','id',$_REQUEST['detail_tasks']) ?>">
+                                    </div>
+                                </div>
                                 <br>
                                 		<input type="submit" class="btn btn-primary m-t-15 waves-effect" value="<?php echo _MODIFIER ?>" />
 
