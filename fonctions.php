@@ -2002,18 +2002,20 @@ function getIdInscription($idEleves,$idAnneScolaire){
 	return $id;	
 }
 
-function getSumMontantEleveAnneScolaire($idEleves,$id_annees_scolaire,$mois){
-	$sql="select sum(montant) as tot from paiements_eleves where id_eleves=".$idEleves." and id_annees_scolaire=".$id_annees_scolaire." and mois=".$mois;
+function getSumMontantEleveAnneScolaire($idEleves,$idAnneScolaire,$mois){
+	$sql="select sum(montant) as tot from paiements_eleves where id_eleves=".$idEleves."  and mois=".$mois;
 	$res = doQuery($sql);
 	$nb = mysql_num_rows($res);
 
 	$tot =0;
 	while ($ligne = mysql_fetch_array($res)){
-		$tot = $ligne['tot'];
+		if($ligne['id_annees_scolaire']==$idAnneScolaire){
+			$tot=$tot+$ligne['montant'];
+		}
 	}
 	$result = array();
 	$result[0] = $tot<0?0:$tot;	
-	$fraisMensuelle = getValeurChamp('frais_mensuelle','inscriptions','id',getIdInscription($idEleves,$id_annees_scolaire));
+	$fraisMensuelle = getValeurChamp('frais_mensuelle','inscriptions','id',getIdInscription($idEleves,$idAnneScolaire));
 	$result[1] = $tot == 0 ? 'red':($tot < $fraisMensuelle ? 'yellow':'green');
 	$result[2] = $tot == 0 ? 'white':($tot < $fraisMensuelle ? 'black':'white');
 	return $result;
@@ -2067,5 +2069,34 @@ function paiementsNonPaye($id_annees_scolaire){
 		}
 	}
 	return $tab;
+}
+
+function getAllTasks(){
+
+	$sql = "select * from tasks order by taux desc";
+	$res = doQuery($sql);
+
+	$tab =[];
+	$i = 0;
+	while ($ligne = mysql_fetch_array($res)){
+			$tab[$i][0]=$ligne['description'];
+			$tab[$i][1]=$ligne['taux'];
+			$i=$i+1;
+	}
+	return $tab;
+}
+
+function getmontantInscription($idEleves,$idAnneScolaire){
+	$sql = "SELECT * FROM `paiements_eleves` WHERE `id_eleves`=".$idEleves." AND `mois`=0";
+	$res = doQuery($sql);
+
+	$tot =0;
+	$i = 0;
+	while ($ligne = mysql_fetch_array($res)){
+		if($ligne['id_annees_scolaire']==$idAnneScolaire){
+			$tot=$tot+$ligne['montant'];
+		}
+	}
+	return $tot;
 }
 ?>

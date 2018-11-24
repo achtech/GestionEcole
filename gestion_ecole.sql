@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.7.4
+-- version 4.7.9
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1:3306
--- Généré le :  ven. 16 nov. 2018 à 21:50
--- Version du serveur :  5.7.19
--- Version de PHP :  5.6.31
+-- Généré le :  sam. 24 nov. 2018 à 14:50
+-- Version du serveur :  5.7.21
+-- Version de PHP :  5.6.35
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -41,17 +41,7 @@ CREATE TABLE IF NOT EXISTS `absences_eleves` (
   PRIMARY KEY (`id`),
   KEY `id_employes` (`id_eleves`),
   KEY `id_classes` (`id_classes`)
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=latin1;
-
---
--- Déchargement des données de la table `absences_eleves`
---
-
-INSERT INTO `absences_eleves` (`id`, `id_eleves`, `id_classes`, `date_debut`, `date_fin`, `nbr_heurs`, `justifier`, `motif`) VALUES
-(1, 11, 2, '2018-11-12', '2018-11-14', 24, 1, 'maladie'),
-(2, 11, 3, '2018-11-09', '2018-11-11', 18, 1, 'test'),
-(3, 12, 3, '2018-11-09', '2018-11-12', 24, 1, 'test'),
-(7, 12, 3, '2018-10-09', '2018-10-12', 8, 0, 'test');
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
@@ -72,7 +62,15 @@ CREATE TABLE IF NOT EXISTS `absences_employes` (
   PRIMARY KEY (`id`),
   KEY `id_employes` (`id_employes`),
   KEY `id_anne_scolaires` (`id_annees_scolaire`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
+
+--
+-- Déchargement des données de la table `absences_employes`
+--
+
+INSERT INTO `absences_employes` (`id`, `id_employes`, `id_annees_scolaire`, `date_debut`, `date_fin`, `nbr_heurs`, `justifier`, `motif`) VALUES
+(1, 2, 3, '2018-11-18', '2018-11-24', 48, 0, 'first edit ebsences'),
+(2, 2, 3, '2018-11-24', '2018-11-24', 8, 1, 'maladie justifier');
 
 -- --------------------------------------------------------
 
@@ -155,7 +153,7 @@ CREATE TABLE IF NOT EXISTS `classes` (
 --
 
 INSERT INTO `classes` (`id`, `id_niveaux`, `id_annees_scolaire`, `libelle`) VALUES
-(1, 4, 3, 'C1'),
+(1, 1, 3, 'C1'),
 (2, 4, 3, 'C2'),
 (3, 4, 3, 'C3');
 
@@ -179,7 +177,71 @@ CREATE TABLE IF NOT EXISTS `conges` (
   PRIMARY KEY (`id`),
   KEY `id_employes` (`id_employes`),
   KEY `id_annee_scolaires` (`id_annees_scolaire`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
+
+--
+-- Déchargement des données de la table `conges`
+--
+
+INSERT INTO `conges` (`id`, `id_employes`, `date_demande`, `date_debut`, `date_fin`, `sans_solde`, `valider`, `motif`, `id_annees_scolaire`) VALUES
+(1, 3, '2018-11-18', '2018-11-20', '2018-11-30', 0, 1, 'conge 1', 3),
+(2, 3, '2018-11-01', '2018-11-20', '2018-11-30', 1, 0, 'conge 10', 3);
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `detail_tasks`
+--
+
+DROP TABLE IF EXISTS `detail_tasks`;
+CREATE TABLE IF NOT EXISTS `detail_tasks` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `id_tasks` int(11) NOT NULL,
+  `description` text NOT NULL,
+  `status` text NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=38 DEFAULT CHARSET=latin1;
+
+--
+-- Déchargement des données de la table `detail_tasks`
+--
+
+INSERT INTO `detail_tasks` (`id`, `id_tasks`, `description`, `status`) VALUES
+(1, 6, 'ajouter constraint ROLE sur tt \'application', '1'),
+(2, 6, 'ajouter confirmation du password', '1'),
+(3, 6, 'validation de l\'email', '1'),
+(4, 5, 'ajouter des labels dans le fichier lang.php', '1'),
+(5, 5, 'ajouter des icone facebook, twitter google plus', '1'),
+(6, 5, 'ajouter logo', '1'),
+(7, 5, 'modifier logo', '1'),
+(8, 5, 'gerer les long adresse', '1'),
+(9, 4, 'Nombre etudiant par niveau', '1'),
+(10, 4, 'Somme des paiement non effectue', '1'),
+(11, 7, 'Ajouter manager et priorite', '1'),
+(12, 4, 'afficher les taches', '1'),
+(13, 8, 'Modifier employe : ajouter Radio button style  pour vacataire et employe', '1'),
+(14, 8, 'ajouter label:  _SALAIRE _MENSUELLE :  et _SALAIRE par _HEURS :', '1'),
+(15, 8, 'afficher retard et les absences et les conges d\'un employe dans son detail', '1'),
+(16, 8, 'afficher icon class juste pour les formateur', '1'),
+(17, 8, 'gere les class d\'un formateur : liste contient deux icon add (V) et remove(X)', '1'),
+(18, 10, 'ajouter le nombre de jour d\'un conge', '1'),
+(19, 11, 'Lister les avances', '1'),
+(20, 11, 'Ajouter avance', '1'),
+(21, 12, 'Ajouter paiement', '1'),
+(24, 4, 'ajouter des idee ici pour tableau de Bord', '1'),
+(25, 11, 'Modifier avance', '1'),
+(26, 11, 'annuler avance', '1'),
+(27, 12, 'Modifier  paiement', '1'),
+(28, 12, 'Supprimer Paiement', '1'),
+(29, 9, 'import database', '1'),
+(30, 9, 'export database', '1'),
+(31, 9, 'ajouter dans le menu', '1'),
+(32, 9, 'lister des version', '1'),
+(33, 3, 'lister le journal', '1'),
+(34, 3, 'ajouter dans le journal', '1'),
+(35, 13, 'comboBow Class change when we change Niveau or AnneScolaire', '1'),
+(36, 13, 'Geston des URL : on doit avoir comme   http://localhost/gestionEcole/modifier_eleves-13  instead of http://localhost/gestionEcole/modifier_eleves.php?eleves=13', '1'),
+(37, 14, 'changer lcione de fiche technik d\'un eleve', '1');
 
 -- --------------------------------------------------------
 
@@ -261,22 +323,21 @@ CREATE TABLE IF NOT EXISTS `employes` (
   `cnss` text,
   `banques` text,
   `rib` text,
+  `salaire_mensuelle` float NOT NULL,
+  `salaire_par_heurs` float NOT NULL,
   `sexe` text,
-  `situation_familiale` text,
-  `nationalite` text,
-  `cv` text,
-  `contrat` text,
-  `piece_identite` text,
   `politesse` text,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
 
 --
 -- Déchargement des données de la table `employes`
 --
 
-INSERT INTO `employes` (`id`, `cin`, `nom`, `prenom`, `tel`, `adresse`, `email`, `photo`, `fonction`, `isFormateur`, `isVacataire`, `date_embauche`, `date_arret`, `cnss`, `banques`, `rib`, `sexe`, `situation_familiale`, `nationalite`, `cv`, `contrat`, `piece_identite`, `politesse`) VALUES
-(1, 'HA132209', 'NomEmploye', 'prenomEmploye', '+2125634585555', 'adresse', 'a.maresqdfqkfq@qkjsdk.qdq', NULL, 'Directeur', 0, 0, '2018-10-01', NULL, '142365896', 'Banque populaire', '211111258455545445544', 'Masculin', 'Marie', 'Marocain', NULL, NULL, NULL, 'Mr.');
+INSERT INTO `employes` (`id`, `cin`, `nom`, `prenom`, `tel`, `adresse`, `email`, `photo`, `fonction`, `isFormateur`, `isVacataire`, `date_embauche`, `date_arret`, `cnss`, `banques`, `rib`, `salaire_mensuelle`, `salaire_par_heurs`, `sexe`, `politesse`) VALUES
+(1, 'HA132209', 'NomEmploye', 'prenomEmploye', '+2125634585555', 'adresse', 'a.maresqdfqkfq@qkjsdk.qdq', 'user.jpg', 'Directeur', 0, 0, '2018-10-01', NULL, '142365896', 'Banque populaire', '211111258455545445544', 0, 0, 'Masculin', 'Mr.'),
+(2, 'tev', 'prof', 'info', '+21254879633', 'sfsdfsdgd', 'ach@fdsf.sfgdfs', 'user.jpg', 'test', NULL, NULL, '2018-01-01', '2019-01-01', 'sdfqdfdsqfsqdf', '', '', 10000, 0, '1', '2'),
+(3, 'tev1', 'prof1', 'info1', '+212548796331', 'sfsdfsdgd1', 'ach@fdsf.sfgdfs1', 'user.jpg', 'test1', NULL, NULL, '2018-01-11', '2019-01-11', 'sdfqdfdsqfsqdf1', 'PB100', '11111111111', 0, 0, '1', '2');
 
 -- --------------------------------------------------------
 
@@ -292,7 +353,16 @@ CREATE TABLE IF NOT EXISTS `employes_classes` (
   PRIMARY KEY (`id`),
   KEY `id_eleves` (`id_employes`),
   KEY `id_classes` (`id_classes`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
+
+--
+-- Déchargement des données de la table `employes_classes`
+--
+
+INSERT INTO `employes_classes` (`id`, `id_employes`, `id_classes`) VALUES
+(1, 1, 1),
+(2, 2, 1),
+(3, 3, 2);
 
 -- --------------------------------------------------------
 
@@ -432,7 +502,7 @@ CREATE TABLE IF NOT EXISTS `paiements_eleves` (
   KEY `id_employes` (`id_eleves`),
   KEY `id_mode_paiements` (`id_mode_paiements`),
   KEY `id_annee_scolaires` (`id_annees_scolaire`)
-) ENGINE=InnoDB AUTO_INCREMENT=20 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=31 DEFAULT CHARSET=latin1;
 
 --
 -- Déchargement des données de la table `paiements_eleves`
@@ -443,16 +513,22 @@ INSERT INTO `paiements_eleves` (`id`, `id_eleves`, `id_mode_paiements`, `id_anne
 (16, 11, 1, 3, '2018-11-15', '12', '3000', 900),
 (17, 11, 1, 3, '2018-11-15', '1', '3000', 900),
 (18, 11, 1, 3, '2018-11-15', '2', '3000', 300),
-(19, 11, 1, 3, '2018-11-16', '2', 'fin du mois 2', 600);
+(19, 11, 1, 3, '2018-11-16', '2', 'fin du mois 2', 600),
+(25, 11, 1, 3, '2018-11-16', '0', 'full task', 1500),
+(26, 11, 1, 3, '2018-11-16', '3', 'full task', 500),
+(27, 11, 1, 3, '2018-11-24', '3', '6700', 900),
+(28, 11, 1, 3, '2018-11-24', '4', '6700', 900),
+(29, 11, 1, 3, '2018-11-24', '5', '6700', 900),
+(30, 11, 1, 3, '2018-11-24', '6', '6700', 900);
 
 -- --------------------------------------------------------
 
 --
--- Structure de la table `paiements_personnels`
+-- Structure de la table `paiements_employes`
 --
 
-DROP TABLE IF EXISTS `paiements_personnels`;
-CREATE TABLE IF NOT EXISTS `paiements_personnels` (
+DROP TABLE IF EXISTS `paiements_employes`;
+CREATE TABLE IF NOT EXISTS `paiements_employes` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `id_employes` int(11) NOT NULL,
   `id_mode_paiements` int(11) NOT NULL,
@@ -492,7 +568,7 @@ CREATE TABLE IF NOT EXISTS `retards_eleves` (
 --
 
 INSERT INTO `retards_eleves` (`id`, `id_eleves`, `id_classes`, `date_retards`, `nbr_heurs`, `justifier`, `motif`) VALUES
-(1, 11, 4, '2018-11-12', 24, 1, 'maladie'),
+(1, 11, 1, '2018-11-12', 24, 1, 'maladie'),
 (2, 11, 3, '2018-11-09', 18, 1, 'test'),
 (3, 12, 3, '2018-11-09', 24, 1, 'test'),
 (7, 12, 3, '2018-10-09', 2, 0, 'test 2'),
@@ -523,6 +599,40 @@ INSERT INTO `salles` (`id`, `nbr_place`, `libelle`, `type`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Structure de la table `tasks`
+--
+
+DROP TABLE IF EXISTS `tasks`;
+CREATE TABLE IF NOT EXISTS `tasks` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `description` text NOT NULL,
+  `taux` int(11) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM AUTO_INCREMENT=15 DEFAULT CHARSET=latin1;
+
+--
+-- Déchargement des données de la table `tasks`
+--
+
+INSERT INTO `tasks` (`id`, `description`, `taux`) VALUES
+(1, 'Gestion des caisse mensuelle', 0),
+(3, 'Gestion des Journaux', 0),
+(2, 'Gestion des charges et depenses', 0),
+(4, 'Gestion de DASHBOARD', 0),
+(5, 'Gestion d\'etablissement', 80),
+(6, 'Gestion des utilisateurs', 90),
+(7, 'Gestion des taches', 50),
+(8, 'Gestion des employes', 75),
+(9, 'Gestion de DATABASE', 0),
+(10, 'Gestion des conge', 90),
+(11, 'Gestion des avances', 0),
+(12, 'Paiement des employes', 20),
+(13, 'Autres', 0),
+(14, 'Gestion des eleves', 0);
+
+-- --------------------------------------------------------
+
+--
 -- Structure de la table `users`
 --
 
@@ -542,7 +652,7 @@ CREATE TABLE IF NOT EXISTS `users` (
 --
 
 INSERT INTO `users` (`id`, `id_employes`, `login`, `password`, `role`) VALUES
-(1, 1, 'achraf.saloumi@bmw.de', 'test', '1');
+(1, 1, 'achraf.saloumi@bmw.de', 'achtech', '1');
 
 --
 -- Contraintes pour les tables déchargées
@@ -619,12 +729,12 @@ ALTER TABLE `paiements_eleves`
   ADD CONSTRAINT `paiements_eleves_ibfk_3` FOREIGN KEY (`id_mode_paiements`) REFERENCES `mode_paiements` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
--- Contraintes pour la table `paiements_personnels`
+-- Contraintes pour la table `paiements_employes`
 --
-ALTER TABLE `paiements_personnels`
-  ADD CONSTRAINT `paiements_personnels_ibfk_1` FOREIGN KEY (`id_annees_scolaire`) REFERENCES `annees_scolaires` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  ADD CONSTRAINT `paiements_personnels_ibfk_2` FOREIGN KEY (`id_employes`) REFERENCES `employes` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  ADD CONSTRAINT `paiements_personnels_ibfk_3` FOREIGN KEY (`id_mode_paiements`) REFERENCES `mode_paiements` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+ALTER TABLE `paiements_employes`
+  ADD CONSTRAINT `paiements_employes_ibfk_1` FOREIGN KEY (`id_annees_scolaire`) REFERENCES `annees_scolaires` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  ADD CONSTRAINT `paiements_employes_ibfk_2` FOREIGN KEY (`id_employes`) REFERENCES `employes` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  ADD CONSTRAINT `paiements_employes_ibfk_3` FOREIGN KEY (`id_mode_paiements`) REFERENCES `mode_paiements` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
 -- Contraintes pour la table `users`

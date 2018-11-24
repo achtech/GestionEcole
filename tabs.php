@@ -4,6 +4,7 @@ $tab_salles = array(
 					_COURS,
 					_ACTIVITES
 					);
+
 $tab_politesse = array(
 					1=>"Melle",
 					"Madame",
@@ -32,6 +33,12 @@ $tab_etats = array(
 				    1=>"Ouvert",
 					"Accepter",
 					"Cloturer"
+					);
+
+$tab_status = array(
+				    1=>"TODO",
+					"IN PROGRESS",
+					"DONE"
 					);
 
 $tab_mois = array(

@@ -32,7 +32,7 @@
                             <div class="card">
                                 <div class="body">
                                     <div class="row clearfix">
-                                      <div class="col-sm-4">
+                                      <div class="col-sm-3">
                                             <label for="nbr_place"><?php echo _ANNEES ?> <?php echo _SCOLAIRES ?> : </label>
                                             <div class="form-group">
                                                 <div class="form-line">
@@ -40,7 +40,7 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="col-sm-4">
+                                        <div class="col-sm-3">
                                             <label for="email_address"><?php echo _NIVEAUX ?> : </label>
                                             <div class="form-group">
                                                 <div class="form-line">
@@ -48,7 +48,7 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="col-sm-4">
+                                        <div class="col-sm-3">
                                             <label for="email_address"><?php echo _CLASSES ?> : </label>
                                             <div class="form-group">
                                                 <div class="form-line">
@@ -57,7 +57,13 @@
                                             </div>
                                         </div>
 
-                                        <input type="submit" class="btn btn-primary m-t-15 waves-effect" value="<?php echo _RECHERCHER ?>" />
+                                        <div class="col-sm-3">
+                                            <div class="form-group">
+                                                
+                                                     <input type="submit" class="btn btn-primary m-t-15 waves-effect" value="<?php echo _RECHERCHER ?>" />
+                                                
+                                            </div>
+                                        </div>
                     			</div>
                             </div>
                         </div>
