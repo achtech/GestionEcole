@@ -158,11 +158,6 @@
 								                </a>
 												
 												&nbsp;
-								            	<a href="paiements_eleves.php?eleves=<?php echo $ligne['id'] ?>" class="paiements2" title="Paiement">
-													&nbsp;
-								                </a>
-												
-												&nbsp;
 											    <a href="#ancre" 
 								                class="supprimer2" 
 								                onclick="javascript:supprimer(

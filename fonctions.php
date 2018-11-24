@@ -2049,4 +2049,23 @@ function getMontantAPayer($id_eleves){
 	}
 	return $fraisApayer - $montantPayer;
 }
+
+function paiementsNonPaye($id_annees_scolaire){
+
+	$sql = "select * from eleves where id in (select ec.id_eleves from eleves_classes ec , classes c where ec.id_classes=c.id and c.id_annees_scolaire=".$id_annees_scolaire.")";
+	$res = doQuery($sql);
+
+	$tab =[];
+	$i = 0;
+	while ($ligne = mysql_fetch_array($res)){
+		$montant = getMontantAPayer($ligne['id']);
+		if($montant>0){
+			$tab[$i][0]=$ligne['id'];
+			$tab[$i][1]=$ligne['nom']." ".$ligne['prenom'];
+			$tab[$i][2]=$montant;
+			$i=$i+1;
+		}
+	}
+	return $tab;
+}
 ?>
