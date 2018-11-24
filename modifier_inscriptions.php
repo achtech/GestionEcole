@@ -7,7 +7,7 @@
                 </h2>
             </div>
             <!-- Vertical Layout -->
-            <form action="" name="f1" method="post"  >
+            <form action="" name="f1" method="get"  >
                 <?php 
                     $idInscription = getLastInscription($_REQUEST['eleves']);
                 ?>
@@ -28,7 +28,7 @@
                     }else{
                         $id_classes=isset($_REQUEST['id_classes'])?$_REQUEST['id_classes']:getValeurChamp('id_classes','inscriptions','id',$idInscription);
                         $id_niveaux=isset($_REQUEST['id_niveaux'])?$_REQUEST['id_niveaux']:!empty($id_classes)?getValeurChamp('id_niveaux','classes','id',$id_classes):'';
-                        $id_annees_scolaire=isset($_REQUEST['id_annees_scolaire'])?$_REQUEST['id_annees_scolaire']:!empty($id_classes)?getValeurChamp('id_annees_scolaire','classes','id',$id_classes):'';                        
+                        $id_annees_scolaire=isset($_REQUEST['id_annees_scolaire'])?$_REQUEST['id_annees_scolaire']:getValeurChamp('id_annees_scolaire','inscriptions','id',$idInscription);                        
                     }
                 ?>
                  <div class="row clearfix">
@@ -57,7 +57,7 @@
                                             <label for="email_address"><?php echo _CLASSES ?> : </label>
                                             <div class="form-group">
                                                 <div class="form-line">
-<?php  echo getTableList('classes','id_classes', $id_classes,'libelle','onchange="document.f1.submit()"',isset($_REQUEST['id_niveaux']) && isset($_REQUEST['id_annees_scolaire'])?' where id_niveaux='.$_REQUEST['id_niveaux'].' and id_annees_scolaire='.$_REQUEST['id_annees_scolaire']:'','id_classes') ?>
+<?php  echo getTableList('classes','id_classes', $id_classes,'libelle','',isset($_REQUEST['id_niveaux'])?' where id_niveaux='.$_REQUEST['id_niveaux']:'','id_classes') ?>
                                                 </div>
                                             </div>
                                         </div>
@@ -72,7 +72,7 @@
                 
                      $id_classes = (isset($_REQUEST['id_classes']) && !empty($_REQUEST['id_classes']))?$_REQUEST['id_classes']:getValeurChamp('id_classes','inscriptions','id',$idInscription);
                      $id_niveaux = (isset($_REQUEST['id_niveaux']) && !empty($_REQUEST['id_niveaux']))?$_REQUEST['id_niveaux']:getValeurChamp('id_niveaux','classes','id',$id_classes);
-                     $id_annees_scolaire = (isset($_REQUEST['id_annees_scolaire']) && !empty($_REQUEST['id_annees_scolaire']))?$_REQUEST['id_classes']:getValeurChamp('id_annees_scolaire','classes','id',$id_classes);
+                     $id_annees_scolaire = (isset($_REQUEST['id_annees_scolaire']) && !empty($_REQUEST['id_annees_scolaire']))?$_REQUEST['id_annees_scolaire']:getValeurChamp('id_annees_scolaire','inscriptions','id',$idInscription);
 
                 ?>
 

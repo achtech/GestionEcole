@@ -28,9 +28,7 @@
                         $id_classes=isset($_REQUEST['id_classes'])?$_REQUEST['id_classes']:'';
                         $id_niveaux=isset($_REQUEST['id_niveaux'])?$_REQUEST['id_niveaux']:'';    
                         $id_annees_scolaire=isset($_REQUEST['id_annees_scolaire'])?$_REQUEST['id_annees_scolaire']:'';
-                    }
-                    if(isset($_REQUEST['id_niveaux']) && isset($_REQUEST['id_annees_scolaire']) && !empty($_REQUEST['id_niveaux']) && !empty($_REQUEST['id_annees_scolaire'])){
-                    	 $whereClass = ' where id_niveaux='.$_REQUEST['id_niveaux'].' and id_annees_scolaire='.$_REQUEST['id_annees_scolaire'];
+                        $whereClass = ' where id_niveaux='.$_REQUEST['id_niveaux'];
                     }
                 ?>
                  <div class="row clearfix">
@@ -76,16 +74,18 @@
                           <div class="body">
                             <div class="table-responsive">
                             	<?php 
-                            	$whereEleves ="";
+                            	$whereEleves ="where 1=1";
                             	if(isset($_REQUEST['id_classes']) && !empty($_REQUEST['id_classes'])){
-                            		$whereEleves = "where id in(select id_eleves from inscriptions where id_classes=".$_REQUEST['id_classes'].")";
-                            	} elseif (isset($_REQUEST['id_niveaux']) && !empty($_REQUEST['id_niveaux'])) {
-                            		$whereEleves = "where id in(select id_eleves from inscriptions where id_classes in(select id from classes where id_niveaux=".$_REQUEST['id_niveaux']."))";
-                            	} elseif (isset($_REQUEST['id_annees_scolaire']) && !empty($_REQUEST['id_annees_scolaire'])) {
-                            		$whereEleves = "where id in(select id_eleves from inscriptions where id_classes in(select id from classes where id_annees_scolaire=".$_REQUEST['id_annees_scolaire']."))";
-                            	} else {
+                            		$whereEleves = $whereEleves." and id in(select id_eleves from inscriptions where id_classes=".$_REQUEST['id_classes'].")";
+                            	} 
+                                if (isset($_REQUEST['id_niveaux']) && !empty($_REQUEST['id_niveaux'])) {
+                            		$whereEleves = $whereEleves." and id in(select id_eleves from inscriptions where id_classes in(select id from classes where id_niveaux=".$_REQUEST['id_niveaux']."))";
+                            	} if (isset($_REQUEST['id_annees_scolaire']) && !empty($_REQUEST['id_annees_scolaire'])) {
+                            		$whereEleves = $whereEleves." and  id in(select id_eleves from inscriptions where id_annees_scolaire=".$_REQUEST['id_annees_scolaire'].")";
+                            	} 
+                                if($whereEleves == "where 1=1") {
                             		$id_annees_scolaire = getCurrentAnneesScolaires();
-                            		$whereEleves = "where id in(select id_eleves from inscriptions where id_classes in(select id from classes where id_annees_scolaire=".$id_annees_scolaire."))";
+                            		$whereEleves = "where id in(select id_eleves from inscriptions where id_annees_scolaire=".$id_annees_scolaire.")";
                             	}
 									 $sql = "select * from eleves ".$whereEleves." order by id";		
 		

@@ -179,7 +179,7 @@
                                 ?>
                             <tr>
                                 <td>
-                                    <?php echo getValeurChamp('libelle','annees_scolaires','id',getValeurChamp('id_annees_scolaire','classes','id',$ligne['id_classes'])) ?>
+                                    <?php echo getValeurChamp('libelle','inscriptions','id',$ligne['id_annees_scolaire']) ?>
                             </td><td>
                                     <?php echo getValeurChamp('libelle','niveaux','id',getValeurChamp('id_niveaux','classes','id',$ligne['id_classes'])) ?>
                             </td><td>

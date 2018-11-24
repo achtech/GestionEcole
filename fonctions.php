@@ -375,7 +375,7 @@ function Modification($table,$tab_champs,$tab_requetes,$id_nom,$id_valeur){
 	}	
 		
 	if($champs_mod!=''){
-		echo $sql="update ".$table." set ".$champs_mod." where ".$where." ";
+		$sql="update ".$table." set ".$champs_mod." where ".$where." ";
 	}	
 	return $bool = doQuery($sql) or die("ERREUR MODIFICATION CAT : ".mysql_error());
 }
@@ -2027,8 +2027,8 @@ function addPaiement($req,$mon,$frais){
 }
 
 function getMontantAPayer($id_eleves){
-	 $idInscription = getLastInscription($id_eleves);
-	$id_annees_scolaire = getValeurChamp('id_annees_scolaire','classes','id',getValeurChamp('id_classes','inscriptions','id',$idInscription));
+	$idInscription = getLastInscription($id_eleves);
+	$idAnneScolaire = getValeurChamp('id_annees_scolaire','classes','id',getValeurChamp('id_classes','inscriptions','id',$idInscription));
 	$fraisInscription = getValeurChamp('frais_inscription','inscriptions','id',$idInscription);
 	$fraisMensuelle = getValeurChamp('frais_mensuelle','inscriptions','id',$idInscription);
 	$nbrMonth = 0;
@@ -2042,19 +2042,21 @@ function getMontantAPayer($id_eleves){
 	}
 	$nbrMonth = $nbrMonth + 1;
 	$fraisApayer = $nbrMonth*$fraisMensuelle + $fraisInscription;
-	$sql = "select sum(montant) as sommeP from paiements_eleves where id_annees_scolaire=".$id_annees_scolaire." and id_eleves=".$id_eleves;
+	$sql = "select sum(montant) as sommeP from paiements_eleves where  id_eleves=".$id_eleves;
 	$res = doQuery($sql);
 
 	$montantPayer =0;
 	while ($ligne = mysql_fetch_array($res)){
-		$montantPayer = $ligne['sommeP'];
+		if($ligne['id_annees_scolaire']==$idAnneScolaire){
+			$montantPayer = $montantPayer+$ligne['sommeP'];
+		}
 	}
 	return $fraisApayer - $montantPayer;
 }
 
 function paiementsNonPaye($id_annees_scolaire){
 
-	$sql = "select * from eleves where id in (select ec.id_eleves from eleves_classes ec , classes c where ec.id_classes=c.id and c.id_annees_scolaire=".$id_annees_scolaire.")";
+	$sql = "select * from eleves where id in (select id_eleves from inscriptions where id_annees_scolaire=".$id_annees_scolaire.")";
 	$res = doQuery($sql);
 
 	$tab =[];
