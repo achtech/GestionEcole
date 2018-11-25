@@ -1,15 +1,10 @@
+<?php $categorie=4;$page="logs"; ?>
 <?php require_once('header.php'); ?>  
 <?php require_once('menu.php'); ?>
             <div class="block-header">
                 <h2>
-                    <?php echo _GESTION ?> <?php echo _NIVEAUX ?>
-                </h2>
-                <div> 
-                    	<a href="ajouter_niveaux.php" class="ajouter">
-			        		<?php echo _AJOUTER ?> <?php echo _NIVEAUX ?> 
-			    		 </a>		
-				</div>
- 
+                    <?php echo _GESTION ?> <?php echo _JOURNAL ?>
+                </h2> 
             </div>
 <!-- Exportable Table -->
             <div class="row clearfix">
@@ -18,7 +13,7 @@
                           <div class="body">
                             <div class="table-responsive">
                             	<?php 
-									$sql = "select * from niveaux order by id";		
+									$sql = "select * from logs order by id";		
 									$res = doQuery($sql);
 
 									$nb = mysql_num_rows($res);
@@ -32,15 +27,17 @@
                                 <table class="table table-bordered table-striped table-hover dataTable js-exportable">
                                     <thead>
                                         <tr>
+                                            <th><?php echo _DATE ?></th>
                                             <th><?php echo _NOM ?></th>
-											<th class="op"> <?php echo _OP ?> </th>
+                                            <th><?php echo _DESCRIPTION ?></th>
                                         </tr>
                                     </thead>
                                     <tfoot>
                                         <tr>
+
+                                            <th><?php echo _DATE ?></th>
                                             <th><?php echo _NOM ?></th>
-											<th class="op"> <?php echo _OP ?> </th>
-                                        </tr>
+                                            <th><?php echo _DESCRIPTION ?></th>                                        </tr>
                                     </tfoot>
                                     <tbody>
                                     	<?php 
@@ -55,33 +52,15 @@
 											?>
                                         <tr>
                                             <td>
-								            	<a href="classes.php?niveaux=<?php echo $ligne['id'] ?>">
-													<?php echo $ligne['libelle'] ?>
-								                </a>
+													<?php echo $ligne['date_operation'] ?>
 								            </td>
-											
-											<td class="op">
-												<a href="modifier_niveaux.php?niveaux=<?php echo $ligne['id'] ?>" class="modifier2">
-													&nbsp;
-								                </a>
-												
-												&nbsp;
-												
-								                <a href="#ancre" 
-								                class="supprimer2" 
-								                onclick="javascript:supprimer(
-								                							'niveaux',
-								                                            '<?php echo $ligne['id'] ?>',
-								                                            'niveaux.php',
-								                                            '1',
-								                                            '1')
-														" 
-												title="<?php echo _SUPPRIMER ?>">
-								                	
-								                    &nbsp;
-								                </a>
-											</td>
-                                        </tr>
+                                            <td>
+													<?php echo getValeurChamp('nom','employes','id',getValeurChamp('id_employes','users','id',$ligne['id_users']))." ".getValeurChamp('prenom','employes','id',getValeurChamp('id_employes','users','id',$ligne['id_users'])) ?>
+								            </td>
+                                            <td>
+													<?php echo $ligne['description'] ?>
+								            </td>
+										</tr>
                                         <?php
 											$i++; 
 										}

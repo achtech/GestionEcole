@@ -291,7 +291,6 @@ define('_FEMININ','Feminin');
 define('_MASCULIN','Masculin');
 define('_MEDECINS','M&eacute;decin(s)');
 define('_ACTIVES','Active(s)');
-define('_PREINSCRIPTION','Pr&eacute;-inscription(s)');
 define('_NOTES','Note(s)');
 define('_RESULTATS','Resultat(s)');
 define('_INSCRIPTIONS','Inscription(s)');
