@@ -145,7 +145,7 @@
               <div class="body">
                 <div class="table-responsive">
                     <?php 
-                        $sql = "select * from inscriptions where id_eleves=".$_REQUEST['eleves']." order by id";      
+                        $sql = "select * from inscriptions where id_eleves=".$_REQUEST['eleves']." order by id";    
                         $res = doQuery($sql);
 
                         $nb = mysql_num_rows($res);
@@ -179,7 +179,7 @@
                                 ?>
                             <tr>
                                 <td>
-                                    <?php echo getValeurChamp('libelle','inscriptions','id',$ligne['id_annees_scolaire']) ?>
+                                    <?php echo getValeurChamp('libelle','annees_scolaires','id',$ligne['id_annees_scolaire']) ?>
                             </td><td>
                                     <?php echo getValeurChamp('libelle','niveaux','id',getValeurChamp('id_niveaux','classes','id',$ligne['id_classes'])) ?>
                             </td><td>

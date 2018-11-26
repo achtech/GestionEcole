@@ -168,8 +168,9 @@
 												
 												&nbsp;
 												
-								            	<a href="detail_eleves.php?eleves=<?php echo $ligne['id'] ?>" class="details2" title="Fiche technique">
-													&nbsp;
+								            	<a href="detail_eleves.php?eleves=<?php echo $ligne['id'] ?>" title="Fiche technique">
+													<i class="material-icons" style="font-size:20px;">folder</i>
+                                                    
 								                </a>
 												
 												&nbsp;
