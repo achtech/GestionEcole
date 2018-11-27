@@ -14,18 +14,18 @@ connect ();
 $tab_table = split(',',$_REQUEST['table']);
 $table=$tab_table[0];
 
-$action = $_REQUEST['act'];
+$action = isset($_REQUEST['act']) && !empty($_REQUEST['act'])?$_REQUEST['act']:"";
 
-$id_valeur = $_REQUEST['id_valeur'];
-$id_retour = $_REQUEST['id_retour'];
-$id_noms_retour = $_REQUEST['id_noms_retour'];
-$id_valeurs_retour = $_REQUEST['id_valeurs_retour'];
+$id_valeur = isset($_REQUEST['id_valeur']) && !empty($_REQUEST['id_valeur']) ? $_REQUEST['id_valeur'] :"";
+$id_retour = isset($_REQUEST['id_retour']) && !empty($_REQUEST['id_retour']) ? $_REQUEST['id_retour'] :"";
+$id_noms_retour = isset($_REQUEST['id_noms_retour']) && !empty($_REQUEST['id_noms_retour']) ? $_REQUEST['id_noms_retour']:"";
+$id_valeurs_retour = isset($_REQUEST['id_valeurs_retour']) && !empty($_REQUEST['id_valeurs_retour']) ? $_REQUEST['id_valeurs_retour']:"";
 
 $chaine_retour = formuler_retour($id_noms_retour,$id_valeurs_retour);
 
-$page = $_REQUEST['page'];
-$champ_modif=$_REQUEST['champ_modif'];
-$valeur_modif=$_REQUEST['valeur_modif'];
+$page = isset($_REQUEST['page']) && !empty($_REQUEST['page']) ? $_REQUEST['page']: "";
+$champ_modif=isset($_REQUEST['champ_modif']) && !empty($_REQUEST['champ_modif'])? $_REQUEST['champ_modif']: "";
+$valeur_modif=isset($_REQUEST['valeur_modif']) && !empty($_REQUEST['valeur_modif']) ? $_REQUEST['valeur_modif'] : "";
 
 //AJOUT
 if ($action == "a"){	
@@ -61,6 +61,7 @@ if ($action == "a"){
 		$var[$i]= Ajout($tab_table[$i],getNomChamps($tab_table[$i]),$_REQUEST);
 		$identif=mysql_insert_id(); 
 		$_REQUEST['id_'.$tab_table[$i]]=mysql_insert_id(); 
+		writeInLogs($_SESSION['employeId'],"Ajouter l element ".$identif." de la table ".$tab_table[0]);
 		
 		if(isset($_FILES['photo']) and getChamp($tab_table[$i], "image")){
 			$retour2 = upload_image($tab_table[$i],$_FILES['photo'],$identif);
@@ -196,6 +197,7 @@ if ($action == "ajouter_eleves"){
 		$sql2  ="insert into inscriptions(num_inscription,date_inscription,id_eleves,id_classes,frais_inscription,frais_mensuelle) values(".$_REQUEST['num_inscription'].",'".date('Y-m-d')."',".$identif.",".$_REQUEST['id_classes'].",".$_REQUEST['frais_inscription'].",".$_REQUEST['frais_mensuelle'].")";
 		doQuery($sql2);
 		doQuery("COMMIT");
+		writeInLogs($_SESSION['employeId'],"Inscription du nouveau eleve ".$_REQUEST['nom']." ".$_REQUEST['prenom']);
 		
 		if(isset($_FILES['photo']) and getChamp($tab_table[$i], "image")){
 			$retour2 = upload_image($tab_table[$i],$_FILES['photo'],$identif);
@@ -292,6 +294,8 @@ if ($action == "m"){
 	for($i=0;$i<sizeof($tab_table);$i++){ 
 	 	$var[$i] = Modification($tab_table[$i],getNomChamps($tab_table[$i]),$_REQUEST,$id_nom,$id_valeur);
 		
+		writeInLogs($_SESSION['employeId'],"Modifier l element ".$_REQUEST['id']." de la table ".$tab_table[0]);
+
 		if(isset($_FILES['photo'])){
 			$retour2 = upload_image($tab_table[$i],$_FILES['photo'],$id_valeur);
 			unset($_FILES);
@@ -428,6 +432,8 @@ if ($action == "s"){
 	}
 	
 	$retour1=Suppression($table,$id_valeur);
+	writeInLogs($_SESSION['employeId'],"Supprimer l element ".$id_valeur." de la table ".$table);
+
 	
 	if ($table == "mi_messages_pieces_jointes"){
 		unlink($fichier);
@@ -627,6 +633,7 @@ if ($action == 'conexion')
 	{
 		 $_SESSION['employe']=$ligne;
 		 $_SESSION['employeId']=$ligne['id_employes'];
+		 writeInLogs($ligne['id_employes'],"Login :".getValeurChamp('nom','employes','id',$ligne['id_employes'])." ".getValeurChamp('prenom','employes','id',$ligne['id_employes']));
 		redirect("index.php");
 	}else{
 		redirect("log-in.php?msg_retour=login or mot de passe erronee");

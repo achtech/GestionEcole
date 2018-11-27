@@ -145,7 +145,7 @@
               <div class="body">
                 <div class="table-responsive">
                     <?php 
-                        $sql = "select * from inscriptions where id_eleves=".$_REQUEST['eleves']." order by id";      
+                        $sql = "select * from inscriptions where id_eleves=".$_REQUEST['eleves']." order by id";    
                         $res = doQuery($sql);
 
                         $nb = mysql_num_rows($res);

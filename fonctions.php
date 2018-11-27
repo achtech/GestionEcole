@@ -190,7 +190,7 @@ function Suppression($table,$valeur){
 }
 
 function formuler_retour($noms,$valeurs){
-
+	$chaine = "";
 	if (($noms != "") and ($valeurs != "")){
 		$tab_noms = explode(',',$noms);
 		$tab_valeurs = explode(',',$valeurs);
@@ -2025,6 +2025,7 @@ function getSumMontantEleveAnneScolaire($idEleves,$idAnneScolaire,$mois){
 function addPaiement($req,$mon,$frais){
 	$sql = "INSERT INTO `paiements_eleves` ( `id_eleves`, `id_mode_paiements`, `id_annees_scolaire`, `date_paiements`, `mois`, `motif`, `montant`) VALUES ( '".$req['id_eleves']."','".$req['id_mode_paiements']."', '".$req['id_annees_scolaire']."', '".$req['date_paiements']."', '".$mon."', '".$req['motif']."', '".$frais."')";
     $res = doQuery($sql);
+    writeInLogs($_SESSION['employeId'],"Ajouter paiements pour l eleve : ".getValeurChamp('nom','eleves','id',$req['id_eleves'])." ".getValeurChamp('prenom','eleves','id',$req['id_eleves']).",montant : ".$frais." du mois :".$mon);
 }
 
 function getMontantAPayer($id_eleves){
@@ -2104,23 +2105,13 @@ function getmontantInscription($idEleves,$idAnneScolaire){
 	}
 	return $tot;
 }
-
-function getNombreJour($d1,$d2){
-		$dureesejour = (strtotime($d2) - strtotime($d1));
-		return $dureesejour/(60*60*24);
-}
-
-function getClass($idEleves,$idAnneScolaire){
-	$sql = "SELECT * FROM `inscriptions` WHERE `id_eleves`=".$idEleves;
+/**
+* @param $idUser
+* @param $description 
+*/
+function writeInLogs($idUser,$description){
+	$dateOperation = date('Y-m-d H:i:s');
+	$sql="INSERT INTO logs(id_users,date_operation,description) VALUES (".$idUser.",'".$dateOperation."','".$description."')";
 	$res = doQuery($sql);
-
-	$idClasses =0;
-	$i = 0;
-	while ($ligne = mysql_fetch_array($res)){
-		if($ligne['id_annees_scolaire']==$idAnneScolaire){
-			$idClasses=$ligne['id_classes'];
-		}
-	}
-	return $idClasses;
 }
 ?>
