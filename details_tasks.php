@@ -15,6 +15,12 @@
  					$where = " where id_tasks=".$_REQUEST['tasks'];
  				} ?>
             </div>
+                <?php if(isset($_REQUEST['priorite']) && !empty($_REQUEST['priorite'])){ 
+                	$where = " where priorite=".$_REQUEST['priorite'];
+                } ?>
+                <?php if(isset($_REQUEST['status']) && !empty($_REQUEST['status'])){ 
+                	$where = " where status=".$_REQUEST['status'];
+                } ?>
 <!-- Exportable Table -->
             <div class="row clearfix">
                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
@@ -37,6 +43,7 @@
                                     <thead>
                                         <tr>
                                             <th><?php echo _PRIORITE ?></th>
+                                            <th><?php echo _TASKS ?></th>
                                             <th><?php echo _DESCRIPTION ?></th>
                                             <th><?php echo _STATUS ?></th>
                                             <th><?php echo _MANAGER ?></th>
@@ -46,6 +53,7 @@
                                     <tfoot>
                                         <tr>
                                         	<th><?php echo _PRIORITE ?></th>
+                                        	<th><?php echo _TASKS ?></th>
                                             <th><?php echo _DESCRIPTION ?></th>
                                             <th><?php echo _STATUS ?></th>
                                             <th><?php echo _MANAGER ?></th>
@@ -66,6 +74,9 @@
                                         <tr>
                                             <td>
 													<?php echo $tab_priorite[$ligne['priorite']] ?>
+								            </td>                                            
+								            <td>
+													<?php echo getValeurChamp('description','tasks','id',$ligne['id_tasks']) ?>
 								            </td>                                            
 								            <td>
 													<?php echo $ligne['description'] ?>

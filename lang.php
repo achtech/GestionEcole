@@ -23,6 +23,7 @@ define('_COURS','Cours');
 define('_STATUS','Status');
 define('_MANAGER','Manager');
 define('_PRIORITE','Priorite');
+define('_ALL','All');
 
 define('_DOSSIER','Dossier');
 define('_CLASSES','CLasses');

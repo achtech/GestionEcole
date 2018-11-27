@@ -6,16 +6,56 @@
                     <?php echo _GESTION ?> <?php echo _TASKS ?>
                 </h2>
                 <div> 
-                    	<a href="details_tasks.php" class="ajouter">
+                    	<a href="details_tasks.php" class="detail">
 			        		<?php echo _ALL ?> <?php echo _TASKS ?> 
-			    		 </a>		
-                    	<a href="ajouter_task.php" class="ajouter">
+			    		 </a>
+			    		</div>
+			    		 <div><a href="ajouter_task.php" class="ajouter">
 			        		<?php echo _AJOUTER ?> <?php echo _TASKS ?> 
 			    		 </a>		
 				</div>
  
             </div>
 <!-- Exportable Table -->
+            <div class="row clearfix">
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                    <div class="card">
+                        <div class="body">
+                            <div class="row clearfix">
+                                <div class="col-xs-6 col-sm-6 col-md-4 col-lg-4">
+                                    <button class="btn btn-success btn-lg btn-block waves-effect"  onclick="document.location.href='details_tasks.php?status=3'" type="button">DONE <span class="badge"><?php echo getNb('detail_tasks','status','3') ?></span></button>
+                                </div>
+                                <div class="col-xs-6 col-sm-6 col-md-4 col-lg-4">
+                                    <button class="btn btn-primary btn-lg btn-block waves-effect" type="button"  onclick="document.location.href='details_tasks.php?status=2'">IN PROGRESS <span class="badge"><?php echo getNb('detail_tasks','status','2') ?></span></button>
+                                </div>
+                                <div class="col-xs-6 col-sm-6 col-md-4 col-lg-4">
+                                    <button class="btn btn-danger btn-lg btn-block waves-effect" type="button"  onclick="document.location.href='details_tasks.php?status=1'">TODO <span class="badge"><?php echo getNb('detail_tasks','status','1') ?></span></button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row clearfix">
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                    <div class="card">
+                        <div class="body">
+                            <div class="row clearfix">
+                                <div class="col-xs-6 col-sm-6 col-md-4 col-lg-4">
+                                    <button class="btn btn-success btn-lg btn-block waves-effect" type="button" onclick="document.location.href='details_tasks.php?priorite=3'">High <span class="badge"><?php echo getNb('detail_tasks','priorite','3') ?></span></button>
+                                </div>
+                                <div class="col-xs-6 col-sm-6 col-md-4 col-lg-4">
+                                    <button class="btn btn-primary btn-lg btn-block waves-effect" type="button"  onclick="document.location.href='details_tasks.php?priorite=2'">Medium  <span class="badge"><?php echo getNb('detail_tasks','priorite','2') ?></span></button>
+                                </div>
+                                <div class="col-xs-6 col-sm-6 col-md-4 col-lg-4">
+                                    <button class="btn btn-danger btn-lg btn-block waves-effect"  onclick="document.location.href='details_tasks.php?priorite=1'" type="button">Low <span class="badge"><?php echo getNb('detail_tasks','priorite','1') ?></span></button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
             <div class="row clearfix">
                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                     <div class="card">

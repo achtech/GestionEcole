@@ -36,6 +36,7 @@
                                             <th><?php echo _DATE." "._DEMANDE ?></th>
                                             <th><?php echo _DATE." "._DEBUT ?></th>
                                             <th><?php echo _DATE." "._FIN ?></th>
+                                            <th><?php echo _NB." "._JOUR ?></th>
                                             <th><?php echo _SANS." "._SOLDE ?></th>
                                             <th><?php echo _VALIDER ?></th>
                                             <th><?php echo _MOTIF ?></th>
@@ -49,6 +50,7 @@
                                             <th><?php echo _DATE." "._DEMANDE ?></th>
                                             <th><?php echo _DATE." "._DEBUT ?></th>
                                             <th><?php echo _DATE." "._FIN ?></th>
+                                            <th><?php echo _NB." "._JOUR ?></th>
                                             <th><?php echo _SANS." "._SOLDE ?></th>
                                             <th><?php echo _VALIDER ?></th>
                                             <th><?php echo _MOTIF ?></th>
@@ -72,6 +74,7 @@
 <td><?php echo $ligne['date_demande'] ?></td>
 <td><?php echo $ligne['date_debut'] ?></td>
 <td><?php echo $ligne['date_fin'] ?></td>
+<td><?php echo getNombreJour($ligne['date_debut'], $ligne['date_fin']) ?></td>
 <?php $chV=$ligne['valider']==1?"checked":"";$chSS=$ligne['sans_solde']==1?"checked":""; ?>
 <td><input type="checkbox" disabled="disabled" <?php echo $chSS ?> id="ch1" class="filled-in chk-col-red" /><label for="ch1"></label></td>
 <td><input type="checkbox" disabled="disabled" <?php echo $chV ?>  id="ch2" class="filled-in chk-col-green"/><label for="ch2"></label></td>

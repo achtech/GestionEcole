@@ -875,7 +875,7 @@ function getSum($table,$colonne,$champ,$id){
 	
 	//
 	//echo "______<br>";
-echo	$sql_get = "
+	$sql_get = "
 			select sum(". $colonne .") as total 
 			
 			from ". $table ."
@@ -937,7 +937,7 @@ function getTimeByDate($date,$sep){
 
 //fonction de pagination
 //recuperer le nombre de page en fonction du nombre de message que nous avons défini
-
+/*
 function getNbrPages($requete,$messagesParPage){
 		connect ();
 		selectDb ();
@@ -950,7 +950,7 @@ function getNbrPages($requete,$messagesParPage){
 		return $nombreDePages;
 }
 
-
+*/
 //recuperer le numero de la page actuelle
 function getPageActuelle($nombreDePages){
 		if(isset($_GET['page'])) // Si la variable $_GET['page'] existe...
@@ -1154,7 +1154,7 @@ function getPrixTtc($prix,$taux){
 
 
 function getTableList($table,$nom,$valeur,$champ,$change,$where,$libelle,$update){
-	
+	//echo $table."<br>".$nom."<br>".$valeur."<br>".$champ."<br>".$change."<br>".$where."<br>".$libelle."<br>".$update."<br>";
 	$sql = "select * from ". $table ." ". $where ." order by ". $champ;
 	$res = doQuery($sql);
 	?>
@@ -1985,7 +1985,7 @@ function getCurrentAnneesScolaires(){
 
 function getIdInscription($idEleves,$idAnneScolaire){
 
-	$sql = "select id from inscriptions where id_eleves=".$idEleves." and id_classes in (select id from classes where id_annees_scolaire=".$idAnneScolaire.")" ;
+	$sql = "select id from inscriptions where id_eleves=".$idEleves." and  id_annees_scolaire=".$idAnneScolaire ;
 	$res = doQuery($sql);
 	$nb = mysql_num_rows($res);
 
@@ -2003,14 +2003,15 @@ function getIdInscription($idEleves,$idAnneScolaire){
 }
 
 function getSumMontantEleveAnneScolaire($idEleves,$idAnneScolaire,$mois){
-	$sql="select sum(montant) as tot from paiements_eleves where id_eleves=".$idEleves."  and mois=".$mois;
+ 
+ $sql="select sum(montant) as tot,id_annees_scolaire from paiements_eleves where id_eleves=".$idEleves."  and mois=".$mois;
 	$res = doQuery($sql);
 	$nb = mysql_num_rows($res);
 
 	$tot =0;
 	while ($ligne = mysql_fetch_array($res)){
 		if($ligne['id_annees_scolaire']==$idAnneScolaire){
-			$tot=$tot+$ligne['montant'];
+			$tot=$tot+$ligne['tot'];
 		}
 	}
 	$result = array();
@@ -2028,21 +2029,22 @@ function addPaiement($req,$mon,$frais){
 
 function getMontantAPayer($id_eleves){
 	$idInscription = getLastInscription($id_eleves);
-	$idAnneScolaire = getValeurChamp('id_annees_scolaire','classes','id',getValeurChamp('id_classes','inscriptions','id',$idInscription));
+	$idAnneScolaire = getValeurChamp('id_annees_scolaire','inscriptions','id',$idInscription);
 	$fraisInscription = getValeurChamp('frais_inscription','inscriptions','id',$idInscription);
 	$fraisMensuelle = getValeurChamp('frais_mensuelle','inscriptions','id',$idInscription);
-	$nbrMonth = 0;
+	$nbrMonth = 1;
 	$moisInscription = split("-",getValeurChamp('date_inscription','inscriptions','id',$idInscription))[1];
 	$mm = intval($moisInscription);
-	$mm  = $mm<9 ?9:$m; 
+	$mm  = $mm<9 ?9:$mm;
+	
 	while ($mm!=date("m")) {
 		$nbrMonth = $nbrMonth + 1;
 		$mm=$mm+1;
 		$mm = $mm==13?1:$mm;
 	}
-	$nbrMonth = $nbrMonth + 1;
+	
 	$fraisApayer = $nbrMonth*$fraisMensuelle + $fraisInscription;
-	$sql = "select sum(montant) as sommeP from paiements_eleves where  id_eleves=".$id_eleves;
+	$sql = "select sum(montant) as sommeP,id_annees_scolaire from paiements_eleves where  id_eleves=".$id_eleves;
 	$res = doQuery($sql);
 
 	$montantPayer =0;
@@ -2101,5 +2103,24 @@ function getmontantInscription($idEleves,$idAnneScolaire){
 		}
 	}
 	return $tot;
+}
+
+function getNombreJour($d1,$d2){
+		$dureesejour = (strtotime($d2) - strtotime($d1));
+		return $dureesejour/(60*60*24);
+}
+
+function getClass($idEleves,$idAnneScolaire){
+	$sql = "SELECT * FROM `inscriptions` WHERE `id_eleves`=".$idEleves;
+	$res = doQuery($sql);
+
+	$idClasses =0;
+	$i = 0;
+	while ($ligne = mysql_fetch_array($res)){
+		if($ligne['id_annees_scolaire']==$idAnneScolaire){
+			$idClasses=$ligne['id_classes'];
+		}
+	}
+	return $idClasses;
 }
 ?>

@@ -9,22 +9,18 @@
             </div>
             <form action="" name="f1" method="get"  >
                 <?php 
-	                $id_classes=0;
-                    $id_niveaux=0;    
-                    $id_annees_scolaire=0;
-                    $whereClass ="";
-                    if(isset($_REQUEST['id_annees_scolaire'])){
-                        $id_classes=isset($_REQUEST['id_classes']) && !empty(isset($_REQUEST['id_classes']))?$_REQUEST['id_classes']:'';
-                        $id_niveaux=isset($_REQUEST['id_niveaux']) && !empty(isset($_REQUEST['id_niveaux']))?$_REQUEST['id_niveaux']:'';    
-                        $id_annees_scolaire=isset($_REQUEST['id_annees_scolaire'])?$_REQUEST['id_annees_scolaire']:'';
-                    }else if(isset($_REQUEST['id_niveaux'])){
-                        $id_classes=isset($_REQUEST['id_classes']) && !empty(isset($_REQUEST['id_classes']))?$_REQUEST['id_classes']:'';
-                        $id_niveaux=isset($_REQUEST['id_niveaux'])?$_REQUEST['id_niveaux']:'';    
-                        $id_annees_scolaire=isset($_REQUEST['id_annees_scolaire'])?$_REQUEST['id_annees_scolaire']:'';
+                    $id_classes=isset($_REQUEST['id_classes']) && !empty(isset($_REQUEST['id_classes']))?$_REQUEST['id_classes']:'';
+                    $id_niveaux=isset($_REQUEST['id_niveaux']) && !empty(isset($_REQUEST['id_niveaux']))?$_REQUEST['id_niveaux']:'';    
+                    $id_annees_scolaire=isset($_REQUEST['id_annees_scolaire']) && !empty($_REQUEST['id_annees_scolaire'])?$_REQUEST['id_annees_scolaire']:getCurrentAnneesScolaires();
+                    $where = "where 1=1 ";    
+                    if(!empty($id_classes)) $where = $where." and id in (select id_eleves from inscriptions where id_classes=".$id_classes.")";
+                    elseif(!empty($id_niveaux)) $where = $where." and id in (select id_eleves from inscriptions i ,classes c where c.id=i.id_classes and c.id_niveaux=".$id_niveaux.")";
+                    elseif(!empty($id_annees_scolaire)) $where =$where." and id in (select id_eleves from inscriptions where id_annees_scolaire=".$id_annees_scolaire.")";
+$whereClass="";
+                    if(isset($_REQUEST['id_niveaux']) && !empty($_REQUEST['id_niveaux'])){
+                        $whereClass = ' where id_niveaux='.$_REQUEST['id_niveaux'];
                     }
-                    if(isset($_REQUEST['id_niveaux']) && isset($_REQUEST['id_annees_scolaire']) && !empty($_REQUEST['id_niveaux']) && !empty($_REQUEST['id_annees_scolaire'])){
-                    	  $whereClass = ' where id_niveaux='.$_REQUEST['id_niveaux'].' and id_annees_scolaire='.$_REQUEST['id_annees_scolaire'];
-                    }
+
                 ?>
                  <div class="row clearfix">
                         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
@@ -43,7 +39,7 @@
                                             <label for="email_address"><?php echo _NIVEAUX ?> : </label>
                                             <div class="form-group">
                                                 <div class="form-line">
-        											<?php  echo getTableList('niveaux','id_niveaux',$id_niveaux,'libelle','','','id_niveaux') ?>
+                                                    <?php  echo getTableList('niveaux','id_niveaux',$id_niveaux,'libelle',"onchange='document.f1.submit()'",'','id_niveaux') ?>
                                                 </div>
                                             </div>
                                         </div>
@@ -51,7 +47,7 @@
                                             <label for="email_address"><?php echo _CLASSES ?> : </label>
                                             <div class="form-group">
                                                 <div class="form-line">
-													<?php   echo getTableList('classes','id_classes', $id_classes,'libelle','','','id_classes') ?>
+                                                    <?php echo getTableList('classes','id_classes', $id_classes,'libelle','',$whereClass,'id_classes') ?>
                                                 </div>
                                             </div>
                                         </div>
@@ -69,14 +65,13 @@
                 </div>
             </form>
 <!-- Exportable Table -->
-		<?php if(isset($_REQUEST['id_classes']) && !empty($_REQUEST['id_classes'])){?>
 			<div class="row clearfix">
                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                     <div class="card">
                           <div class="body">
                             <div class="table-responsive">
                             	<?php 
-									$sql = "select * from eleves where id in(select id_eleves from inscriptions where id_classes=".$_REQUEST['id_classes'].") order by id";		
+									$sql = "select * from eleves ".$where." order by id";		
 									$res = doQuery($sql);
 
 									$nb = mysql_num_rows($res);
@@ -136,5 +131,4 @@
                     </div>
                 </div>
             </div>
-        	<?php } ?>
 <?php require_once('footer.php'); ?>

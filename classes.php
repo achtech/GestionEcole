@@ -35,16 +35,14 @@
                                         <tr>
                                             <th><?php echo _NOM ?></th>
                                             <th><?php echo _NIVEAUX ?></th>
-                                            <th><?php echo _ANNEES_SCOLAIRES ?></th>
-											<th class="op"> <?php echo _OP ?> </th>
+                                      		<th class="op"> <?php echo _OP ?> </th>
                                         </tr>
                                     </thead>
                                     <tfoot>
                                         <tr>
                                             <th><?php echo _NOM ?></th>
                                             <th><?php echo _NIVEAUX ?></th>
-                                            <th><?php echo _ANNEES_SCOLAIRES ?></th>
-											<th class="op"> <?php echo _OP ?> </th>
+                                      		<th class="op"> <?php echo _OP ?> </th>
                                         </tr>
                                     </tfoot>
                                     <tbody>
@@ -65,10 +63,7 @@
                                             <td>
 													<?php echo getValeurChamp('libelle','niveaux','id',$ligne['id_niveaux']) ?>
 								            </td>
-                                            <td>
-													<?php echo getValeurChamp('libelle','annees_scolaires','id',$ligne['id_annees_scolaire']); ?>
-								            </td>
-											
+                                      		
 											<td class="op">
 												<a href="modifier_classes.php?classes=<?php echo $ligne['id'] ?>" class="modifier2">
 													&nbsp;

@@ -98,7 +98,15 @@
             <div class="card">
                 <div class="body">
                     <div class="row clearfix">
-                        <div class="col-sm-6">
+                        <div class="col-sm-4">
+                            <label for="nbr_place"><?php echo _DATE." d'"._INSCRIPTION ?> : </label>
+                            <div class="form-group">
+                                <div class="form-line">
+                                    <input type="text" id="date_inscription" name="date_inscription" class="datepicker form-control" value="<?php echo getValeurChamp('date_inscription','inscriptions','id',$idInscription) ?>">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-4">
                             <label for="nbr_place"><?php echo _FRAIS." d'"._INSCRIPTION ?> : </label>
                             <div class="form-group">
                                 <div class="form-line">
@@ -106,7 +114,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-sm-6">
+                        <div class="col-sm-4">
                              <label for="nbr_place"><?php echo _FRAIS." "._MENSUELLE ?> : </label>
                             <div class="form-group">
                                 <div class="form-line">
