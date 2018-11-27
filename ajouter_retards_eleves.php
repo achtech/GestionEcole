@@ -40,10 +40,11 @@
                                 </div>
                                 <div class="col-sm-6">
                                     <label for="email_address"><?php echo _JUSTIFIER ?> : </label>
-                                    <div class="form-group">
-                                            Oui<input type="radio" name="justifier" style="position:unset;opacity:unset;height:20px" value="1" class="form-control " />
-                                            NOn<input type="radio" name="justifier" style="position:unset;opacity:unset;height:20px" value="0" class="form-control " />
-                                        
+                                    <div class="demo-radio-button">
+                                            <input type="radio" name="justifier" id="oui"  value="1"/>
+                                            <label for="oui">Oui</label>
+                                            <input type="radio" name="justifier" id="non" value="0" />
+                                            <label for="non">Non</label>
                                     </div>
                                     <label for="nbr_place"><?php echo _MOTIFS ?> : </label>
                                     <div class="form-group">
@@ -58,7 +59,8 @@
                 </div>
             </div>
                                 
-                           		<input type="submit" class="btn btn-primary m-t-15 waves-effect" value="<?php echo _AJOUTER ?>" />            <input action="action" onclick="window.history.go(-1); return false;" class="btn btn-primary m-t-15 waves-effect"  type="button" value="<?php echo _ANNULER ?>" />
+                           		<input type="submit" class="btn btn-primary m-t-15 waves-effect" value="<?php echo _AJOUTER ?>" />            
+                                <input action="action" onclick="window.history.go(-1); return false;" class="btn btn-primary m-t-15 waves-effect"  type="button" value="<?php echo _ANNULER ?>" />
 
                             </form>
                        

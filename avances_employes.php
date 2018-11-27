@@ -3,11 +3,11 @@
 <?php require_once('menu.php'); ?>
             <div class="block-header">
                 <h2>
-                    <?php echo _GESTION ?> <?php echo _NIVEAUX ?>
+                    <?php echo _GESTION ?> <?php echo _AVANCES ?>
                 </h2>
                 <div> 
                     	<a href="ajouter_niveaux.php" class="ajouter">
-			        		<?php echo _AJOUTER ?> <?php echo _NIVEAUX ?> 
+			        		<?php echo _AJOUTER ?> <?php echo _AVANCES ?> 
 			    		 </a>		
 				</div>
  
@@ -19,7 +19,7 @@
                           <div class="body">
                             <div class="table-responsive">
                             	<?php 
-									$sql = "select * from niveaux order by id";		
+									$sql = "select * from avances order by id";		
 									$res = doQuery($sql);
 
 									$nb = mysql_num_rows($res);
@@ -33,13 +33,23 @@
                                 <table class="table table-bordered table-striped table-hover dataTable js-exportable">
                                     <thead>
                                         <tr>
-                                            <th><?php echo _NOM ?></th>
+                                            <th><?php echo _EMPLOYES ?></th>
+                                            <th><?php echo _MODE  ?><?php echo _PAIEMENTS ?></th>
+                                            <th><?php echo _DATE ?></th>
+                                            <th><?php echo _MONTANT ?></th>
+                                            <th><?php echo _MOTIFS ?></th>
+                                            <th><?php echo _ANNEES ?> <?php echo _SCOLAIRES ?></th>
 											<th class="op"> <?php echo _OP ?> </th>
                                         </tr>
                                     </thead>
                                     <tfoot>
                                         <tr>
-                                            <th><?php echo _NOM ?></th>
+                                            <th><?php echo _EMPLOYES ?></th>
+                                            <th><?php echo _MODE  ?><?php echo _PAIEMENTS ?></th>
+                                            <th><?php echo _DATE ?></th>
+                                            <th><?php echo _MONTANT ?></th>
+                                            <th><?php echo _MOTIFS ?></th>
+                                            <th><?php echo _ANNEES ?> <?php echo _SCOLAIRES ?></th>
 											<th class="op"> <?php echo _OP ?> </th>
                                         </tr>
                                     </tfoot>
@@ -56,13 +66,31 @@
 											?>
                                         <tr>
                                             <td>
-								            	<a href="classes.php?niveaux=<?php echo $ligne['id'] ?>">
-													<?php echo $ligne['libelle'] ?>
-								                </a>
+												<?php echo getValeurChamp('nom','employes','id',$ligne['id_mode_paiements']) ?> <?php echo getValeurChamp('prenom','employes','id',$ligne['id_mode_paiements']) ?>
+								               
 								            </td>
-											
+											<td>
+												<?php echo getValeurChamp('libelle','mode_paiements','id',$ligne['id_mode_paiements']) ?>
+								               
+								            </td>
+								            <td>
+												<?php echo $ligne['date_avance'] ?>
+								               
+								            </td>
+								            <td>
+												<?php echo $ligne['motif'] ?>
+								               
+								            </td>
+								            <td>
+												<?php echo $ligne['montant'] ?>
+								               
+								            </td>
+								            <td>
+												<?php echo getValeurChamp('libelle','annees_scolaires','id',$ligne['id_annees_scolaire']) ?>
+								               
+								            </td>
 											<td class="op">
-												<a href="modifier_niveaux.php?niveaux=<?php echo $ligne['id'] ?>" class="modifier2">
+												<a href="modifier_avances.php?avance=<?php echo $ligne['id'] ?>" class="modifier2">
 													&nbsp;
 								                </a>
 												
@@ -71,9 +99,9 @@
 								                <a href="#ancre" 
 								                class="supprimer2" 
 								                onclick="javascript:supprimer(
-								                							'niveaux',
+								                							'avances',
 								                                            '<?php echo $ligne['id'] ?>',
-								                                            'niveaux.php',
+								                                            'avances_employes.php',
 								                                            '1',
 								                                            '1')
 														" 
