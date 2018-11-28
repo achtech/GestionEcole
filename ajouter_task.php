@@ -1,9 +1,9 @@
-<?php $categorie=4;$page="salles"; ?>
+<?php $categorie=4;$page="tasks"; ?>
 <?php require_once('header.php'); ?>  
 <?php require_once('menu.php'); ?>
             <div class="block-header">
                 <h2>
-                    <?php echo _AJOUTER ?> <?php echo _SALLES ?>
+                    <?php echo _AJOUTER ?> <?php echo _TASKS ?>
                 </h2>
             </div>
             <!-- Vertical Layout -->
@@ -14,25 +14,18 @@
 							<form action="gestion.php" name="frm" method="post" 
 							onsubmit="return checkForm(document.frm);" >
 								<input type="hidden" name="act" value="a"/>
-							    <input type="hidden" name="table" value="salles"/>
-								<input type="hidden" name="page" value="salles.php"/>
+							    <input type="hidden" name="table" value="tasks"/>
+								<input type="hidden" name="page" value="tasks.php"/>
 
-                                <label for="email_address"><?php echo _NOM ?> : </label>
+                                <label for="email_address"><?php echo _DESCRIPTION ?> : </label>
                                 <div class="form-group">
                                     <div class="form-line">
-                                        <input type="text" id="libelle" name="libelle" class="form-control" >
+                                        <input type="text" id="description" name="description" class="form-control" >
                                     </div>
                                 </div>
-                                <label for="nbr_place"><?php echo _NOMBRE_PLACES ?> : </label>
-                                <div class="form-group">
+                                 <div class="form-group">
                                     <div class="form-line">
-                                        <input type="text" id="nbr_place" name="nbr_place" class="form-control" >
-                                    </div>
-                                </div>
-                                <label for="nbr_place"><?php echo _TYPE ?> : </label>
-                                <div class="form-group">
-                                    <div class="form-line">
-                                        <?php getTabList($tab_salles,"type",$valeur,$change,_ETAT); ?>
+                                        <input type="text" id="taux" name="taux" class="form-control" >
                                     </div>
                                 </div>
                                 <br>

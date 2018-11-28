@@ -7,7 +7,7 @@
                 </h2>
             </div>
             <!-- Vertical Layout -->
-            <form action="" name="f1" method="post"  >
+            <form action="" name="f1" method="get"  >
                 <?php 
                     $idInscription = getLastInscription($_REQUEST['eleves']);
                 ?>
@@ -28,7 +28,7 @@
                     }else{
                         $id_classes=isset($_REQUEST['id_classes'])?$_REQUEST['id_classes']:getValeurChamp('id_classes','inscriptions','id',$idInscription);
                         $id_niveaux=isset($_REQUEST['id_niveaux'])?$_REQUEST['id_niveaux']:!empty($id_classes)?getValeurChamp('id_niveaux','classes','id',$id_classes):'';
-                        $id_annees_scolaire=isset($_REQUEST['id_annees_scolaire'])?$_REQUEST['id_annees_scolaire']:!empty($id_classes)?getValeurChamp('id_annees_scolaire','classes','id',$id_classes):'';                        
+                        $id_annees_scolaire=isset($_REQUEST['id_annees_scolaire'])?$_REQUEST['id_annees_scolaire']:getValeurChamp('id_annees_scolaire','inscriptions','id',$idInscription);                        
                     }
                 ?>
                  <div class="row clearfix">
@@ -57,7 +57,7 @@
                                             <label for="email_address"><?php echo _CLASSES ?> : </label>
                                             <div class="form-group">
                                                 <div class="form-line">
-<?php  echo getTableList('classes','id_classes', $id_classes,'libelle','onchange="document.f1.submit()"',isset($_REQUEST['id_niveaux']) && isset($_REQUEST['id_annees_scolaire'])?' where id_niveaux='.$_REQUEST['id_niveaux'].' and id_annees_scolaire='.$_REQUEST['id_annees_scolaire']:'','id_classes') ?>
+<?php  echo getTableList('classes','id_classes', $id_classes,'libelle','',isset($_REQUEST['id_niveaux'])?' where id_niveaux='.$_REQUEST['id_niveaux']:'','id_classes') ?>
                                                 </div>
                                             </div>
                                         </div>
@@ -72,7 +72,7 @@
                 
                      $id_classes = (isset($_REQUEST['id_classes']) && !empty($_REQUEST['id_classes']))?$_REQUEST['id_classes']:getValeurChamp('id_classes','inscriptions','id',$idInscription);
                      $id_niveaux = (isset($_REQUEST['id_niveaux']) && !empty($_REQUEST['id_niveaux']))?$_REQUEST['id_niveaux']:getValeurChamp('id_niveaux','classes','id',$id_classes);
-                     $id_annees_scolaire = (isset($_REQUEST['id_annees_scolaire']) && !empty($_REQUEST['id_annees_scolaire']))?$_REQUEST['id_classes']:getValeurChamp('id_annees_scolaire','classes','id',$id_classes);
+                     $id_annees_scolaire = (isset($_REQUEST['id_annees_scolaire']) && !empty($_REQUEST['id_annees_scolaire']))?$_REQUEST['id_annees_scolaire']:getValeurChamp('id_annees_scolaire','inscriptions','id',$idInscription);
 
                 ?>
 
@@ -98,7 +98,15 @@
             <div class="card">
                 <div class="body">
                     <div class="row clearfix">
-                        <div class="col-sm-6">
+                        <div class="col-sm-4">
+                            <label for="nbr_place"><?php echo _DATE." d'"._INSCRIPTION ?> : </label>
+                            <div class="form-group">
+                                <div class="form-line">
+                                    <input type="text" id="date_inscription" name="date_inscription" class="datepicker form-control" value="<?php echo getValeurChamp('date_inscription','inscriptions','id',$idInscription) ?>">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-4">
                             <label for="nbr_place"><?php echo _FRAIS." d'"._INSCRIPTION ?> : </label>
                             <div class="form-group">
                                 <div class="form-line">
@@ -106,7 +114,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-sm-6">
+                        <div class="col-sm-4">
                              <label for="nbr_place"><?php echo _FRAIS." "._MENSUELLE ?> : </label>
                             <div class="form-group">
                                 <div class="form-line">
@@ -119,6 +127,6 @@
             </div>
         </div>
     </div>
-                <input type="submit" class="btn btn-primary m-t-15 waves-effect" value="<?php echo _MODIFIER ?>" />
+                <input type="submit" class="btn btn-primary m-t-15 waves-effect" value="<?php echo _MODIFIER ?>" />            <input action="action" onclick="window.history.go(-1); return false;" class="btn btn-primary m-t-15 waves-effect"  type="button" value="<?php echo _ANNULER ?>" />
             </form>
 <?php require_once('footer.php'); ?>

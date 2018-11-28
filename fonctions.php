@@ -190,7 +190,7 @@ function Suppression($table,$valeur){
 }
 
 function formuler_retour($noms,$valeurs){
-
+	$chaine = "";
 	if (($noms != "") and ($valeurs != "")){
 		$tab_noms = explode(',',$noms);
 		$tab_valeurs = explode(',',$valeurs);
@@ -937,7 +937,7 @@ function getTimeByDate($date,$sep){
 
 //fonction de pagination
 //recuperer le nombre de page en fonction du nombre de message que nous avons défini
-
+/*
 function getNbrPages($requete,$messagesParPage){
 		connect ();
 		selectDb ();
@@ -950,7 +950,7 @@ function getNbrPages($requete,$messagesParPage){
 		return $nombreDePages;
 }
 
-
+*/
 //recuperer le numero de la page actuelle
 function getPageActuelle($nombreDePages){
 		if(isset($_GET['page'])) // Si la variable $_GET['page'] existe...
@@ -1086,25 +1086,15 @@ function formater_texte2($t){
 	return html_entity_decode(stripslashes($t));
 }
 
-function envoi_mail($dest,$sujet,$message,$page){
+function envoi_mail($dest,$url){
 	
 //envoyer un msg de confirmation par mail
-$headers ='From: "World Rezervation"<contact@world-rezervation.com>'."\n";
-$headers .='Reply-To: contact@world-rezervation.com'."\n"; 
+$headers ='From: "Ecole Maternelle"<achraf_fssm@hotmail.com>'."\n";
+$headers .='Reply-To: a.mareshal@gmail.com'."\n"; 
 $headers .='Content-Type: text/html; charset="iso-8859-1"'."\n";
 $headers .='Content-Transfer-Encoding: 8bit';
-
-$msg ='
-
-<html>
-	<head>
-		<title>'.$sujet.'</title>
-	</head>
-	
-	<body>
-		'. $message .'
-	</body>
-</html>';
+$sujet = "Mot de passe oublier";
+$message = '<html><head><title>'.$sujet.'</title></head><body>Clickez sur cette lien pour renitialiser votre mot de passe <a href="'.$url.'">Cliquez-ici</a></body></html>';
 
 if (mail($dest, $sujet, $message, $headers)){
 	$msg = _ENVOI_OK;
@@ -1113,11 +1103,19 @@ else
 {
 	$msg_err = _ENVOI_NOK;
 }
-
-redirect($page."?msg=".$msg."&err=".$msg_err);
+redirect($url);
+//redirect("forgot-password?msg=".$msg."&err=".$msg_err);
 }
 
-
+function random($car) {
+	$string = "";
+	$chaine = "abcdefghijklmnpqrstuvwxy0123456789";
+	srand((double)microtime()*1000000);
+	for($i=0; $i<$car; $i++) {
+		$string .= $chaine[rand()%strlen($chaine)];
+	}
+	return $string;
+}
 function getTabList($tab,$nom,$valeur,$change,$libelle){
 ?>
 
@@ -1153,17 +1151,15 @@ function getPrixTtc($prix,$taux){
 }
 
 
-function getTableList($table,$nom,$valeur,$champ,$change,$where,$libelle){
-	
+function getTableList($table,$nom,$valeur,$champ,$change,$where,$libelle,$update){
+	//echo $table."<br>".$nom."<br>".$valeur."<br>".$champ."<br>".$change."<br>".$where."<br>".$libelle."<br>".$update."<br>";
 	$sql = "select * from ". $table ." ". $where ." order by ". $champ;
 	$res = doQuery($sql);
 	?>
 	
-	<select class="form-control show-tick" data-live-search="true"  name="<?php echo $nom ?>" <?php echo $change ?> 
+	<select class="form-control show-tick" data-live-search="true"  id ="<?php echo $update ?>" name="<?php echo $nom ?>" <?php echo $change ?> 
 	id="<?php echo $libelle ?>_required">
-		
 		<option value="">____</option>
-		
 	<?php
 	while($ligne = mysql_fetch_array($res)){	
 		
@@ -1180,7 +1176,6 @@ function getTableList($table,$nom,$valeur,$champ,$change,$where,$libelle){
 	}
 	?>
 	</select>
-
 <?php
 }
 
@@ -1190,7 +1185,7 @@ function getTableList3($table,$nom,$valeur,$champ,$champ2,$change,$where,$libell
 	$res = doQuery($sql);
 	?>
 	
-	<select name="<?php echo $nom ?>" <?php echo $change ?> 
+	<select class="form-control show-tick" data-live-search="true" name="<?php echo $nom ?>" <?php echo $change ?> 
 	id="<?php echo $libelle ?>_required">
 		
 		<option value="">____</option>
@@ -1913,6 +1908,31 @@ function getSumAbsenceEleveByMonth($idEleves,$mois,$anneScolaire){
 	return $tot>0?$tot:"0";
 }
 
+function getSumAbsenceEmployeByMonth($idEmploye,$mois,$anneScolaire){
+	$m = $mois <=4 ? $mois + 8 : $mois - 4;
+	$anneScolaire= getValeurChamp('libelle','annees_scolaires','id',$anneScolaire);	
+	$year = split("-", $anneScolaire);
+	$y = $mois <=4 ? $year[0] : $year[1];
+	$startMonth = date("Y-m-d",strtotime($y."-".($m<10?"0".$m:$m)."-01"));
+	$endMonth = date("Y-m-t",strtotime($y."-".($m<10?"0".$m:$m)."-01"));
+	
+	$sql = "select sum(nbr_heurs) as tot from absences_employes where id_employes=".$idEmploye." and ((date_debut>'$startMonth' and date_debut<'$endMonth') or (date_debut<'$startMonth' and date_fin>'$startMonth'))";
+	$res = doQuery($sql);
+	 $nb = mysql_num_rows($res);
+
+	$tot =0;
+	if( $nb==0){
+		return 0;
+	}
+	else
+	{
+		while ($ligne = mysql_fetch_array($res)){
+			$tot = $ligne['tot'];
+		}
+	}
+	return $tot>0?$tot:"0";
+}
+
 function getSumRetardsEleveByMonth($idEleves,$mois,$anneScolaire){
 	$m = $mois <=4 ? $mois + 8 : $mois - 4;
 	$anneScolaire= getValeurChamp('libelle','annees_scolaires','id',$anneScolaire);	
@@ -1926,15 +1946,9 @@ function getSumRetardsEleveByMonth($idEleves,$mois,$anneScolaire){
 	$nb = mysql_num_rows($res);
 
 	$tot =0;
-	if( $nb==0){
-		return 0;
-	}
-	else
-	{
 		while ($ligne = mysql_fetch_array($res)){
 			$tot = $ligne['tot'];
 		}
-	}
 	return $tot>0?$tot:"0";
 }
 
@@ -1969,7 +1983,7 @@ function getCurrentAnneesScolaires(){
 
 function getIdInscription($idEleves,$idAnneScolaire){
 
-	$sql = "select id from inscriptions where id_eleves=".$idEleves." and id_classes in (select id from classes where id_annees_scolaire=".$idAnneScolaire.")" ;
+	$sql = "select id from inscriptions where id_eleves=".$idEleves." and  id_annees_scolaire=".$idAnneScolaire ;
 	$res = doQuery($sql);
 	$nb = mysql_num_rows($res);
 
@@ -1986,18 +2000,21 @@ function getIdInscription($idEleves,$idAnneScolaire){
 	return $id;	
 }
 
-function getSumMontantEleveAnneScolaire($idEleves,$id_annees_scolaire,$mois){
-	$sql="select sum(montant) as tot from paiements_eleves where id_eleves=".$idEleves." and id_annees_scolaire=".$id_annees_scolaire." and mois=".$mois;
+function getSumMontantEleveAnneScolaire($idEleves,$idAnneScolaire,$mois){
+ 
+ $sql="select sum(montant) as tot,id_annees_scolaire from paiements_eleves where id_eleves=".$idEleves."  and mois=".$mois;
 	$res = doQuery($sql);
 	$nb = mysql_num_rows($res);
 
 	$tot =0;
 	while ($ligne = mysql_fetch_array($res)){
-		$tot = $ligne['tot'];
+		if($ligne['id_annees_scolaire']==$idAnneScolaire){
+			$tot=$tot+$ligne['tot'];
+		}
 	}
 	$result = array();
 	$result[0] = $tot<0?0:$tot;	
-	$fraisMensuelle = getValeurChamp('frais_mensuelle','inscriptions','id',getIdInscription($idEleves,$id_annees_scolaire));
+	$fraisMensuelle = getValeurChamp('frais_mensuelle','inscriptions','id',getIdInscription($idEleves,$idAnneScolaire));
 	$result[1] = $tot == 0 ? 'red':($tot < $fraisMensuelle ? 'yellow':'green');
 	$result[2] = $tot == 0 ? 'white':($tot < $fraisMensuelle ? 'black':'white');
 	return $result;
@@ -2006,31 +2023,112 @@ function getSumMontantEleveAnneScolaire($idEleves,$id_annees_scolaire,$mois){
 function addPaiement($req,$mon,$frais){
 	$sql = "INSERT INTO `paiements_eleves` ( `id_eleves`, `id_mode_paiements`, `id_annees_scolaire`, `date_paiements`, `mois`, `motif`, `montant`) VALUES ( '".$req['id_eleves']."','".$req['id_mode_paiements']."', '".$req['id_annees_scolaire']."', '".$req['date_paiements']."', '".$mon."', '".$req['motif']."', '".$frais."')";
     $res = doQuery($sql);
+    writeInLogs($_SESSION['employeId'],"Ajouter paiements pour l eleve : ".getValeurChamp('nom','eleves','id',$req['id_eleves'])." ".getValeurChamp('prenom','eleves','id',$req['id_eleves']).",montant : ".$frais." du mois :".$mon);
 }
 
 function getMontantAPayer($id_eleves){
-	 $idInscription = getLastInscription($id_eleves);
-	$id_annees_scolaire = getValeurChamp('id_annees_scolaire','classes','id',getValeurChamp('id_classes','inscriptions','id',$idInscription));
+	$idInscription = getLastInscription($id_eleves);
+	$idAnneScolaire = getValeurChamp('id_annees_scolaire','inscriptions','id',$idInscription);
 	$fraisInscription = getValeurChamp('frais_inscription','inscriptions','id',$idInscription);
 	$fraisMensuelle = getValeurChamp('frais_mensuelle','inscriptions','id',$idInscription);
-	$nbrMonth = 0;
+	$nbrMonth = 1;
 	$moisInscription = split("-",getValeurChamp('date_inscription','inscriptions','id',$idInscription))[1];
 	$mm = intval($moisInscription);
-	$mm  = $mm<9 ?9:$m; 
+	$mm  = $mm<9 ?9:$mm;
+	
 	while ($mm!=date("m")) {
 		$nbrMonth = $nbrMonth + 1;
 		$mm=$mm+1;
 		$mm = $mm==13?1:$mm;
 	}
-	$nbrMonth = $nbrMonth + 1;
+	
 	$fraisApayer = $nbrMonth*$fraisMensuelle + $fraisInscription;
-	$sql = "select sum(montant) as sommeP from paiements_eleves where id_annees_scolaire=".$id_annees_scolaire." and id_eleves=".$id_eleves;
+	$sql = "select sum(montant) as sommeP,id_annees_scolaire from paiements_eleves where  id_eleves=".$id_eleves;
 	$res = doQuery($sql);
 
 	$montantPayer =0;
 	while ($ligne = mysql_fetch_array($res)){
-		$montantPayer = $ligne['sommeP'];
+		if($ligne['id_annees_scolaire']==$idAnneScolaire){
+			$montantPayer = $montantPayer+$ligne['sommeP'];
+		}
 	}
 	return $fraisApayer - $montantPayer;
+}
+
+function paiementsNonPaye($id_annees_scolaire){
+
+	$sql = "select * from eleves where id in (select id_eleves from inscriptions where id_annees_scolaire=".$id_annees_scolaire.")";
+	$res = doQuery($sql);
+
+	$tab =[];
+	$i = 0;
+	while ($ligne = mysql_fetch_array($res)){
+		$montant = getMontantAPayer($ligne['id']);
+		if($montant>0){
+			$tab[$i][0]=$ligne['id'];
+			$tab[$i][1]=$ligne['nom']." ".$ligne['prenom'];
+			$tab[$i][2]=$montant;
+			$i=$i+1;
+		}
+	}
+	return $tab;
+}
+
+function getAllTasksNotComplete(){
+
+	$sql = "select * from tasks where taux<100 order by taux desc";
+	$res = doQuery($sql);
+
+	$tab =[];
+	$i = 0;
+	while ($ligne = mysql_fetch_array($res)){
+			$tab[$i][0]=$ligne['description'];
+			$tab[$i][1]=$ligne['taux'];
+			$tab[$i][2]=$ligne['id'];
+			$i=$i+1;
+	}
+	return $tab;
+}
+
+function getmontantInscription($idEleves,$idAnneScolaire){
+	$sql = "SELECT * FROM `paiements_eleves` WHERE `id_eleves`=".$idEleves." AND `mois`=0";
+	$res = doQuery($sql);
+
+	$tot =0;
+	$i = 0;
+	while ($ligne = mysql_fetch_array($res)){
+		if($ligne['id_annees_scolaire']==$idAnneScolaire){
+			$tot=$tot+$ligne['montant'];
+		}
+	}
+	return $tot;
+}
+/**
+* @param $idUser
+* @param $description 
+*/
+function writeInLogs($idUser,$description){
+	$dateOperation = date('Y-m-d H:i:s');
+	$sql="INSERT INTO logs(id_users,date_operation,description) VALUES (".$idUser.",'".$dateOperation."','".$description."')";
+	$res = doQuery($sql);
+}
+
+function getNombreJour($d1,$d2){
+		$dureesejour = (strtotime($d2) - strtotime($d1));
+		return $dureesejour/(60*60*24);
+}
+
+function getClass($idEleves,$idAnneScolaire){
+	$sql = "SELECT * FROM `inscriptions` WHERE `id_eleves`=".$idEleves;
+	$res = doQuery($sql);
+
+	$idClasses =0;
+	$i = 0;
+	while ($ligne = mysql_fetch_array($res)){
+		if($ligne['id_annees_scolaire']==$idAnneScolaire){
+			$idClasses=$ligne['id_classes'];
+		}
+	}
+	return $idClasses;
 }
 ?>

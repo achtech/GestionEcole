@@ -44,6 +44,13 @@
                 <form id="sign_in" method="POST" action="gestion.php" >
                     <input type="hidden" name="act" value="conexion"/>
                     <div class="msg">Connectez-vous pour commencer votre session</div>
+                    <?php 
+                        if($_REQUEST['msg_retour']){
+                    ?>
+                    <div class="alert alert-danger">
+                        <strong>Oh ops!</strong> <?php echo $_REQUEST['msg_retour']?>.
+                    </div>
+                    <?php } ?>
                     <div class="input-group">
                         <span class="input-group-addon">
                             <i class="material-icons">person</i>

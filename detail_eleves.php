@@ -145,7 +145,7 @@
               <div class="body">
                 <div class="table-responsive">
                     <?php 
-                        $sql = "select * from inscriptions where id_eleves=".$_REQUEST['eleves']." order by id";      
+                        $sql = "select * from inscriptions where id_eleves=".$_REQUEST['eleves']." order by id";    
                         $res = doQuery($sql);
 
                         $nb = mysql_num_rows($res);
@@ -162,8 +162,8 @@
                                 <th><?php echo _ANNEES." "._SCOLAIRES ?></th>
                                 <th><?php echo _NIVEAUX ?></th>
                                 <th><?php echo _EDUCATRICES ?></th>
-                                <th><?php echo _RETARDS ?></th>
                                 <th><?php echo _ABSENCES ?></th>
+                                <th><?php echo _RETARDS ?></th>
                             </tr>
                         </thead>
                         <tbody>
@@ -179,15 +179,17 @@
                                 ?>
                             <tr>
                                 <td>
-                                    <?php echo getValeurChamp('libelle','annees_scolaires','id',getValeurChamp('id_annees_scolaire','classes','id',$ligne['id_classes'])) ?>
+                                    <?php echo getValeurChamp('libelle','annees_scolaires','id',$ligne['id_annees_scolaire']) ?>
                             </td><td>
                                     <?php echo getValeurChamp('libelle','niveaux','id',getValeurChamp('id_niveaux','classes','id',$ligne['id_classes'])) ?>
                             </td><td>
                                     <?php echo $ligne['id_classes'] ?>
                             </td><td>       
-                                    <?php echo $ligne['id_classes'] ?>
+                                    <?php 
+$idClasses = getClass($ligne['id_eleves'],$ligne['id_annees_scolaire']);
+                                    echo getSum('absences_eleves','nbr_heurs','id_eleves,id_classes',$ligne['id_eleves'].",".$idClasses)." Heurs" ?>
                             </td><td>
-                                    <?php echo $ligne['id_classes'] ?>
+                                    <?php echo getSum('retards_eleves','nbr_heurs','id_eleves,id_classes',$ligne['id_eleves'].",".$idClasses)." Heurs" ?>
                                 </td>
                                 
                             </tr>
@@ -205,14 +207,16 @@
         </div>
     </div>
 </div>
+
+<!-- Exportable Table -->
 <div class="row clearfix">
     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-        <h5>Les retards de l'eleve : <?php echo getValeurChamp('nom','eleves','id',$_REQUEST['eleves'])." ".getValeurChamp('prenom','eleves','id',$_REQUEST['eleves']); ?></h5>
+        <h5>Les paiements : </h5>
         <div class="card">
               <div class="body">
                 <div class="table-responsive">
                     <?php 
-                        $sql = "select * from retards_eleves where id_eleves=".$_REQUEST['eleves']." and id_classes =".getCurrentClasses($_REQUEST['eleves'])." order by id";      
+                        $sql = "select * from paiements_eleves where id_eleves=".$_REQUEST['eleves']." order by id";      
                         $res = doQuery($sql);
 
                         $nb = mysql_num_rows($res);
@@ -226,18 +230,20 @@
                     <table class="table table-bordered table-striped table-hover dataTable js-exportable">
                         <thead>
                             <tr>
-                                <th><?php echo _DATE." "._RETARDS ?></th>
-                                <th><?php echo _NOMBRE." "._HEURE ?></th>
-                                <th><?php echo _JUSTIFIER ?></th>
+                                <th><?php echo _DATE." "._PAIEMENTS ?></th>
+                                <th><?php echo _MOIS ?></th>
                                 <th><?php echo _MOTIFS ?></th>
+                                <th><?php echo _MONTANT ?></th>
+                                <th><?php echo _MODE." de"._PAIEMENTS ?></th>
                             </tr>
                         </thead>
                         <tfoot>
                             <tr>
-                                <th><?php echo _DATE." "._RETARDS ?></th>                                            
-                                <th><?php echo _NOMBRE." "._HEURE ?></th>
-                                <th><?php echo _JUSTIFIER ?></th>
+                                <th><?php echo _DATE." "._PAIEMENTS ?></th>
+                                <th><?php echo _MOIS ?></th>
                                 <th><?php echo _MOTIFS ?></th>
+                                <th><?php echo _MONTANT ?></th>
+                                <th><?php echo _MODE." de"._PAIEMENTS ?></th>
                             </tr>
                         </tfoot>
                         <tbody>
@@ -252,94 +258,17 @@
                                         
                                 ?>
                             <tr><td>
-                                    <?php echo $ligne['date_retards'] ?>
+                                    <?php echo $ligne['date_paiements'] ?>
                             </td><td>
-                                    <?php echo $ligne['nbr_heurs'] ?>
-                                </td>
-                                <td>       
-                                    <?php $ch = $ligne['justifier']==1?"checked='true'":""; ?>
-                                    <input type="checkbox" disabled="disabled" style="opacity:unset;position:unset" id="remember_me" class="filled-in" <?php echo $ch ?>/>
-                               </td>
-                                <td>       
-                                    <?php echo $ligne['motif'] ?>
-                                </td>
-                            </tr>
-                            <?php
-                                $i++; 
-                            }
-                            ?>
-                        </tbody>
-                    </table>
-                    <?php 
-                    } //Fin If
-                    ?>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-
-<div class="row clearfix">
-    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-        <h5>Les absences de l'eleve : <?php echo getValeurChamp('nom','eleves','id',$_REQUEST['eleves'])." ".getValeurChamp('prenom','eleves','id',$_REQUEST['eleves']); ?></h5>
-        <div class="card">
-              <div class="body">
-                <div class="table-responsive">
-                    <?php 
-                        $sql = "select * from absences_eleves where id_eleves=".$_REQUEST['eleves']." and id_classes =".getCurrentClasses($_REQUEST['eleves'])." order by id";      
-                        $res = doQuery($sql);
-
-                        $nb = mysql_num_rows($res);
-                        if( $nb==0){
-                            echo _VIDE;
-                        }
-                        else
-                        {
-                        ?>
-
-                    <table class="table table-bordered table-striped table-hover dataTable js-exportable">
-                        <thead>
-                            <tr>
-                                <th><?php echo _DATE." "._DEBUT ?></th>
-                                <th><?php echo _DATE." "._FIN ?></th>
-                                <th><?php echo _NOMBRE." "._HEURE ?></th>
-                                <th><?php echo _JUSTIFIER ?></th>
-                                <th><?php echo _MOTIFS ?></th>
-                            </tr>
-                        </thead>
-                        <tfoot>
-                            <tr>
-                                <th><?php echo _DATE." "._DEBUT ?></th>
-                                <th><?php echo _DATE." "._FIN ?></th>
-                                <th><?php echo _NOMBRE." "._HEURE ?></th>
-                                <th><?php echo _JUSTIFIER ?></th>
-                                <th><?php echo _MOTIFS ?></th>
-                            </tr>
-                        </tfoot>
-                        <tbody>
-                            <?php 
-                                $i = 0;
-                                while ($ligne = mysql_fetch_array($res)){
-                                    
-                                    if($i%2==0)
-                                        $c = "c";
-                                    else
-                                        $c = "";
-                                        
-                                ?>
-                            <tr><td>
-                                    <?php echo $ligne['date_debut'] ?>
-                            </td><td>
-                                    <?php echo $ligne['date_fin'] ?>
+                                    <?php echo $ligne['mois']==0?"Frais d'inscription":$ligne['mois'] ?>
                             </td><td>       
-                                    <?php echo $ligne['nbr_heurs'] ?>
-                                </td>
-                                <td>       
-                                    <?php $ch = $ligne['justifier']==1?"checked='true'":""; ?>
-                                    <input type="checkbox" disabled="disabled" style="opacity:unset;position:unset" id="remember_me" class="filled-in" <?php echo $ch ?>/>
-                                </td>
-                                <td>       
                                     <?php echo $ligne['motif'] ?>
+                                </td>
+                                <td>       
+                                    <?php echo $ligne['montant'] ?>
+                                </td>
+                                <td>       
+                                    <?php echo getValeurChamp('libelle','mode_paiements','id',$ligne['id_mode_paiements']); ?>
                                 </td>
                             </tr>
                             <?php

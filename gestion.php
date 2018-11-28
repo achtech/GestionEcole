@@ -8,24 +8,23 @@
 
 <?php 
 echo "<center><h2>"._REDIRECT."</h2></center>";
-//print_r($_REQUEST);
 connect ();
 //detection de la table et des champs concerné
-$tab_table = split(',',$_REQUEST['table']);
+$tab_table = split(',',isset($_REQUEST['table']) && !empty($_REQUEST['table']) ? $_REQUEST['table'] :"");
 $table=$tab_table[0];
 
-$action = $_REQUEST['act'];
+$action = isset($_REQUEST['act']) && !empty($_REQUEST['act'])?$_REQUEST['act']:"";
 
-$id_valeur = $_REQUEST['id_valeur'];
-$id_retour = $_REQUEST['id_retour'];
-$id_noms_retour = $_REQUEST['id_noms_retour'];
-$id_valeurs_retour = $_REQUEST['id_valeurs_retour'];
+$id_valeur = isset($_REQUEST['id_valeur']) && !empty($_REQUEST['id_valeur']) ? $_REQUEST['id_valeur'] :"";
+$id_retour = isset($_REQUEST['id_retour']) && !empty($_REQUEST['id_retour']) ? $_REQUEST['id_retour'] :"";
+$id_noms_retour = isset($_REQUEST['id_noms_retour']) && !empty($_REQUEST['id_noms_retour']) ? $_REQUEST['id_noms_retour']:"";
+$id_valeurs_retour = isset($_REQUEST['id_valeurs_retour']) && !empty($_REQUEST['id_valeurs_retour']) ? $_REQUEST['id_valeurs_retour']:"";
 
 $chaine_retour = formuler_retour($id_noms_retour,$id_valeurs_retour);
 
-$page = $_REQUEST['page'];
-$champ_modif=$_REQUEST['champ_modif'];
-$valeur_modif=$_REQUEST['valeur_modif'];
+$page = isset($_REQUEST['page']) && !empty($_REQUEST['page']) ? $_REQUEST['page']: "";
+$champ_modif=isset($_REQUEST['champ_modif']) && !empty($_REQUEST['champ_modif'])? $_REQUEST['champ_modif']: "";
+$valeur_modif=isset($_REQUEST['valeur_modif']) && !empty($_REQUEST['valeur_modif']) ? $_REQUEST['valeur_modif'] : "";
 
 //AJOUT
 if ($action == "a"){	
@@ -61,6 +60,7 @@ if ($action == "a"){
 		$var[$i]= Ajout($tab_table[$i],getNomChamps($tab_table[$i]),$_REQUEST);
 		$identif=mysql_insert_id(); 
 		$_REQUEST['id_'.$tab_table[$i]]=mysql_insert_id(); 
+		writeInLogs($_SESSION['employeId'],"Ajouter l element ".$identif." de la table ".$tab_table[0]);
 		
 		if(isset($_FILES['photo']) and getChamp($tab_table[$i], "image")){
 			$retour2 = upload_image($tab_table[$i],$_FILES['photo'],$identif);
@@ -102,18 +102,31 @@ if ($action == "a"){
 }
 
 if($action == "ajouter_paiements_eleves"){
+	$montantInscription = getValeurChamp('montant','paiements_eleves','id_eleves,id_annees_scolaire,mois',$_REQUEST['id_eleves'].','.$_REQUEST['id_annees_scolaire'].',0');
+	$fraisInscription = getValeurChamp('frais_inscription','inscriptions','id',getLastInscription($_REQUEST['id_eleves']));
+	
 	$frais = getValeurChamp('frais_mensuelle','inscriptions','id',getLastInscription($_REQUEST['id_eleves']));
 	$dateInscription = getValeurChamp('date_inscription','inscriptions','id',getLastInscription($_REQUEST['id_eleves']));
 	$sumMontant = getSum('paiements_eleves','montant','id_eleves,id_annees_scolaire',$_REQUEST['id_eleves'].",".$_REQUEST['id_annees_scolaire']);
 	$month = date('m');
 	$monthInscription = split("-",$dateInscription)[1];
 	$montant = $_REQUEST['montant'];
- 
-	if($monthInscription>=9){
+	$montantInscription = empty($montantInscription) ? 0 : $montantInscription;
+	if($montantInscription<$fraisInscription){
+					if($montantInscription+$montant > $fraisInscription) {
+						addPaiement($_REQUEST,0,$fraisInscription);
+				 		 $montant = $montantInscription+$montant-$fraisInscription;
+					}else{
+						addPaiement($_REQUEST,0,$montant);
+						$montant = 0;
+					}
+	}
+
+ 	if($monthInscription>=9){
 		for ($i=$monthInscription; $i <= 12 ; $i++) { 
 			
 			if($montant>0){
-				$p = getValeurChamp('montant','paiements_eleves','id_eleves,id_annees_scolaire,mois',$_REQUEST['id_eleves'].','.$_REQUEST['id_annees_scolaire'].','.$i);
+				$p = getSum('paiements_eleves','montant','id_eleves,id_annees_scolaire,mois',$_REQUEST['id_eleves'].','.$_REQUEST['id_annees_scolaire'].','.$i);
 				$p = empty($p)?0:$p;
 				if($p<$frais){
 					if($p+$montant > $frais) {
@@ -127,21 +140,20 @@ if($action == "ajouter_paiements_eleves"){
 			}
 		}
 	}
-		for ($i=$monthInscription<6?$monthInscription:1; $i <= 6 ; $i++) { 
-			if($montant>0){
-				$p = getValeurChamp('montant','paiements_eleves','id_eleves,id_annees_scolaire,mois',$_REQUEST['id_eleves'].','.$_REQUEST['id_annees_scolaire'].','.$i);
-				if($p<$frais){
-					if($p+$montant > $frais) {
-						addPaiement($_REQUEST,$i,$frais);
-						$montant = $p+$montant-$frais;
-					}else{
-						addPaiement($_REQUEST,$i,$montant);
-						$montant = 0;
-					}
+	for ($i=$monthInscription<6?$monthInscription:1; $i <= 6 ; $i++) { 
+		if($montant>0){
+			$p = getSum('paiements_eleves','montant','id_eleves,id_annees_scolaire,mois',$_REQUEST['id_eleves'].','.$_REQUEST['id_annees_scolaire'].','.$i);
+			if($p<$frais){
+				if($p+$montant > $frais) {
+					addPaiement($_REQUEST,$i,$frais);
+					$montant = $p+$montant-$frais;
+				}else{
+					addPaiement($_REQUEST,$i,$montant);
+					$montant = 0;
 				}
 			}
 		}
-	
+	}
 }
 
 //AJOUT
@@ -184,6 +196,7 @@ if ($action == "ajouter_eleves"){
 		$sql2  ="insert into inscriptions(num_inscription,date_inscription,id_eleves,id_classes,frais_inscription,frais_mensuelle) values(".$_REQUEST['num_inscription'].",'".date('Y-m-d')."',".$identif.",".$_REQUEST['id_classes'].",".$_REQUEST['frais_inscription'].",".$_REQUEST['frais_mensuelle'].")";
 		doQuery($sql2);
 		doQuery("COMMIT");
+		writeInLogs($_SESSION['employeId'],"Inscription du nouveau eleve ".$_REQUEST['nom']." ".$_REQUEST['prenom']);
 		
 		if(isset($_FILES['photo']) and getChamp($tab_table[$i], "image")){
 			$retour2 = upload_image($tab_table[$i],$_FILES['photo'],$identif);
@@ -280,6 +293,8 @@ if ($action == "m"){
 	for($i=0;$i<sizeof($tab_table);$i++){ 
 	 	$var[$i] = Modification($tab_table[$i],getNomChamps($tab_table[$i]),$_REQUEST,$id_nom,$id_valeur);
 		
+		writeInLogs($_SESSION['employeId'],"Modifier l element ".$_REQUEST['id']." de la table ".$tab_table[0]);
+
 		if(isset($_FILES['photo'])){
 			$retour2 = upload_image($tab_table[$i],$_FILES['photo'],$id_valeur);
 			unset($_FILES);
@@ -416,6 +431,8 @@ if ($action == "s"){
 	}
 	
 	$retour1=Suppression($table,$id_valeur);
+	writeInLogs($_SESSION['employeId'],"Supprimer l element ".$id_valeur." de la table ".$table);
+
 	
 	if ($table == "mi_messages_pieces_jointes"){
 		unlink($fichier);
@@ -613,17 +630,45 @@ if ($action == 'conexion')
 	$ligne=mysql_fetch_array($res);
 	if($nbr==1)
 	{
-		 $_SESSION['employe']=$ligne['id_employes'];
+		 $_SESSION['employe']=$ligne;
+		 $_SESSION['employeId']=$ligne['id_employes'];
+		 writeInLogs($ligne['id_employes'],"Login :".getValeurChamp('nom','employes','id',$ligne['id_employes'])." ".getValeurChamp('prenom','employes','id',$ligne['id_employes']));
 		redirect("index.php");
 	}else{
-		redirect("log-in.php?msg_retour=error authentification)");
+		redirect("log-in.php?msg_retour=login or mot de passe erronee");
 	}
+}
+
+if ($action == 'forgotten_password')
+{
+	$email=$_REQUEST['email'];
+	$id=getValeurChamp('id','employes','email',$email);
+	$login=getValeurChamp('login','users','id_employes',$id);
+	$idUser=getValeurChamp('id','users','id_employes',$id);
+	$url = "reset_password.php?url=".random(10).$idUser.random(10);
+	if($id>0){
+		envoi_mail($email,$url,$login);
+	}else{
+		redirect("log-in.php?msg_retour=Email n'existe pas dans notre base de donné");
+	}
+}
+
+if ($action == 'resetPassword')
+{
+	$password=isset($_REQUEST['password']) && !empty($_REQUEST['password']) ? $_REQUEST['password']:"";
+	$confirm=isset($_REQUEST['confirm']) && !empty($_REQUEST['confirm']) ? $_REQUEST['confirm']:"";
+	$url=isset($_REQUEST['url']) && !empty($_REQUEST['url']) ? $_REQUEST['url']:"";
+	$idUser=substr($url, 10);
+	$idUser=substr($idUser, 0,strlen($idUser)-10);
+	$sql = "update users set password='".$password."' where id=".$idUser; 
+	doQuery($sql);
 }
 
 
 if(isset($_REQUEST['msg_retour'])){
 	$msg = $_REQUEST['msg_retour'];
 }
-
+$msg = isset($msg) && !empty($msg) ? $msg : "";
+$msg_err = isset($msg_err) && !empty($msg_err) ? $msg_err : "";
 redirect($page."?".$chaine_retour."&m=".$msg."&er=".$msg_err."#ancre");
 ?>

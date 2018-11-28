@@ -1,22 +1,22 @@
-<?php $categorie=1;$page="absence_eleves"; ?>
+<?php $categorie=3;$page="absences_employes"; ?>
 <?php require_once('header.php'); ?>  
 <?php require_once('menu.php'); ?>
             <div class="block-header">
                 <h5>
-                    <?php echo _AJOUTER ?> <?php echo _ABSENCE ?> 
+                    <?php echo _AJOUTER ?> <?php echo _ABSENCES ?> 
                 </h5>
             </div>
             <!-- Vertical Layout -->
             <form action="gestion.php" name="frm" method="post" 
         onsubmit="return checkForm(document.frm);" >
             <input type="hidden" name="act" value="a"/>
-            <input type="hidden" name="table" value="absences_eleves"/>
-            <input type="hidden" name="page" value="details_absences_eleves.php" />
-            <input type="hidden" name="id_eleves" value="<?php echo isset($_REQUEST['eleves'])?$_REQUEST['eleves']:'' ?>"/>
-            <input type="hidden" name="id_classes" value="<?php echo isset($_REQUEST['classes'])?$_REQUEST['classes']:'' ?>"/>
+            <input type="hidden" name="table" value="absences_employes"/>
+            <input type="hidden" name="page" value="details_absences_employes.php" />
+            <input type="hidden" name="id_employes" value="<?php echo isset($_REQUEST['employes'])?$_REQUEST['employes']:'' ?>"/>
+            <input type="hidden" name="id_annees_scolaire" value="<?php echo getCurrentAnneesScolaires() ?>"/>
             
-            <input type="hidden" name="id_noms_retour" value="eleves,classes"/>
-            <input type="hidden" name="id_valeurs_retour" value="<?php echo $_REQUEST['eleves'] ?>,<?php echo $_REQUEST['classes'] ?>"/>  
+            <input type="hidden" name="id_noms_retour" value="employes"/>
+            <input type="hidden" name="id_valeurs_retour" value="<?php echo $_REQUEST['employes'] ?>"/>  
 
             <div class="row clearfix">
                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
@@ -65,9 +65,10 @@
                     </div>
                 </div>
             </div>
-       		<input type="submit" class="btn btn-primary m-t-15 waves-effect" value="<?php echo _AJOUTER ?>" />
-            <input action="action" onclick="window.history.go(-1); return false;" class="btn btn-primary m-t-15 waves-effect"  type="button" value="<?php echo _ANNULER ?>" />
-            
+                                
+                           		<input type="submit" class="btn btn-primary m-t-15 waves-effect" value="<?php echo _AJOUTER ?>" />
+                                            <input action="action" onclick="window.history.go(-1); return false;" class="btn btn-primary m-t-15 waves-effect"  type="button" value="<?php echo _ANNULER ?>" />
+
                             </form>
                        
             

@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.7.9
+-- version 4.7.4
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1:3306
--- Généré le :  sam. 24 nov. 2018 à 16:44
--- Version du serveur :  5.7.21
--- Version de PHP :  5.6.35
+-- Généré le :  sam. 24 nov. 2018 à 22:02
+-- Version du serveur :  5.7.19
+-- Version de PHP :  5.6.31
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -205,57 +205,61 @@ CREATE TABLE IF NOT EXISTS `detail_tasks` (
   `id_tasks` int(11) NOT NULL,
   `description` text NOT NULL,
   `status` text NOT NULL,
+  `priorite` text NOT NULL,
+  `manager` text NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=46 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=48 DEFAULT CHARSET=latin1;
 
 --
 -- Déchargement des données de la table `detail_tasks`
 --
 
-INSERT INTO `detail_tasks` (`id`, `id_tasks`, `description`, `status`) VALUES
-(1, 6, 'ajouter constraint ROLE sur tt \'application', '1'),
-(2, 6, 'ajouter confirmation du password', '1'),
-(3, 6, 'validation de l\'email', '1'),
-(4, 5, 'ajouter des labels dans le fichier lang.php', '1'),
-(5, 5, 'ajouter des icone facebook, twitter google plus', '1'),
-(6, 5, 'ajouter logo', '1'),
-(7, 5, 'modifier logo', '1'),
-(8, 5, 'gerer les long adresse', '1'),
-(9, 4, 'Nombre etudiant par niveau', '1'),
-(10, 4, 'Somme des paiement non effectue', '1'),
-(11, 7, 'Ajouter manager et priorite', '1'),
-(12, 4, 'afficher les taches', '1'),
-(13, 8, 'Modifier employe : ajouter Radio button style  pour vacataire et employe', '1'),
-(14, 8, 'ajouter label:  _SALAIRE _MENSUELLE :  et _SALAIRE par _HEURS :', '1'),
-(15, 8, 'afficher retard et les absences et les conges d\'un employe dans son detail', '1'),
-(16, 8, 'afficher icon class juste pour les formateur', '1'),
-(17, 8, 'gere les class d\'un formateur : liste contient deux icon add (V) et remove(X)', '1'),
-(18, 10, 'ajouter le nombre de jour d\'un conge', '1'),
-(19, 11, 'Lister les avances', '1'),
-(20, 11, 'Ajouter avance', '1'),
-(21, 12, 'Ajouter paiement', '1'),
-(24, 4, 'ajouter des idee ici pour tableau de Bord', '1'),
-(25, 11, 'Modifier avance', '1'),
-(26, 11, 'annuler avance', '1'),
-(27, 12, 'Modifier  paiement', '1'),
-(28, 12, 'Supprimer Paiement', '1'),
-(29, 9, 'import database', '1'),
-(30, 9, 'export database', '1'),
-(31, 9, 'ajouter dans le menu', '1'),
-(32, 9, 'lister des version', '1'),
-(33, 3, 'lister le journal', '1'),
-(34, 3, 'ajouter dans le journal', '1'),
-(35, 13, 'comboBow Class change when we change Niveau or AnneScolaire', '1'),
-(36, 13, 'Geston des URL : on doit avoir comme   http://localhost/gestionEcole/modifier_eleves-13  instead of http://localhost/gestionEcole/modifier_eleves.php?eleves=13', '1'),
-(37, 14, 'changer lcione de fiche technik d\'un eleve', '1'),
-(38, 14, 'class doit lier just au  niveau', '1'),
-(39, 14, 'ajouter anne_scolaire dans inscription', '1'),
-(40, 14, 'cherccher dans tt les fonction ou anne scolaire est lier a class', '1'),
-(41, 14, 'detail des etudiant : Etape des Ã©tudes dans l\'etablissement', '1'),
-(42, 14, 'problem dans les details d\'un etudiant', '1'),
-(43, 14, 'modifier absence eleve : radio', '1'),
-(44, 13, 'ajouter button annuler or close qui permet de retourne au page precedent', '1'),
-(45, 14, 'reviser la somme a payer', '1');
+INSERT INTO `detail_tasks` (`id`, `id_tasks`, `description`, `status`, `priorite`, `manager`) VALUES
+(1, 6, 'ajouter constraint ROLE sur tt \'application', '1', '1', 'Achraf'),
+(2, 6, 'ajouter confirmation du password', '1', '1', 'Achraf'),
+(3, 6, 'validation de l\'email', '1', '1', 'Achraf'),
+(4, 5, 'ajouter des labels dans le fichier lang.php', '1', '1', 'Achraf'),
+(5, 5, 'ajouter des icone facebook, twitter google plus', '1', '1', 'Achraf'),
+(6, 5, 'ajouter logo', '1', '1', 'Achraf'),
+(7, 5, 'modifier logo', '1', '1', 'Achraf'),
+(8, 5, 'gerer les long adresse', '1', '1', 'Achraf'),
+(9, 4, 'Nombre etudiant par niveau', '1', '1', 'Achraf'),
+(10, 4, 'Somme des paiement non effectue', '1', '1', 'Achraf'),
+(11, 7, 'Ajouter manager et priorite', '3', '2', 'Achraf'),
+(12, 4, 'afficher les taches', '1', '1', 'Achraf'),
+(13, 8, 'Modifier employe : ajouter Radio button style  pour vacataire et employe', '1', '1', 'Achraf'),
+(14, 8, 'ajouter label:  _SALAIRE _MENSUELLE :  et _SALAIRE par _HEURS :', '1', '1', 'Achraf'),
+(15, 8, 'afficher retard et les absences et les conges d\'un employe dans son detail', '1', '1', 'Achraf'),
+(16, 8, 'afficher icon class juste pour les formateur', '1', '1', 'Achraf'),
+(17, 8, 'gere les class d\'un formateur : liste contient deux icon add (V) et remove(X)', '1', '1', 'Achraf'),
+(18, 10, 'ajouter le nombre de jour d\'un conge', '1', '1', 'Achraf'),
+(19, 11, 'Lister les avances', '1', '1', 'Noura'),
+(20, 11, 'Ajouter avance', '1', '1', 'Noura'),
+(21, 12, 'Ajouter paiement', '1', '1', 'Achraf'),
+(24, 4, 'ajouter des idee ici pour tableau de Bord', '1', '1', 'Achraf'),
+(25, 11, 'Modifier avance', '1', '1', 'Noura'),
+(26, 11, 'annuler avance', '1', '1', 'Noura'),
+(27, 12, 'Modifier  paiement', '1', '1', 'Achraf'),
+(28, 12, 'Supprimer Paiement', '1', '1', 'Achraf'),
+(29, 9, 'import database', '1', '1', 'Achraf'),
+(30, 9, 'export database', '1', '1', 'Achraf'),
+(31, 9, 'ajouter dans le menu', '1', '1', 'Achraf'),
+(32, 9, 'lister des version', '1', '1', 'Achraf'),
+(33, 3, 'lister le journal', '1', '1', 'Achraf'),
+(34, 3, 'ajouter dans le journal', '1', '1', 'Achraf'),
+(35, 13, 'comboBow Class change when we change Niveau or AnneScolaire', '1', '3', 'Noura'),
+(36, 13, 'Geston des URL : on doit avoir comme   http://localhost/gestionEcole/modifier_eleves-13  instead of http://localhost/gestionEcole/modifier_eleves.php?eleves=13', '1', '1', 'Achraf'),
+(37, 14, 'changer lcione de fiche technik d\'un eleve', '1', '1', 'Achraf'),
+(38, 14, 'class doit lier just au  niveau', '1', '1', 'Achraf'),
+(39, 14, 'ajouter anne_scolaire dans inscription', '1', '1', 'Achraf'),
+(40, 14, 'cherccher dans tt les fonction ou anne scolaire est lier a class', '1', '1', 'Achraf'),
+(41, 14, 'detail des etudiant : Etape des Ã©tudes dans l\'etablissement', '1', '1', 'Achraf'),
+(42, 14, 'problem dans les details d\'un etudiant', '1', '1', 'Achraf'),
+(43, 14, 'modifier absence eleve : radio', '1', '1', 'Achraf'),
+(44, 13, 'ajouter button annuler or close qui permet de retourne au page precedent', '1', '3', 'Achraf'),
+(45, 14, 'reviser la somme a payer', '1', '1', 'Achraf'),
+(46, 15, 'message derreur', '1', '2', 'Noura'),
+(47, 15, 'Forgotten Password', '1', '3', 'Noura');
 
 -- --------------------------------------------------------
 
@@ -472,7 +476,7 @@ CREATE TABLE IF NOT EXISTS `niveaux` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `libelle` text NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=latin1;
 
 --
 -- Déchargement des données de la table `niveaux`
@@ -480,7 +484,9 @@ CREATE TABLE IF NOT EXISTS `niveaux` (
 
 INSERT INTO `niveaux` (`id`, `libelle`) VALUES
 (1, 'Toute petite section'),
-(4, 'Petit section');
+(4, 'Petit section'),
+(5, 'La moyenne'),
+(6, 'La grande');
 
 -- --------------------------------------------------------
 
@@ -608,7 +614,7 @@ CREATE TABLE IF NOT EXISTS `tasks` (
   `description` text NOT NULL,
   `taux` int(11) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=latin1;
 
 --
 -- Déchargement des données de la table `tasks`
@@ -618,17 +624,18 @@ INSERT INTO `tasks` (`id`, `description`, `taux`) VALUES
 (1, 'Gestion des caisse mensuelle', 0),
 (2, 'Gestion des charges et depenses', 0),
 (3, 'Gestion des Journaux', 0),
-(4, 'Gestion de DASHBOARD', 0),
+(4, 'Gestion de DASHBOARD', 10),
 (5, 'Gestion d\'etablissement', 80),
 (6, 'Gestion des utilisateurs', 90),
-(7, 'Gestion des taches', 50),
+(7, 'Gestion des taches', 100),
 (8, 'Gestion des employes', 75),
 (9, 'Gestion de DATABASE', 0),
 (10, 'Gestion des conge', 90),
 (11, 'Gestion des avances', 0),
 (12, 'Paiement des employes', 20),
 (13, 'Autres', 0),
-(14, 'Gestion des eleves', 0);
+(14, 'Gestion des eleves', 75),
+(15, 'Authentification', 50);
 
 -- --------------------------------------------------------
 

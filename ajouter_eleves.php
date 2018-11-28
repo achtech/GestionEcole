@@ -2,9 +2,9 @@
 <?php require_once('header.php'); ?>  
 <?php require_once('menu.php'); ?>
             <div class="block-header">
-                <h5>
+                <h2>
                     <?php echo _NOUVELLE ?> <?php echo _INSCRIPTION ?> 
-                </h5>
+                </h2>
             </div>
             <!-- Vertical Layout -->
 <form action="" name="f1" method="post" >
@@ -45,9 +45,12 @@
         </div>
     </div>
     </form>
-    <form action="gestion.php" name="frm" method="post" 
-onsubmit="return checkForm(document.frm);" >
-    <input type="hidden" name="act" value="ajouter_eleves"/>
+            <div class="row clearfix">
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                    <div class="card">
+                        <div class="body">
+                            <form id="wizard_with_validation" method="POST">
+                                <input type="hidden" name="act" value="ajouter_eleves"/>
     <input type="hidden" name="table" value="eleves"/>
     <input type="hidden" name="page" value="eleves.php"/>
     <input type="hidden" name="id_annees_scolaire" value="<?php echo isset($_REQUEST['id_annees_scolaire'])?$_REQUEST['id_annees_scolaire']:'' ?>"/>
@@ -55,18 +58,14 @@ onsubmit="return checkForm(document.frm);" >
     <input type="hidden" name="id_classes" value="<?php echo isset($_REQUEST['id_classes'])?$_REQUEST['id_classes']:'' ?>"/>
     <input type="hidden" name="num_ordre" value="<?php echo isset($_REQUEST['num_ordre'])?$_REQUEST['num_ordre']:'' ?>"/>
     <input type="hidden" name="num_inscription" value="<?php echo isset($_REQUEST['num_inscription'])?$_REQUEST['num_inscription']:'' ?>"/>
-    
-    <div class="row clearfix">
-        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-            <h5 class="card-inside-title">El&eacute;ve</h5>
-            <div class="card">
-                <div class="body">
-                    <div class="row clearfix">
+                                <h3>El&eacute;ve</h3>
+                                <fieldset>
+                                    <div class="row clearfix">
                         <div class="col-sm-6">
                             <label for="nbr_place"><?php echo _NUMERO." d' "._ORDRE ?> : </label>
                             <div class="form-group">
                                 <div class="form-line">
-                                    <input type="text" id="num_ordre" name="num_ordre" class="form-control" >
+                                    <input type="text" id="num_ordre" name="num_ordre" class="form-control" required="true">
                                 </div>
                             </div>
 
@@ -101,7 +100,7 @@ onsubmit="return checkForm(document.frm);" >
                             <div class="form-group">
                                 <div class="form-line">
                                  <!--   <input type="text" class="datepicker form-control" name="date_naissance" placeholder="Please choose a date..."> -->
-                                    <input type="text" class="form-control" name="date_naissance" placeholder="Please choose a date..."> 
+                                    <input type="text" class="datepicker form-control" name="date_naissance" placeholder="Please choose a date..."> 
                                 </div>
                             </div>
                             <label for="nbr_place"><?php echo _LIEUX." de "._NAISSANCES ?> : </label>
@@ -119,16 +118,11 @@ onsubmit="return checkForm(document.frm);" >
                             </div>
                         </div>
                     </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="row clearfix">
-        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-            <h5 class="card-inside-title">Parents</h5>
-            <div class="card">
-                <div class="body">
-                    <div class="row clearfix">
+                    </fieldset>
+
+                    <h3>Parents</h3>
+                    <fieldset>
+                        <div class="row clearfix">
                         <div class="col-sm-6">
                             <label for="email_address"><?php echo _PRENOM." du "._PERE ?> : </label>
                             <div class="form-group">
@@ -159,7 +153,7 @@ onsubmit="return checkForm(document.frm);" >
                             <div class="form-group">
                                 <label for="form-label"><?php echo _ADRESSE." des "._PARENTS ?></label>
                                 <div class="form-line">
-                                    <textarea name="adresse_parents" cols="30" rows="5" class="form-control no-resize" required="" aria-required="true"></textarea>
+                                    <textarea name="adresse_parents" cols="30" rows="5" class="form-control no-resize"  aria-required="true"></textarea>
                                 </div>
                             </div>
                         </div>
@@ -196,27 +190,20 @@ onsubmit="return checkForm(document.frm);" >
                             <div class="form-group">
                                 <label ><?php echo _ADRESSE." "._PERSONNELS ?></label>
                                 <div class="form-line">
-                                    <textarea name="adresse_personnels" cols="30" rows="5" class="form-control no-resize" required="" aria-required="true"></textarea>
+                                    <textarea name="adresse_personnels" cols="30" rows="5" class="form-control no-resize"  aria-required="true"></textarea>
                                 </div>
                             </div>
                         </div>
                     </div>
-                </div>
-            </div>
-        </div>
-    </div>
-          
-    <div class="row clearfix">
-        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-            <h5 class="card-inside-title">Paiements</h5>
-            <div class="card">
-                <div class="body">
-                    <div class="row clearfix">
+                  </fieldset>
+                   <h3>Paiements</h3>
+                    <fieldset>
+                       <div class="row clearfix">
                         <div class="col-sm-6">
                             <label for="nbr_place"><?php echo _FRAIS." d'"._INSCRIPTION ?> : </label>
                             <div class="form-group">
                                 <div class="form-line">
-                                    <input type="text" id="frais_inscription" name="frais_inscription" class="form-control" value="2500">
+                                    <input type="text" id="frais_inscription" name="frais_inscription" required="true" class="form-control" value="2500">
                                 </div>
                             </div>
                         </div>
@@ -224,18 +211,19 @@ onsubmit="return checkForm(document.frm);" >
                              <label for="nbr_place"><?php echo _FRAIS." "._MENSUELLE ?> : </label>
                             <div class="form-group">
                                 <div class="form-line">
-                                    <input type="text" id="frais_mensuelle" name="frais_mensuelle" class="form-control" value="1100">
+                                    <input type="text" id="frais_mensuelle" name="frais_mensuelle" required="true" class="form-control" value="1100">
                                 </div>
                             </div>
                         </div>
                     </div>
-                </div>
+                  </fieldset>
+                  <div style="padding:10px;">
+                    <input type="submit" class="btn btn-primary m-t-15 waves-effect" value="<?php echo _AJOUTER ?>" />            <input action="action" onclick="window.history.go(-1); return false;" class="btn btn-primary m-t-15 waves-effect"  type="button" value="<?php echo _ANNULER ?>" />
+
+                  </div>
+                </form>
             </div>
         </div>
-    </div>                      
-	<input type="submit" class="btn btn-primary m-t-15 waves-effect" value="<?php echo _AJOUTER ?>" />
-</form>
-                       
-            
-
+    </div>
+</div>
 <?php require_once('footer.php'); ?>

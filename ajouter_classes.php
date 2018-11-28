@@ -1,4 +1,4 @@
-<?php $categorie=3;$page="classes"; ?>
+<?php $categorie=4;$page="classes"; ?>
 <?php require_once('header.php'); ?>  
 <?php require_once('menu.php'); ?>
             <div class="block-header">
@@ -30,14 +30,9 @@
 
                                     </div>
                                 </div>
-                                <label for="nbr_place"><?php echo _ANNEES." "._SCOLAIRES ?> : </label>
-                                <div class="form-group">
-                                    <div class="form-line">
-                                        <?php  echo getTableList('annees_scolaires','id_annees_scolaire','','libelle','','','id_annees_scolaire') ?>
-                                    </div>
-                                </div>
                                 <br>
-                                		<input type="submit" class="btn btn-primary m-t-15 waves-effect" value="<?php echo _AJOUTER ?>" />
+                                		<input type="submit" class="btn btn-primary m-t-15 waves-effect" value="<?php echo _AJOUTER ?>" />            <input action="action" onclick="window.history.go(-1); return false;" class="btn btn-primary m-t-15 waves-effect"  type="button" value="<?php echo _ANNULER ?>" />
+
 
                             </form>
                         </div>

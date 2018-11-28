@@ -2,23 +2,24 @@
         <!-- Left Sidebar -->
         <aside id="leftsidebar" class="sidebar">
             <!-- User Info -->
+            <?php $userFirstName=getValeurChamp('prenom','employes','id',$_SESSION['employeId']); ?>
+            <?php $userLastName=getValeurChamp('nom','employes','id',$_SESSION['employeId']); ?>
+            <?php $userEmail=getValeurChamp('email','employes','id',$_SESSION['employeId']); ?>
+            <?php $userId=$_SESSION['employeId']; ?>
+            <?php $userPhoto=getValeurChamp('photo','employes','id',$_SESSION['employeId']); ?>
             <div class="user-info">
                 <div class="image">
-                    <img src="images/user.png" width="48" height="48" alt="User" />
+                    <img src="images/<?php echo $userPhoto ?>" width="48" height="48" alt="User" />
                 </div>
                 <div class="info-container">
-                    <div class="name" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Achraf Saloumi</div>
-                    <div class="email">a.mareshal@gmail.com</div>
+                    <div class="name" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><?php echo $userFirstName." ".$userLastName ?></div>
+                    <div class="email"><?php echo $userEmail ?></div>
                     <div class="btn-group user-helper-dropdown">
                         <i class="material-icons" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">keyboard_arrow_down</i>
                         <ul class="dropdown-menu pull-right">
-                            <li><a href="javascript:void(0);"><i class="material-icons">person</i>Profile</a></li>
+                            <li><a href="modifier_employes.php?employes=<?php echo $userId; ?>"><i class="material-icons">person</i>Profile</a></li>
                             <li role="separator" class="divider"></li>
-                            <li><a href="javascript:void(0);"><i class="material-icons">group</i>Followers</a></li>
-                            <li><a href="javascript:void(0);"><i class="material-icons">shopping_cart</i>Sales</a></li>
-                            <li><a href="javascript:void(0);"><i class="material-icons">favorite</i>Likes</a></li>
-                            <li role="separator" class="divider"></li>
-                            <li><a href="javascript:void(0);"><i class="material-icons">input</i>Sign Out</a></li>
+                            <li><a href="deconnexion.php"><i class="material-icons">input</i><?php echo _DECONNEXION ?></a></li>
                         </ul>
                     </div>
                 </div>
@@ -40,7 +41,7 @@
                             <span><?php echo _GESTION ?> <?php echo _SCOLAIRES ?></span>
                         </a>
                         <ul class="ml-menu">
-                            <li class="<?php if($page=='eleves') echo 'active'; ?>"> <a href="eleves.php"> <?php echo _ELEVES ?> 75 % </a> </li>
+                            <li class="<?php if($page=='eleves') echo 'active'; ?>"> <a href="eleves.php"> <?php echo _ELEVES ?></a> </li>
                             <li class="<?php if($page=='retards_eleves') echo 'active'; ?>"> <a href="retards_eleves.php"> <?php echo _RETARDS ?> </a> </li>
                             <li class="<?php if($page=='absence_eleves') echo 'active'; ?>"> <a href="absence_eleves.php"> <?php echo _ABSENCES ?> </a> </li>
                             <li class="<?php if($page=='paiements_eleves') echo 'active'; ?>"> <a href="paiements_eleves.php"> <?php echo _PAIEMENTS ?> </a> </li>
@@ -75,14 +76,15 @@
                             <span><?php echo _PARAM ?></span>
                         </a>
                         <ul class="ml-menu">
-                            <li class="<?php if($page=='annes_scolaire') echo 'active'; ?>"> <a href="annes_scolaire.php"> <?php echo _ANNEES ?> <?php echo _SCOLAIRES ?>100% </a> </li>
-                            <li class="<?php if($page=='niveaux') echo 'active'; ?>"> <a href="niveaux.php"> <?php echo _NIVEAUX ?>100%</a></li>
-                            <li class="<?php if($page=='salles') echo 'active'; ?>"> <a href="salles.php"> <?php echo _SALLES ?>100%</a> </li>
-                            <li class="<?php if($page=='mode_paiements') echo 'active'; ?>"> <a href="mode_paiements.php"> <?php echo _MODE ?> <?php echo _DE ?> <?php echo _PAIEMENTS ?> 100%</a> </li>
-                            <li class="<?php if($page=='etablissements') echo 'active'; ?>"> <a href="etablissements.php"> <?php echo _ETABLISSEMENTS ?>80% </a> </li>
-                            <li class="<?php if($page=='users') echo 'active'; ?>"> <a href="users.php"> <?php echo _UTILISATEURS ?>100% </a> </li>
-                            <li class="<?php if($page=='classes') echo 'active'; ?>"> <a href="classes.php"> <?php echo _CLASSES ?>100% </a> </li>
+                            <li class="<?php if($page=='annes_scolaire') echo 'active'; ?>"> <a href="annes_scolaire.php"> <?php echo _ANNEES_SCOLAIRES ?> </a> </li>
+                            <li class="<?php if($page=='niveaux') echo 'active'; ?>"> <a href="niveaux.php"> <?php echo _NIVEAUX ?></a></li>
+                            <li class="<?php if($page=='salles') echo 'active'; ?>"> <a href="salles.php"> <?php echo _SALLES ?></a> </li>
+                            <li class="<?php if($page=='mode_paiements') echo 'active'; ?>"> <a href="mode_paiements.php"> <?php echo _MODE ?> <?php echo _DE ?> <?php echo _PAIEMENTS ?> </a> </li>
+                            <li class="<?php if($page=='etablissements') echo 'active'; ?>"> <a href="etablissements.php"> <?php echo _ETABLISSEMENTS ?> </a> </li>
+                            <li class="<?php if($page=='users') echo 'active'; ?>"> <a href="users.php"> <?php echo _UTILISATEURS ?> </a> </li>
+                            <li class="<?php if($page=='classes') echo 'active'; ?>"> <a href="classes.php"> <?php echo _CLASSES ?> </a> </li>
                             <li class="<?php if($page=='logs') echo 'active'; ?>"> <a href="logs.php"> <?php echo _JOURNAL ?> </a> </li>
+                              <li class="<?php if($page=='tasks') echo 'active'; ?>"> <a href="tasks.php"> <?php echo _TASKS ?> </a> </li>
                         </ul>
                     </li>
                 </ul>

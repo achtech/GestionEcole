@@ -31,7 +31,7 @@
                                     <label for="nbr_place"><?php echo _DATE." "._PAIEMENTS ?> : </label>
                                     <div class="form-group">
                                         <div class="form-line">
-                                            <input type="text" id="date_paiements" name="date_paiements" class="datepicker form-control date" value="<?php echo getValeurChamp('date_paiements','paiements_eleves','id',$_REQUEST['paiements']); ?>" >
+                                            <input type="text" id="date_paiements" name="date_paiements" class="datepicker form-control" value="<?php echo getValeurChamp('date_paiements','paiements_eleves','id',$_REQUEST['paiements']); ?>" >
                                         </div>
                                     </div>
                                     <label for="nbr_place"><?php echo _MOIS ?> : </label>
@@ -69,7 +69,7 @@
                 </div>
             </div>
                                 
-                           		<input type="submit" class="btn btn-primary m-t-15 waves-effect" value="<?php echo _MODIFIER ?>" />
+                           		<input type="submit" class="btn btn-primary m-t-15 waves-effect" value="<?php echo _MODIFIER ?>" />            <input action="action" onclick="window.history.go(-1); return false;" class="btn btn-primary m-t-15 waves-effect"  type="button" value="<?php echo _ANNULER ?>" />
                             </form>
                        
             

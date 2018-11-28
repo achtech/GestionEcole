@@ -4,6 +4,22 @@ $tab_salles = array(
 					_COURS,
 					_ACTIVITES
 					);
+
+$tab_politesse = array(
+					1=>"Melle",
+					"Madame",
+					"Mr."
+					);
+$tab_priorite = array(
+					1=>"Low",
+					"Medium",
+					"High"
+					);
+
+$tab_sexe = array(
+					1=>_FEMININ,
+					_MASCULIN
+					);
 $tab_roles = array(
 					1=>_ADMIN,
 					_UTILISATEURS
@@ -23,6 +39,12 @@ $tab_etats = array(
 				    1=>"Ouvert",
 					"Accepter",
 					"Cloturer"
+					);
+
+$tab_status = array(
+				    1=>"TODO",
+					"IN PROGRESS",
+					"DONE"
 					);
 
 $tab_mois = array(

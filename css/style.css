@@ -8053,6 +8053,16 @@ a.ajouter{
     font-size: 15px;
 }
 
+a.detail{
+  background:url(../images/paper-page-square-text.gif) no-repeat left !important;
+  padding:18px !important;
+  float : right;
+  clear: both;
+      margin-top: -40px;
+    color: green;
+    font-weight: bold;
+    font-size: 15px;
+}
 a.modifier2{
   background:url(../images/modifier.png) no-repeat left;
   padding-left:12px;
@@ -8090,7 +8100,7 @@ a.absences2{
 
 
 a.inscription2{
-  background:url(../images/pencil-rename.png) no-repeat left;
+  background:url(../images/inscription-filled-16.png) no-repeat left;
   padding-left:12px;
   padding-top:2px;
 }

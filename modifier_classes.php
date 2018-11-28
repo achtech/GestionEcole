@@ -37,14 +37,8 @@
 
                                     </div>
                                 </div>
-                                <label for="nbr_place"><?php echo _ANNEES." "._SCOLAIRES ?> : </label>
-                                <div class="form-group">
-                                    <div class="form-line">
-                                        <?php  echo getTableList('annees_scolaires','id_annees_scolaire',getValeurChamp('id_annees_scolaire','classes','id',$_REQUEST['classes']),'libelle','','','id_annees_scolaire') ?>
-                                    </div>
-                                </div>
                                 <br>
-                                		<input type="submit" class="btn btn-primary m-t-15 waves-effect" value="<?php echo _MODIFIER ?>" />
+                                		<input type="submit" class="btn btn-primary m-t-15 waves-effect" value="<?php echo _MODIFIER ?>" />            <input action="action" onclick="window.history.go(-1); return false;" class="btn btn-primary m-t-15 waves-effect"  type="button" value="<?php echo _ANNULER ?>" />
 
                             </form>
                         </div>
