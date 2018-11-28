@@ -1,5 +1,5 @@
 <?php session_start(); ?>
-<?php error_reporting(0) ?>
+<?php //error_reporting(0) ?>
 
 <link href="style.css" rel="stylesheet" type="text/css" />
 
