@@ -1086,25 +1086,15 @@ function formater_texte2($t){
 	return html_entity_decode(stripslashes($t));
 }
 
-function envoi_mail($dest,$sujet,$message,$page){
+function envoi_mail($dest,$url){
 	
 //envoyer un msg de confirmation par mail
-$headers ='From: "World Rezervation"<contact@world-rezervation.com>'."\n";
-$headers .='Reply-To: contact@world-rezervation.com'."\n"; 
+$headers ='From: "Ecole Maternelle"<achraf_fssm@hotmail.com>'."\n";
+$headers .='Reply-To: a.mareshal@gmail.com'."\n"; 
 $headers .='Content-Type: text/html; charset="iso-8859-1"'."\n";
 $headers .='Content-Transfer-Encoding: 8bit';
-
-$msg ='
-
-<html>
-	<head>
-		<title>'.$sujet.'</title>
-	</head>
-	
-	<body>
-		'. $message .'
-	</body>
-</html>';
+$sujet = "Mot de passe oublier";
+$message = '<html><head><title>'.$sujet.'</title></head><body>Clickez sur cette lien pour renitialiser votre mot de passe <a href="'.$url.'">Cliquez-ici</a></body></html>';
 
 if (mail($dest, $sujet, $message, $headers)){
 	$msg = _ENVOI_OK;
@@ -1113,11 +1103,19 @@ else
 {
 	$msg_err = _ENVOI_NOK;
 }
-
-redirect($page."?msg=".$msg."&err=".$msg_err);
+redirect($url);
+//redirect("forgot-password?msg=".$msg."&err=".$msg_err);
 }
 
-
+function random($car) {
+	$string = "";
+	$chaine = "abcdefghijklmnpqrstuvwxy0123456789";
+	srand((double)microtime()*1000000);
+	for($i=0; $i<$car; $i++) {
+		$string .= $chaine[rand()%strlen($chaine)];
+	}
+	return $string;
+}
 function getTabList($tab,$nom,$valeur,$change,$libelle){
 ?>
 
@@ -2076,9 +2074,9 @@ function paiementsNonPaye($id_annees_scolaire){
 	return $tab;
 }
 
-function getAllTasks(){
+function getAllTasksNotComplete(){
 
-	$sql = "select * from tasks order by taux desc";
+	$sql = "select * from tasks where taux<100 order by taux desc";
 	$res = doQuery($sql);
 
 	$tab =[];
@@ -2113,5 +2111,24 @@ function writeInLogs($idUser,$description){
 	$dateOperation = date('Y-m-d H:i:s');
 	$sql="INSERT INTO logs(id_users,date_operation,description) VALUES (".$idUser.",'".$dateOperation."','".$description."')";
 	$res = doQuery($sql);
+}
+
+function getNombreJour($d1,$d2){
+		$dureesejour = (strtotime($d2) - strtotime($d1));
+		return $dureesejour/(60*60*24);
+}
+
+function getClass($idEleves,$idAnneScolaire){
+	$sql = "SELECT * FROM `inscriptions` WHERE `id_eleves`=".$idEleves;
+	$res = doQuery($sql);
+
+	$idClasses =0;
+	$i = 0;
+	while ($ligne = mysql_fetch_array($res)){
+		if($ligne['id_annees_scolaire']==$idAnneScolaire){
+			$idClasses=$ligne['id_classes'];
+		}
+	}
+	return $idClasses;
 }
 ?>

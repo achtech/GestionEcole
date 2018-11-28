@@ -24,6 +24,7 @@ define('_STATUS','Status');
 define('_MANAGER','Manager');
 define('_PRIORITE','Priorite');
 define('_ALL','All');
+define('_JOURS','Jour(s)');
 
 define('_DOSSIER','Dossier');
 define('_CLASSES','CLasses');
@@ -145,7 +146,6 @@ define('_ANNULATION','Annulation');
 define('_SECRETAIRE','Secretaire(s)');
 define('_PARTENAIRE','Partenaire(s)');
 define('_TABLES','Table(s)');
-define('_JOURS','Jour(s)');
 define('_DESCRIPTION','Description');
 define('_LEGENDE','Legende');
 define('_CLIENTS','Client(s)');

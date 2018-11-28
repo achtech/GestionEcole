@@ -36,7 +36,7 @@
                                             <th><?php echo _DATE." "._DEMANDE ?></th>
                                             <th><?php echo _DATE." "._DEBUT ?></th>
                                             <th><?php echo _DATE." "._FIN ?></th>
-                                            <th><?php echo _NB." "._JOUR ?></th>
+                                            <th><?php echo _NB." "._JOURS ?></th>
                                             <th><?php echo _SANS." "._SOLDE ?></th>
                                             <th><?php echo _VALIDER ?></th>
                                             <th><?php echo _MOTIF ?></th>

@@ -8,10 +8,9 @@
 
 <?php 
 echo "<center><h2>"._REDIRECT."</h2></center>";
-//print_r($_REQUEST);
 connect ();
 //detection de la table et des champs concerné
-$tab_table = split(',',$_REQUEST['table']);
+$tab_table = split(',',isset($_REQUEST['table']) && !empty($_REQUEST['table']) ? $_REQUEST['table'] :"");
 $table=$tab_table[0];
 
 $action = isset($_REQUEST['act']) && !empty($_REQUEST['act'])?$_REQUEST['act']:"";
@@ -640,10 +639,36 @@ if ($action == 'conexion')
 	}
 }
 
+if ($action == 'forgotten_password')
+{
+	$email=$_REQUEST['email'];
+	$id=getValeurChamp('id','employes','email',$email);
+	$login=getValeurChamp('login','users','id_employes',$id);
+	$idUser=getValeurChamp('id','users','id_employes',$id);
+	$url = "reset_password.php?url=".random(10).$idUser.random(10);
+	if($id>0){
+		envoi_mail($email,$url,$login);
+	}else{
+		redirect("log-in.php?msg_retour=Email n'existe pas dans notre base de donné");
+	}
+}
+
+if ($action == 'resetPassword')
+{
+	$password=isset($_REQUEST['password']) && !empty($_REQUEST['password']) ? $_REQUEST['password']:"";
+	$confirm=isset($_REQUEST['confirm']) && !empty($_REQUEST['confirm']) ? $_REQUEST['confirm']:"";
+	$url=isset($_REQUEST['url']) && !empty($_REQUEST['url']) ? $_REQUEST['url']:"";
+	$idUser=substr($url, 10);
+	$idUser=substr($idUser, 0,strlen($idUser)-10);
+	$sql = "update users set password='".$password."' where id=".$idUser; 
+	doQuery($sql);
+}
+
 
 if(isset($_REQUEST['msg_retour'])){
 	$msg = $_REQUEST['msg_retour'];
 }
-
+$msg = isset($msg) && !empty($msg) ? $msg : "";
+$msg_err = isset($msg_err) && !empty($msg_err) ? $msg_err : "";
 redirect($page."?".$chaine_retour."&m=".$msg."&er=".$msg_err."#ancre");
 ?>

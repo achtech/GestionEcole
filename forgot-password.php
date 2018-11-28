@@ -35,7 +35,9 @@
         </div>
         <div class="card">
             <div class="body">
-                <form id="forgot_password" method="POST">
+                <form id="forgot_password" method="POST" action="gestion.php">
+                    <input type="hidden" name="act" value="forgotten_password"/>
+
                     <div class="msg">
                         Entrez votre adresse email que vous avez utilisé pour vous inscrire. Nous vous enverrons un email avec votre nom d'utilisateur et un lien pour réinitialiser votre mot de passe.
                     </div>
@@ -44,15 +46,14 @@
                             <i class="material-icons">email</i>
                         </span>
                         <div class="form-line">
-                            <input type="email" class="form-control" name="email" placeholder="Email" required autofocus>
+                            <input type="email" class="form-control" name="email" value="a.mareshal@gmail.com" required autofocus>
                         </div>
                     </div>
 
-                    <button class="btn btn-block btn-lg bg-pink waves-effect" type="submit">RÉINITIALISER MON MOT DE PASSE
-</button>
+<button class="btn btn-block btn-lg bg-pink waves-effect" type="submit">RÉINITIALISER MON MOT DE PASSE</button>
 
                     <div class="row m-t-20 m-b--5 align-center">
-                        <a href="sign-in.html">Connexion!</a>
+                        <a href="log-in.php">Connexion!</a>
                     </div>
                 </form>
             </div>

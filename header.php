@@ -151,7 +151,7 @@ window.onload = function () {
                     <!-- #END# Notifications -->
                     <!-- Tasks -->
                     <li class="dropdown">
-                        <?php $tabTasks = getAllTasks(); ?>
+                        <?php $tabTasks = getAllTasksNotComplete(); ?>
                         <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" role="button">
                             <i class="material-icons">flag</i>
                             <span class="label-count"><?php echo count($tabTasks) ?></span>
