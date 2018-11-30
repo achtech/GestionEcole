@@ -2131,4 +2131,38 @@ function getClass($idEleves,$idAnneScolaire){
 	}
 	return $idClasses;
 }
+
+function getColor(){
+	return ["pink","cyan","light-green","orange","green","tomato","red","black","purple"];
+}
+
+
+function getIcon(){
+	return ["playlist_add_check","help","forum","person_add"];
+}
+
+function getAllNiveaux(){
+	$sql = "SELECT * FROM `niveaux`";
+	$res = doQuery($sql);
+
+	$tot =[];
+	$i = 0;
+	while ($ligne = mysql_fetch_array($res)){
+		$tot[$i][0]=$ligne['id'];
+		$tot[$i][1]=$ligne['libelle'];
+		$i=$i+1;
+	}
+	return $tot;
+}
+
+function getNombreEleve($id_niveaux){
+$sql = "SELECT count(id) as tot FROM `inscriptions` where id_annees_scolaire=".getCurrentAnneesScolaires()." and id_classes in(select id from classes where id_niveaux=".$id_niveaux.")";
+	$res = doQuery($sql);
+
+	$ct = 0;
+	while ($ligne = mysql_fetch_array($res)){
+		$ct=$ligne['tot'];
+	}
+	return $ct;
+}
 ?>

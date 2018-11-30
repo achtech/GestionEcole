@@ -6,7 +6,7 @@
                     <?php echo _GESTION ?> <?php echo _AVANCES ?>
                 </h2>
                 <div> 
-                    	<a href="ajouter_niveaux.php" class="ajouter">
+                    	<a href="ajouter_avances.php" class="ajouter">
 			        		<?php echo _AJOUTER ?> <?php echo _AVANCES ?> 
 			    		 </a>		
 				</div>
@@ -90,7 +90,7 @@
 								               
 								            </td>
 											<td class="op">
-												<a href="modifier_avances.php?avance=<?php echo $ligne['id'] ?>" class="modifier2">
+												<a href="modifier_avances.php?avances=<?php echo $ligne['id'] ?>" class="modifier2">
 													&nbsp;
 								                </a>
 												

@@ -16,6 +16,7 @@
 								<input type="hidden" name="act" value="a"/>
 							    <input type="hidden" name="table" value="users"/>
 								<input type="hidden" name="page" value="users.php"/>
+                                <input type="hidden" name="pageError" value="ajouter_users.php"/>
 
                                 <label for="email_address"><?php echo _NOM ?> : </label>
                                 <div class="form-group">
@@ -32,7 +33,13 @@
                                 <label for="nbr_place"><?php echo _PASSWORD ?> : </label>
                                 <div class="form-group">
                                     <div class="form-line">
-                                        <input type="password" id="password" name="password" class="form-control" >
+                                        <input type="password" id="password" minlength="6" name="password" class="form-control" >
+                                    </div>
+                                </div>
+                                <label for="nbr_place"><?php echo _CONFIRMER." "._PASSWORD ?> : </label>
+                                <div class="form-group">
+                                    <div class="form-line">
+                                        <input type="password" id="password" minlength="6" name="confirmer" class="form-control" >
                                     </div>
                                 </div>
                                 <label for="nbr_place"><?php echo _TYPE ?> : </label>

@@ -89,7 +89,7 @@
 								            </td>                                            
 								            
 											<td class="op">
-												<a href="modifier_detail_tasks.php?tasks=<?php echo $_REQUEST['tasks'] ?>&detail_tasks=<?php echo $ligne['id'] ?>" class="modifier2">
+												<a href="modifier_detail_tasks.php?tasks=<?php echo $ligne['id_tasks'] ?>&detail_tasks=<?php echo $ligne['id'] ?>" class="modifier2">
 													&nbsp;
 								                </a>
 												
