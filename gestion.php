@@ -8,8 +8,9 @@
 
 <?php 
 echo "<center><h2>"._REDIRECT."</h2></center>";
+//print_r($_REQUEST);
 connect ();
-//detection de la table et des champs concerné
+//detection de la table et des champs concernÃ©
 $tab_table = split(',',isset($_REQUEST['table']) && !empty($_REQUEST['table']) ? $_REQUEST['table'] :"");
 $table=$tab_table[0];
 
@@ -51,10 +52,12 @@ if ($action == "a"){
 			$_REQUEST[$v] = mktime($hr,$mint,$sec,$mois,$jour,$annee);
 		}
 	}
-	
+	if(isset($_REQUEST['password']) && isset($_REQUEST['confirmer']) && $_REQUEST['confirmer']!=$_REQUEST['password']){
+		redirect($_REQUEST['pageError']."?er=Les deux mot de pass ne sont identique");
+	}
 	 
 	doQuery("BEGIN");
-	 	
+	 		
 	for($i=0;$i<sizeof($tab_table);$i++){ 
 	
 		$var[$i]= Ajout($tab_table[$i],getNomChamps($tab_table[$i]),$_REQUEST);
@@ -87,9 +90,6 @@ if ($action == "a"){
 	if($m==1) $msg_err=_AJOUT_NOK;	
 	else {
 		$msg= _AJOUT_OK;
-		
-		
-		
 		doQuery("COMMIT");
 	}	
 		
@@ -493,7 +493,7 @@ if ($action == "messagerieeeeee"){
 	
 	doQuery("BEGIN");
 	
-	//Expéditeur
+	//ExpÃ©diteur
 	$_REQUEST['utilisateurs'] = $_SESSION['utilisateurs'];
 	$_REQUEST['type_utilisateurs'] = $_SESSION['type'];
 	$_REQUEST['datea'] = time();
@@ -531,7 +531,7 @@ if ($action == "messagerie"){
 	
 	doQuery("BEGIN");
 	
-	//Expéditeur
+	//ExpÃ©diteur
 	$_REQUEST['utilisateurs'] = $_SESSION['utilisateurs'];
 	$_REQUEST['type_utilisateurs'] = $_SESSION['type'];
 	$_REQUEST['datea'] = time();
@@ -594,7 +594,7 @@ if ($action == "messagerie_reponses"){
 	
 	doQuery("BEGIN");
 	
-	//Expéditeur
+	//ExpÃ©diteur
 	$_REQUEST['utilisateurs'] = $_SESSION['utilisateurs'];
 	$_REQUEST['type_utilisateurs'] = $_SESSION['type'];
 	$_REQUEST['datea'] = time();
@@ -649,7 +649,7 @@ if ($action == 'forgotten_password')
 	if($id>0){
 		envoi_mail($email,$url,$login);
 	}else{
-		redirect("log-in.php?msg_retour=Email n'existe pas dans notre base de donné");
+		redirect("log-in.php?msg_retour=Email n'existe pas dans notre base de donnÃ©");
 	}
 }
 
@@ -658,10 +658,15 @@ if ($action == 'resetPassword')
 	$password=isset($_REQUEST['password']) && !empty($_REQUEST['password']) ? $_REQUEST['password']:"";
 	$confirm=isset($_REQUEST['confirm']) && !empty($_REQUEST['confirm']) ? $_REQUEST['confirm']:"";
 	$url=isset($_REQUEST['url']) && !empty($_REQUEST['url']) ? $_REQUEST['url']:"";
-	$idUser=substr($url, 10);
-	$idUser=substr($idUser, 0,strlen($idUser)-10);
-	$sql = "update users set password='".$password."' where id=".$idUser; 
-	doQuery($sql);
+	if($password==$confirm) {
+		$idUser=substr($url, 10);
+		$idUser=substr($idUser, 0,strlen($idUser)-10);
+		$sql = "update users set password='".$password."' where id=".$idUser; 
+		doQuery($sql);		
+	}
+	else{
+		redirect("reset_password.php?url=".$url."&passwordStatus=Le mot de passe ne correspondent pas ");
+	}
 }
 
 

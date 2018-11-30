@@ -65,6 +65,7 @@ $whereClass="";
                 </div>
             </form>
 <!-- Exportable Table -->
+<?php if(!empty($id_classes)){ ?>
 			<div class="row clearfix">
                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                     <div class="card">
@@ -131,4 +132,5 @@ $whereClass="";
                     </div>
                 </div>
             </div>
+            <?php } ?>
 <?php require_once('footer.php'); ?>

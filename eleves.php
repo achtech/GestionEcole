@@ -30,20 +30,10 @@
             <!-- Vertical Layout -->
             <form action="" name="f1" method="get"  >
                 <?php 
-	                $id_classes=0;
-                    $id_niveaux=0;    
-                    $id_annees_scolaire=0;
-                    $whereClass ="";
-                    if(isset($_REQUEST['id_annees_scolaire'])){
-                        $id_classes=isset($_REQUEST['id_classes'])?$_REQUEST['id_classes']:'';
-                        $id_niveaux=isset($_REQUEST['id_niveaux'])?$_REQUEST['id_niveaux']:'';    
-                        $id_annees_scolaire=isset($_REQUEST['id_annees_scolaire'])?$_REQUEST['id_annees_scolaire']:'';
-                    }else if(isset($_REQUEST['id_niveaux'])){
-                        $id_classes=isset($_REQUEST['id_classes'])?$_REQUEST['id_classes']:'';
-                        $id_niveaux=isset($_REQUEST['id_niveaux'])?$_REQUEST['id_niveaux']:'';    
-                        $id_annees_scolaire=isset($_REQUEST['id_annees_scolaire'])?$_REQUEST['id_annees_scolaire']:'';
-                        $whereClass = ' where id_niveaux='.$_REQUEST['id_niveaux'];
-                    }
+	                $id_classes=isset($_REQUEST['id_classes'])?$_REQUEST['id_classes']:'';
+                    $id_niveaux=isset($_REQUEST['id_niveaux'])?$_REQUEST['id_niveaux']:'';    
+                    $id_annees_scolaire=isset($_REQUEST['id_annees_scolaire'])?$_REQUEST['id_annees_scolaire']:'';
+                    $whereClass = !empty($id_niveaux) ? ' where id_niveaux='.$_REQUEST['id_niveaux'] : "";
                 ?>
                  <div class="row clearfix">
                         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">

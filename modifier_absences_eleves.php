@@ -49,13 +49,14 @@
                                     </div>
                                 </div>
                                 <div class="col-sm-6">
+                                    <?php $checkedYes = getValeurChamp('justifier','absences_eleves','id',$_REQUEST['absences'])==1?"checked='checked'":"" ?> 
+                                    <?php $checkedNo = getValeurChamp('justifier','absences_eleves','id',$_REQUEST['absences'])==0?"checked='checked'":"" ?> 
                                     <label for="email_address"><?php echo _JUSTIFIER ?> : </label>
-                                    <div class="form-group">
-                                            <?php $checkedYes = getValeurChamp('justifier','absences_eleves','id',$_REQUEST['absences'])==1?"checked='checked'":"" ?> 
-                                            <?php $checkedNo = getValeurChamp('justifier','absences_eleves','id',$_REQUEST['absences'])==0?"checked='checked'":"" ?> 
-                                            Oui<input type="radio" name="justifier" style="position:unset;opacity:unset;height:20px" value="1" class="form-control " <?php echo  $checkedYes ?>/>
-                                            NOn<input type="radio" name="justifier" style="position:unset;opacity:unset;height:20px" value="0" class="form-control " <?php echo  $checkedNo ?>/>
-                                        
+                                    <div class="demo-radio-button">
+                                            <input type="radio" name="justifier" id="oui"  value="1"  <?php echo  $checkedYes ?>/>
+                                            <label for="oui">Oui</label>
+                                            <input type="radio" name="justifier" id="non" value="0"  <?php echo  $checkedNo ?> />
+                                            <label for="non">Non</label>
                                     </div>
                                     <label for="nbr_place"><?php echo _MOTIFS ?> : </label>
                                     <div class="form-group">
