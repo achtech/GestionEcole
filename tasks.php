@@ -77,6 +77,9 @@
                                     <thead>
                                         <tr>
                                             <th><?php echo _DESCRIPTION ?></th>
+                                            <th><?php echo _NB." des "._TODO ?></th>
+                                            <th><?php echo _NB." des "._INPROGRESS ?></th>
+                                            <th><?php echo _NB." des "._DONE ?></th>
                                             <th><?php echo _NB." des "._TASKS ?></th>
                                             <th><?php echo _TAUX ?></th>
 											<th class="op"> <?php echo _OP ?> </th>
@@ -85,6 +88,9 @@
                                     <tfoot>
                                         <tr>
                                             <th><?php echo _DESCRIPTION ?></th>
+                                            <th><?php echo _NB." des "._TODO ?></th>
+                                            <th><?php echo _NB." des "._INPROGRESS ?></th>
+                                            <th><?php echo _NB." des "._DONE ?></th>
                                             <th><?php echo _NB." des "._TASKS ?></th>
                                             <th><?php echo _TAUX ?></th>
 											<th class="op"> <?php echo _OP ?> </th>
@@ -105,9 +111,18 @@
                                             <td>
 													<a href="details_tasks.php?tasks=<?php echo $ligne['id'] ?>"><?php echo $ligne['description'] ?></a>
 								            </td>
-								            <td>
-													<?php echo getNb('detail_tasks','id_tasks',$ligne['id']) ?>
-								            </td>
+                                            <td>
+                                                    <?php echo getNb('detail_tasks','id_tasks,status',$ligne['id'].",1") ?>
+                                            </td>
+                                            <td>
+                                                    <?php echo getNb('detail_tasks','id_tasks,status',$ligne['id'].",2") ?>
+                                            </td>
+                                            <td>
+                                                    <?php echo getNb('detail_tasks','id_tasks,status',$ligne['id'].",3") ?>
+                                            </td>
+                                            <td>
+                                                    <?php echo getNb('detail_tasks','id_tasks',$ligne['id']) ?>
+                                            </td>
 
 								            <td>
 													<?php echo $ligne['taux'] ?>

@@ -47,7 +47,7 @@
                             <li class="<?php if($page=='paiements_eleves') echo 'active'; ?>"> <a href="paiements_eleves.php"> <?php echo _PAIEMENTS ?> </a> </li>
                         </ul>
                     </li>
-                    <li class="<?php if($categorie==2) echo 'active'; ?>">
+                 <!--   <li class="<?php if($categorie==2) echo 'active'; ?>">
                         <a href="javascript:void(0);" class="menu-toggle">
                             <i class="material-icons">swap_calls</i>
                             <span><?php echo _TRESORIE ?></span>
@@ -56,7 +56,7 @@
                             <li class="<?php if($page=='caisse_mensuelles') echo 'active'; ?>"> <a href="caisse_mensuelles.php"> <?php echo _CAISSE ?> <?php echo _MENSUELLES ?> </a> </li>
                             <li class="<?php if($page=='charges_depenses') echo 'active'; ?>"> <a href="charges_depenses.php"> <?php echo _CHARGES ?> <?php echo _ET ?> <?php echo _DEPENSES ?> </a> </li>
                         </ul>
-                    </li>
+                    </li>-->
                     <li class="<?php if($categorie==3) echo 'active'; ?>">
                         <a href="javascript:void(0);" class="menu-toggle">
                             <i class="material-icons">assignment</i>
