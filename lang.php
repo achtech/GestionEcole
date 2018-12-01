@@ -1,4 +1,7 @@
 <?php 
+define("_SALAIRE",'Salaire');
+ define("_MENSUELLE",'mensuelle');
+ define("_HEURS",'heures');
 define('_ROLES','Role(s)');
 define('_LIEUX','Lieux');
 define('_CIN','C.I.N');
@@ -25,7 +28,7 @@ define('_MANAGER','Manager');
 define('_PRIORITE','Priorite');
 define('_ALL','All');
 define('_JOURS','Jour(s)');
-
+define('_BASE_DE_DONNE',"Base de donn&eacute;es");
 define('_DOSSIER','Dossier');
 define('_CLASSES','CLasses');
 define('_ABSENCES','Absences');

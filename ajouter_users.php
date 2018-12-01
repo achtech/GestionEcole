@@ -11,7 +11,7 @@
                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                     <div class="card">
                         <div class="body">
-							<form action="gestion.php" name="frm" method="post" 
+							<form action="gestion.php" name="frm" method="post"  id="sign_up" 
 							onsubmit="return checkForm(document.frm);" >
 								<input type="hidden" name="act" value="a"/>
 							    <input type="hidden" name="table" value="users"/>
@@ -30,16 +30,18 @@
                                         <input type="text" id="login" name="login" class="form-control" >
                                     </div>
                                 </div>
+
                                 <label for="nbr_place"><?php echo _PASSWORD ?> : </label>
                                 <div class="form-group">
                                     <div class="form-line">
-                                        <input type="password" id="password" minlength="6" name="password" class="form-control" >
+                                        <input type="password" class="form-control" name="password" id="password" required>
                                     </div>
                                 </div>
+
                                 <label for="nbr_place"><?php echo _CONFIRMER." "._PASSWORD ?> : </label>
                                 <div class="form-group">
                                     <div class="form-line">
-                                        <input type="password" id="password" minlength="6" name="confirmer" class="form-control" >
+                                        <input  type="password" class="form-control" name="confirm" required>
                                     </div>
                                 </div>
                                 <label for="nbr_place"><?php echo _TYPE ?> : </label>

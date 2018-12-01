@@ -82,11 +82,12 @@
 								                </a>
 												
 												&nbsp;
-
+												<?php if (getValeurChamp('isFormateur','employes','id',$ligne['id'])>0) {?>
+												
 												<a href="class_formateur.php?employes=<?php echo $ligne['id'] ?>" class="inscription2" title="les class du formateur">
 													&nbsp;
 								                </a>
-												
+												<?php } ?>
 												&nbsp;
 											    <a href="#ancre" 
 								                class="supprimer2" 

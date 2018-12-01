@@ -11,7 +11,7 @@
                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                     <div class="card">
                         <div class="body">
-                            <form action="gestion.php" name="frm" method="post" 
+                            <form action="gestion.php" name="frm" method="post"   id="sign_up"
                             onsubmit="return checkForm(document.frm);" >
                                 <input type="hidden" name="act" value="m"/>
                                 <input type="hidden" name="table" value="users"/>
@@ -41,6 +41,13 @@
                                         <input type="password" id="password" name="password" class="form-control" value="<?php echo getValeurChamp('password','users','id',$_REQUEST['users']) ?>">
                                     </div>
                                 </div>
+                                <label for="nbr_place"><?php echo _CONFIRMER." "._PASSWORD ?> : </label>
+                                <div class="form-group">
+                                    <div class="form-line">
+                                        <input  type="password" class="form-control" name="confirm" required>
+                                    </div>
+                                </div>
+    
                                 <label for="nbr_place"><?php echo _TYPE ?> : </label>
                                 <div class="form-group">
                                     <div class="form-line">
