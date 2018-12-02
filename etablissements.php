@@ -74,17 +74,17 @@
                                             </div>
                                             <div class="form-group form-float">
                                                 <div class="form-line focused warning">
-                                                        <label class="form-control" name="warning" value="Warning"><?php echo $etablissements['page_facebook']; ?></label>
+                                                        <label class="form-control" name="warning" value="Warning"><img src="images/facebook.jpg"> <?php echo $etablissements['page_facebook']; ?></label>
                                                 </div>
                                             </div>
                                             <div class="form-group form-float">
                                                 <div class="form-line focused error">
-                                                    <label class="form-control" name="error" value="Error"><?php echo $etablissements['page_twitter']; ?></label>
+                                                    <label class="form-control" name="error" value="Error"><img src="images/twitter.png"> <?php echo $etablissements['page_twitter']; ?></label>
                                                 </div>
                                             </div>
                                             <div class="form-group form-float">
-                                                <div lass="form-line focused success">
-                                                    <label class="form-control" name="success" value="Success"><?php echo $etablissements['google_plus']; ?></label>
+                                                <div class="form-line focused success">
+                                                    <label class="form-control" name="success" value="Success"><img src="images/googlePlus.png"> <?php echo $etablissements['google_plus']; ?></label>
                                                 </div>
                                             </div>
                                     </fieldset> 
