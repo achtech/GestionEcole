@@ -98,9 +98,5 @@
                 </div>
             </div>
             <!-- #END# Exportable Table -->
-<style>
-.design-label{
-	height: auto;
-}
-</style>
+
 <?php require_once('footer.php'); ?>
