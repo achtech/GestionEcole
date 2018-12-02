@@ -6,7 +6,7 @@
         <?php echo _GESTION ?> des  <?php echo _PAIEMENTS ?>
     </h2>
     <div> 
-            <a href="ajouter_paiements_employes.php?annees_scolaire=<?php echo $_REQUEST['annees_scolaire'] ?>&employes=<?php echo $_REQUEST['employes'] ?>" class="ajouter">
+            <a href="ajouter_paiements_employes.php?id_annees_scolaire=<?php echo $_REQUEST['id_annees_scolaire'] ?>&employes=<?php echo $_REQUEST['employes'] ?>" class="ajouter">
                 <?php echo _NOUVELLE ?>  <?php echo _PAIEMENTS ?> 
              </a>       
     </div>
@@ -77,7 +77,7 @@
                                     <?php echo getValeurChamp('libelle','mode_paiements','id',$ligne['id_mode_paiements']); ?>
                                 </td>
                                 <td class="op">
-                                    <a href="modifier_paiements_employes.php?employes=<?php echo $_REQUEST['employes'] ?>&annees_scolaire=<?php echo $_REQUEST['annees_scolaire'] ?>&paiements=<?php echo $ligne['id'] ?>" class="modifier2" title="modifier paiements">
+                                    <a href="modifier_paiements_employes.php?employes=<?php echo $_REQUEST['employes'] ?>&id_annees_scolaire=<?php echo $_REQUEST['id_annees_scolaire'] ?>&paiements_employes=<?php echo $ligne['id'] ?>" class="modifier2" title="modifier paiements">
                                         &nbsp;
                                     </a>
                                     
@@ -88,8 +88,8 @@
                                                                 'paiements_employes',
                                                                 '<?php echo $ligne['id'] ?>',
                                                                 'details_paiement_employes.php',
-                                                                'employes,annees_scolaire',
-                                                                '<?php echo $_REQUEST['employes'] ?>,<?php echo $_REQUEST['annees_scolaire'] ?>')
+                                                                'employes,id_annees_scolaire',
+                                                                '<?php echo $_REQUEST['employes'] ?>,<?php echo $_REQUEST['id_annees_scolaire'] ?>')
                                             " 
                                     title="<?php echo _SUPPRIMER ?>">
                                         

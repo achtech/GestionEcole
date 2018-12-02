@@ -3,7 +3,7 @@
 <?php require_once('menu.php'); ?>
             <div class="block-header">
                 <h5>
-                    <?php echo _AJOUTER ?> <?php echo _RETARDS ?> 
+                    <?php echo _AJOUTER ?> <?php echo _PAIEMENTS ?> 
                 </h5>
             </div>
             <!-- Vertical Layout -->
