@@ -1,5 +1,6 @@
 ﻿/* Navbar ====================================== */
 @import url(materialize.css);
+
 .navbar {
   font-family: "Roboto", sans-serif;
   -webkit-border-radius: 0;
@@ -8114,4 +8115,7 @@ a.inscription2{
   background:url(../images/inscription-filled-16.png) no-repeat left;
   padding-left:12px;
   padding-top:2px;
+}
+.design-label{
+	height: auto !important;
 }

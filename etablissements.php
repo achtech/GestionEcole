@@ -69,7 +69,7 @@
                                             </div>
                                             <div class="form-group form-float">
                                                 <div class="form-line focused success">
-                                                    <label class="form-control" name="success" value="Success"><i class="material-icons">account_balance</i> : <?php echo $etablissements['adresse']; ?></label>
+                                                    <label class="form-control design-label" name="success" value="Success"><i class="material-icons">account_balance</i> : <?php echo $etablissements['adresse']; ?></label>
                                                 </div>
                                             </div>
                                             <div class="form-group form-float">
