@@ -28,7 +28,7 @@
                                 <label for="email_address"><?php echo _LOGO ?> : </label>
                                 <div class="form-group">
                                     <div class="form-line">
-                                        <input type="file" id="logo" name="logo" class="form-control">
+                                        <input type="file" id="photo" name="photo" class="form-control">
                                     </div>
                                 </div>
 

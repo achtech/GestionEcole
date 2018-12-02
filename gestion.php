@@ -1,5 +1,5 @@
 <?php session_start(); ?>
-<?php error_reporting(0) ?>
+<?php //error_reporting(0) ?>
 
 <link href="style.css" rel="stylesheet" type="text/css" />
 
@@ -233,7 +233,7 @@ if ($action == "ajouter_eleves"){
 
 //MODIFICATION
 if ($action == "m"){
-	
+	print_r($_REQUEST);
 	if(isset($_REQUEST['id_nom'])){
 		$id_nom = $_REQUEST['id_nom'];
 	}
@@ -291,25 +291,11 @@ if ($action == "m"){
 	
 	for($i=0;$i<sizeof($tab_table);$i++){ 
 	 	$var[$i] = Modification($tab_table[$i],getNomChamps($tab_table[$i]),$_REQUEST,$id_nom,$id_valeur);
-		
-		writeInLogs($_SESSION['employeId'],"Modifier l element ".$_REQUEST['id']." de la table ".$tab_table[0]);
+		$idlog = isset($_REQUEST['id']) && !empty($_REQUEST['id']) ? $_REQUEST['id']:1;
+		writeInLogs($_SESSION['employeId'],"Modifier l element ".$idlog." de la table ".$tab_table[0]);
 
 		if(isset($_FILES['photo'])){
 			$retour2 = upload_image($tab_table[$i],$_FILES['photo'],$id_valeur);
-			unset($_FILES);
-			
-			if($retour2)
-			{
-				echo _UPLOAD_OK;
-			}
-			else 
-			{
-				echo _UPLOAD_NOK;
-			}
-		}
-		if(isset($_FILES['logo'])){
-
-			$retour2 = upload_image($tab_table[$i],$_FILES['logo'],$id_valeur);
 			unset($_FILES);
 			
 			if($retour2)

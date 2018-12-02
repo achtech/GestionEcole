@@ -376,7 +376,7 @@ function Modification($table,$tab_champs,$tab_requetes,$id_nom,$id_valeur){
 	}	
 		
 	if($champs_mod!=''){
-		$sql="update ".$table." set ".$champs_mod." where ".$where." ";
+		echo $sql="update ".$table." set ".$champs_mod." where ".$where." ";
 	}	
 	return $bool = doQuery($sql) or die("ERREUR MODIFICATION CAT : ".mysql_error());
 }
