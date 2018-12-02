@@ -1,4 +1,5 @@
 <?php require('params.php'); ?>
+<?php require_once('dumper.php'); ?>
 <?php 
 //Fonctions
 function connect () {
@@ -1103,8 +1104,8 @@ else
 {
 	$msg_err = _ENVOI_NOK;
 }
-redirect($url);
-//redirect("forgot-password?msg=".$msg."&err=".$msg_err);
+//redirect($url);
+redirect("forgot-password?msg=".$msg."&err=".$msg_err);
 }
 
 function random($car) {
@@ -2165,4 +2166,55 @@ $sql = "SELECT count(id) as tot FROM `inscriptions` where id_annees_scolaire=".g
 	}
 	return $ct;
 }
+
+function exportDatabase() {
+    try {
+        $world_dumper = Shuttle_Dumper::create(array(
+                    'host' => _BD_HOST,
+                    'username' => _BD_USER,
+                    'password' => _BD_PASS,
+                    'db_name' => _DB,
+        ));
+        $date = date("d-m-Y-h-i-s");
+        $world_dumper->dump('backup/'._DB.'-' . $date . '.sql');
+    } catch (Shuttle_Exception $e) {
+        echo "Couldn't dump database: " . $e->getMessage();
+    }
+}
+
+function importerDatabase($file) {
+    $connect = mysqli_connect( _BD_HOST, _BD_USER, _BD_PASS,_DB);
+    $output = '';
+    $count = 0;
+    $file_data = file($file);
+    $m = "";
+    foreach ($file_data as $row) {
+        $start_character = substr(trim($row), 0, 2);
+        if ($start_character != '--' || $start_character != '/*' || $start_character != '//' || $row != '') {
+            $output = $output . $row;
+            $end_character = substr(trim($row), -1, 1);
+            if ($end_character == ';') {
+                if (!mysqli_query($connect, $output)) {
+                    $count++;
+                }
+                $output = '';
+            }
+        }
+    }
+    if ($count > 0) {
+        $m = 'There is an error in Database Import';
+    } else {
+        $m = 'Database Successfully Imported';
+    }
+    redirect("database.php?m=" . $m);
+    return $m;
+}
+
+function getDateExport($fileName) {
+    $r = str_replace(_DB."-", "", $fileName);
+    $r = str_replace(".sql", "", $r);
+    $tab = explode("-", $r);
+    return $tab[0] . "/" . $tab[1] . "/" . $tab[2] . "  " . $tab[3] . " h " . $tab[4] . " min " . $tab[5] . " s";
+}
+
 ?>

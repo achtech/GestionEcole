@@ -110,25 +110,6 @@ onsubmit="return checkForm(document.frm);" >
                             </div>
                         </div>
                         <div class="col-sm-4">
-                            <label for="nbr_place"><?php echo _FORMATEUR ?>? </label>
-                            <div class="form-group">
-                                <div class="form-line">
-                                    <input type="radio" id="isFormateur" name="isFormateur2" class="form-control" value="0">Oui
-                                    <input type="radio" id="isFormateur1" name="isFormateur1" class="form-control" value="1">Non
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-sm-4">
-                            <label for="nbr_place"><?php echo _VACATAIRE ?> : </label>
-                            <div class="form-group">
-                                <div class="form-line">
-                                    <input type="radio" id="isVacataire" name="isVacataire1"  value="0">Oui
-                                    <input type="radio" id="isVacataire1" name="isVacataire2"  value="1">Non
-
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-sm-6">
                             <label for="nbr_place"><?php echo _DATE." "._EMBAUCHE ?> : </label>
                             <div class="form-group">
                                 <div class="form-line">
@@ -136,8 +117,7 @@ onsubmit="return checkForm(document.frm);" >
                                 </div>
                             </div>
                         </div>
-                        <div class="col-sm-6">
-
+                        <div class="col-sm-4">
                             <label for="nbr_place"><?php echo _DATE." d'"._ARRET ?> : </label>
                             <div class="form-group">
                                 <div class="form-line">
@@ -145,6 +125,25 @@ onsubmit="return checkForm(document.frm);" >
                                 </div>
                             </div>
                         </div>
+                        <div class="col-sm-4">
+                            <label for="email_address"><?php echo _FORMATEUR ?> : </label>
+                            <div class="demo-radio-button">
+                                    <input type="radio" name="isFormateur" id="oui"  value="1"/>
+                                    <label for="oui">Oui</label>
+                                    <input type="radio" name="isFormateur" id="non" value="0" />
+                                    <label for="non">Non</label>
+                            </div>
+                        </div>
+                        <div class="col-sm-4">
+                            <label for="nbr_place"><?php echo _VACATAIRE ?> : </label>
+                            <div class="demo-radio-button">
+                                    <input type="radio" name="isVacataire" id="oui"  value="1"/>
+                                    <label for="oui">Oui</label>
+                                    <input type="radio" name="isVacataire" id="non" value="0" />
+                                    <label for="non">Non</label>
+                            </div>
+                        </div>
+
                     </div>
                 </div>
             </div>
@@ -158,7 +157,7 @@ onsubmit="return checkForm(document.frm);" >
             <div class="card">
                 <div class="body">
                     <div class="row clearfix">
-                        <div class="col-sm-6">
+                        <div class="col-sm-5">
                             <label for="nbr_place"><?php echo _BANQUE ?> : </label>
                             <div class="form-group">
                                 <div class="form-line">
@@ -166,7 +165,7 @@ onsubmit="return checkForm(document.frm);" >
                                 </div>
                             </div>
                         </div>
-                        <div class="col-sm-6">
+                        <div class="col-sm-5">
                              <label for="nbr_place"><?php echo _RIB ?> : </label>
                             <div class="form-group">
                                 <div class="form-line">
@@ -174,19 +173,11 @@ onsubmit="return checkForm(document.frm);" >
                                 </div>
                             </div>
                         </div>
-                        <div class="col-sm-6">
+                        <div class="col-sm-2">
                             <label for="nbr_place"><?php echo _SALAIRE." "._MENSUELLE ?> : </label>
                             <div class="form-group">
                                 <div class="form-line">
                                     <input type="text" id="salaire_mensuelle" name="salaire_mensuelle" class="form-control" value="123456">
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-sm-6">
-                             <label for="nbr_place"><?php echo _SALAIRE." par "._HEURS ?> : </label>
-                            <div class="form-group">
-                                <div class="form-line">
-                                    <input type="text" id="salaire_par_heurs" name="salaire_par_heurs" class="form-control" value="">
                                 </div>
                             </div>
                         </div>

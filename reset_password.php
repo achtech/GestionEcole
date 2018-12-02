@@ -34,6 +34,7 @@
 
     <!-- Custom Css -->
     <link href="css/style.css" rel="stylesheet">
+
 </head>
 
 <body class="login-page">
@@ -45,7 +46,7 @@
         <div class="card">
             <div class="body">
                 <form action="gestion.php" name="frm" method="post" 
-        onsubmit="return checkForm(document.frm);" id="wizard_with_validation">
+        onsubmit="return checkForm(document.frm);" id="sign_up">
                     <input type="hidden" name="act" value="resetPassword"/>
                     <input type="hidden" name="url" value="<?php echo $_REQUEST['url'] ?>"/>
                     <input type="hidden" name="page" value="log-in.php"/>
@@ -56,7 +57,7 @@
                             <i class="material-icons">lock</i>
                         </span>
                         <div class="form-line">
-                            <input type="password" class="form-control" name="password" minlength="6" placeholder="Password" id="password" required>
+                            <input type="password" class="form-control" name="password" id="password" required>
                         </div>
                     </div>
                     <div class="input-group">
@@ -64,7 +65,7 @@
                             <i class="material-icons">lock</i>
                         </span>
                         <div class="form-line">
-                            <input  type="password" class="form-control" name="confirm" minlength="6" placeholder="Confirm Password" id="confirm_password" required>
+                            <input  type="password" class="form-control" name="confirm" required>
                         </div>
                         <label id="password_status" class="error" for="confirm"><?php if(isset($_REQUEST['passwordStatus'])) echo $_REQUEST['passwordStatus'] ?></label>
                     </div>

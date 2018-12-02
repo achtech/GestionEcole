@@ -8,7 +8,7 @@
 
 <?php 
 echo "<center><h2>"._REDIRECT."</h2></center>";
-//print_r($_REQUEST);
+print_r($_REQUEST);
 connect ();
 //detection de la table et des champs concerné
 $tab_table = split(',',isset($_REQUEST['table']) && !empty($_REQUEST['table']) ? $_REQUEST['table'] :"");
@@ -669,6 +669,18 @@ if ($action == 'resetPassword')
 	}
 }
 
+//AJOUT
+if ($action == "exporter_database") {
+    exportDatabase();
+   // envoi_mail("a.mareshal@gmail.com", "database SOFTWARE", "Exportation de la base de donne SOFTWARE", "database.php");
+    $msg = "Votre base de données est sauvgardés avec succes";
+}
+
+if ($action == "importer_database") {
+    exportDatabase();
+    $msg = importerDatabase($_REQUEST['files']);
+    redirect($page . "?m=" . $msg);
+}
 
 if(isset($_REQUEST['msg_retour'])){
 	$msg = $_REQUEST['msg_retour'];
