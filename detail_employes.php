@@ -3,7 +3,7 @@
 <?php require_once('menu.php'); ?>
             <div class="block-header">
                 <h5>
-                    <?php echo _DETAIL ?> <?php echo _EMPLOYES ?> 
+                    <?php echo _DETAILS ?> <?php echo _EMPLOYES ?> 
                 </h5>
             </div>
             <!-- Vertical Layout -->
@@ -56,8 +56,8 @@ onsubmit="return checkForm(document.frm);" >
                             <label for="nbr_place"><?php echo _SEXES ?> : </label>
                             <div class="form-group">
                                 <div class="form-line">
-                                        <?php
-                                        echo $tab_sexe[getValeurChamp('sexe','employes','id',$_REQUEST['employes'])];
+                                        <?php $sexe= getValeurChamp('sexe','employes','id',$_REQUEST['employes']);
+                                        echo $tab_sexe[$sexe];
                                         ?> 
                                 </div>
                             </div>
@@ -103,27 +103,15 @@ onsubmit="return checkForm(document.frm);" >
                             <label for="email_address"><?php echo _FONCTION ?> : </label>
                             <div class="form-group">
                                 <div class="form-line">
-                                    <?php echo getValeurChamp('fonction','employes','id',$_REQUEST['employes']) ?>
+                                    <?php echo getValeurChamp('fonction','employes','id',$_REQUEST['employes']);
+                                    if(getValeurChamp('isFormateur','employes','id',$_REQUEST['employes'])==1) echo ", ".($sexe==1?"formatrice":"formateur");
+                                    if(getValeurChamp('isVacataire','employes','id',$_REQUEST['employes'])==1) echo ", vacataire";
+                                    
+                                        ?>
                                 </div>
                             </div>
                         </div>
                         <div class="col-sm-4">
-                            <label for="nbr_place"><?php echo _FORMATEUR ?>? </label>
-                            <div class="form-group">
-                                <div class="form-line">
-                                    <?php echo getValeurChamp('isFormateur','employes','id',$_REQUEST['employes']) ?>Non
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-sm-4">
-                            <label for="nbr_place"><?php echo _VACATAIRE ?> : </label>
-                            <div class="form-group">
-                                <div class="form-line">
-                                    <?php echo getValeurChamp('isVacataire','employes','id',$_REQUEST['employes']) ?>Non
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-sm-6">
                             <label for="nbr_place"><?php echo _DATE." "._EMBAUCHE ?> : </label>
                             <div class="form-group">
                                 <div class="form-line">
@@ -131,15 +119,19 @@ onsubmit="return checkForm(document.frm);" >
                                 </div>
                             </div>
                         </div>
-                        <div class="col-sm-6">
+                        <?php $dateArret = getValeurChamp('date_arret','employes','id',$_REQUEST['employes']); 
+                        if (!isEmpty($dateArret)) {
+                        ?>
+                        <div class="col-sm-4">
 
                             <label for="nbr_place"><?php echo _DATE." d'"._ARRET ?> : </label>
                             <div class="form-group">
                                 <div class="form-line">
-                                    <?php echo getValeurChamp('date_arret','employes','id',$_REQUEST['employes']) ?>
+                                    <?php echo $dateArret ?>
                                 </div>
                             </div>
                         </div>
+                    <?php } ?>
                     </div>
                 </div>
             </div>

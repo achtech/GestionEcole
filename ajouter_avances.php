@@ -18,44 +18,18 @@
                     <div class="card">
                         <div class="body">
                             <div class="row clearfix">
-                                <div class="col-sm-6">
-                                    <label for="email_address"><?php echo _EMPLOYES ?> : </label>
-                                    <div class="form-group">
-                                        <div class="form-line">
-                                            <?php  echo getTableList3('employes','id_employes','','nom','prenom','','','id_employes') ?>
-                                        </div>
-                                    </div>
-
-                                    <label for="email_address"><?php echo _DATE." "._AVANCES ?> : </label>
-                                    <div class="form-group">
-                                        <div class="form-line">
-                                            <input type="text" id="date_avance" name="date_avance" class="datepicker form-control" >
-                                        </div>
-                                    </div>
-
                                    <label for="email_address"><?php echo _MONTANT ?> : </label>
                                     <div class="form-group">
                                         <div class="form-line">
                                             <input type="text" id="montant" name="montant" class="form-control"  >
                                         </div>
-                                        
+<?php $salaire  = isset($_REQUEST['employes'])  ?getValeurChamp('salaire_mensuelle','employes','id',$_REQUEST['employes']) : 0; ?>
+<?php $avance = isset($_REQUEST['employes'])  ?getSumAvance($_REQUEST['employes']) : 0; ?>
+<?php $reste = $salaire - $avance; ?>
+                                        <label>Salaire mensuelle  : <?php echo $salaire ?>Dh</label> | 
+                                        <label>Somme des avances  : <?php echo $avance ?> Dh</label> | <label>Reste  : <?php echo $reste; ?> Dh</label>
                                     </div>
-                                </div>
-                                <div class="col-sm-6">
-                                    <label for="nbr_place"><?php echo _ANNEES." "._SCOLAIRES ?> : </label>
-                                    <div class="form-group">
-                                        <div class="form-line">
-                                            <?php  echo getTableList('annees_scolaires','id_annees_scolaire','','libelle','','','id_annees_scolaire') ?>
-                                        </div>
-                                    </div>
-                                    <label for="email_address"><?php echo _MODE." de "._PAIEMENTS ?> : </label>
-                                    <div class="form-group">
-                                        <div class="form-line">
-                                        <?php  echo getTableList('mode_paiements','id_mode_paiements','','libelle','','','id_mode_paiements') ?>
-
-                                        </div>                                        
-                                    </div>
-                                    <label for="nbr_place"><?php echo _MOTIFS ?> : </label>
+                                    <label for="nbr_place"><?php echo _REMARQUE ?> : </label>
                                     <div class="form-group">
                                         <div class="form-line">
                                             <textarea class="form-control" name="motif"></textarea>

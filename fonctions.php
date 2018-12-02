@@ -311,7 +311,7 @@ function Ajout($table,$tab_champs,$tab_requetes){
 		}		
 	}	
 				
-		$sql = "
+		echo $sql = "
 				insert into 
 				".$table."(".$champs.") 
 				values(".$valeurs.")
@@ -2055,6 +2055,9 @@ function getMontantAPayer($id_eleves){
 	}
 	return $fraisApayer - $montantPayer;
 }
+function paiementsPaye($id_annees_scolaire){
+	return getSum('paiements_eleves','montant','id_annees_scolaire',$id_annees_scolaire);
+}
 
 function paiementsNonPaye($id_annees_scolaire){
 
@@ -2071,6 +2074,27 @@ function paiementsNonPaye($id_annees_scolaire){
 			$tab[$i][2]=$montant;
 			$i=$i+1;
 		}
+	}
+	return $tab;
+}
+
+function getAllTasks(){
+
+	$sql = "select * from tasks order by taux desc";
+	$res = doQuery($sql);
+
+	$tab =[];
+	$i = 0;
+	while ($ligne = mysql_fetch_array($res)){
+			$tab[$i][0]=$ligne['description'];
+			$tab[$i][1]=$ligne['taux'];
+			$tab[$i][2]=$ligne['id'];
+			$tab[$i][3]=getNB('detail_tasks','id_tasks,status',$ligne['id'].",3");
+			$tab[$i][4]=getNB('detail_tasks','id_tasks,status',$ligne['id'].",2");
+			$tab[$i][5]=getNB('detail_tasks','id_tasks,status',$ligne['id'].",1");
+
+			$tab[$i][6]=$ligne['taux']>75?"green":($ligne['taux']>50?"blue":($ligne['taux']>25?"blue":"red"));
+			$i=$i+1;
 	}
 	return $tab;
 }
@@ -2130,6 +2154,7 @@ function getClass($idEleves,$idAnneScolaire){
 			$idClasses=$ligne['id_classes'];
 		}
 	}
+
 	return $idClasses;
 }
 
@@ -2139,7 +2164,7 @@ function getColor(){
 
 
 function getIcon(){
-	return ["playlist_add_check","help","forum","person_add"];
+	return ["person","person","person","person"];
 }
 
 function getAllNiveaux(){
@@ -2166,7 +2191,65 @@ $sql = "SELECT count(id) as tot FROM `inscriptions` where id_annees_scolaire=".g
 	}
 	return $ct;
 }
+function getPaiementStatusByPercent(){
+	$tabNonPay = paiementsNonPaye(getCurrentAnneesScolaires());
+	$totNonPaye = 0;
+	for ($i=0; $i <count($tabNonPay) ; $i++) { 
+		$totNonPaye=$totNonPaye+$tabNonPay[$i][2];
+	}
 
+	$totalPay = paiementsPaye(getCurrentAnneesScolaires());
+	$totalPay = $totalPay>0?$totalPay:0;
+	$totNonPaye = $totNonPaye>0?$totNonPaye:0;
+
+	$tab=[];
+	$tab[0]=$totalPay+$totNonPaye>0?($totalPay*100)/($totalPay+$totNonPaye):0;
+	$tab[1]=$totalPay+$totNonPaye>0?($totNonPaye*100)/($totalPay+$totNonPaye):0;
+	return $tab;
+}
+
+
+function getSumAvance($id,$mois){
+	if(isset($mois)){
+		$startMonth = date("Y-m-d",strtotime(date("Y")."-".$mois."-01"));
+		$endMonth = date("Y-m-t",strtotime(date("Y")."-".$mois."-01"));
+	}else{
+		$startMonth = date("Y-m-d",strtotime(date("Y")."-".date("m")."-01"));
+		$endMonth = date("Y-m-t",strtotime(date("Y")."-".date("m")."-01"));		
+	}
+
+	$sql = "select sum(montant) as tot from avances where id_employes=".$id." and date_avance between '".$startMonth."' and '".$endMonth."'";
+	$res = doQuery($sql);
+	$ct = 0;
+	while ($ligne = mysql_fetch_array($res)){
+		$ct=$ligne['tot'];
+	}
+	return $ct==0?"0 Dh":$ct." Dh";
+}
+
+function getSumPaiedEmployeAnneScolaire($idEmployes,$idAnneScolaire,$mois){
+	$sql="select sum(montant) as tot,id_annees_scolaire from paiements_employes where id_employes=".$idEmployes."  and mois=".$mois;
+	$res = doQuery($sql);
+	$nb = mysql_num_rows($res);
+
+	$totAvance = getSumAvance($idEmployes,$mois);
+
+	$tot =0;
+	while ($ligne = mysql_fetch_array($res)){
+		if($ligne['id_annees_scolaire']==$idAnneScolaire){
+			$tot=$tot+$ligne['tot'];
+		}
+	}
+	$result = array();
+	$result[0] = ($tot+$totAvance)>0?0:($tot+$totAvance);	
+	$salaire = getValeurChamp('salaire_mensuelle','employes','id',$idEmployes);
+	$result[1] = $tot == 0 ? 'red':($tot < $salaire ? 'yellow':'green');
+	$result[2] = $tot == 0 ? 'white':($tot < $salaire ? 'black':'white');
+	return $result;
+
+}
+
+/* les fonction de la base de donnes */
 function exportDatabase() {
     try {
         $world_dumper = Shuttle_Dumper::create(array(

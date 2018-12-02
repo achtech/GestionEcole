@@ -186,10 +186,10 @@
                                     <?php echo $ligne['id_classes'] ?>
                             </td><td>       
                                     <?php 
-$idClasses = getClass($ligne['id_eleves'],$ligne['id_annees_scolaire']);
+                            $idClasses = getValeurChamp("id_classes",'inscriptions','id_eleves,id_annees_scolaire',$_REQUEST['eleves'].",".$ligne['id_annees_scolaire']);
                                     echo getSum('absences_eleves','nbr_heurs','id_eleves,id_classes',$ligne['id_eleves'].",".$idClasses)." Heurs" ?>
                             </td><td>
-                                    <?php echo getSum('retards_eleves','nbr_heurs','id_eleves,id_classes',$ligne['id_eleves'].",".$idClasses)." Heurs" ?>
+                                    <?php  echo getSum('retards_eleves','nbr_heurs','id_eleves,id_classes',$ligne['id_eleves'].",".$idClasses)." Heurs" ?>
                                 </td>
                                 
                             </tr>

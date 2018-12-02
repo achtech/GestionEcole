@@ -8075,6 +8075,17 @@ a.supprimer2{
   padding-top:2px;
 }
 
+a.valid{
+  background:url(../images/ajouter.gif) no-repeat left;
+  padding-left:12px;
+  padding-top:2px;
+}
+
+a.invalid{
+  background:url(../images/block-warning-red-circle.png) no-repeat left;
+  padding-left:12px;
+  padding-top:2px;
+}
 
 a.details2{
   background:url(../images/Document.png) no-repeat left;

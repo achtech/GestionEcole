@@ -1,5 +1,5 @@
 <?php session_start(); ?>
-<?php //error_reporting(0) ?>
+<?php error_reporting(0) ?>
 
 <link href="style.css" rel="stylesheet" type="text/css" />
 
@@ -8,7 +8,7 @@
 
 <?php 
 echo "<center><h2>"._REDIRECT."</h2></center>";
-print_r($_REQUEST);
+
 connect ();
 //detection de la table et des champs concerné
 $tab_table = split(',',isset($_REQUEST['table']) && !empty($_REQUEST['table']) ? $_REQUEST['table'] :"");
@@ -29,7 +29,6 @@ $valeur_modif=isset($_REQUEST['valeur_modif']) && !empty($_REQUEST['valeur_modif
 
 //AJOUT
 if ($action == "a"){	
-	//Rendre les dates du format 11-30-2009 => 1235543267654
 	$tab_dates = array(	"date",
 					   "date_reglement",
 					   "date_cheque",

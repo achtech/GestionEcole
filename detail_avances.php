@@ -5,6 +5,11 @@
                 <h2>
                     <?php echo _GESTION ?> <?php echo _AVANCES ?>
                 </h2>
+                <div> 
+                    	<a href="ajouter_avances.php?employes=<?php echo $_REQUEST['employes'] ?>" class="ajouter">
+			        		<?php echo _AJOUTER ?> <?php echo _AVANCES ?> 
+			    		 </a>		
+				</div>
  
             </div>
 <!-- Exportable Table -->
@@ -14,7 +19,7 @@
                           <div class="body">
                             <div class="table-responsive">
                             	<?php 
-									$sql = "select * from employes order by id";		
+									$sql = "select * from avances where id_employes=".$_REQUEST['employes']." order by id";		
 									$res = doQuery($sql);
 
 									$nb = mysql_num_rows($res);
@@ -29,13 +34,19 @@
                                     <thead>
                                         <tr>
                                             <th><?php echo _EMPLOYES ?></th>
+                                            <th><?php echo _DATE ?></th>
                                             <th><?php echo _MONTANT ?></th>
+                                            <th><?php echo _MOTIFS ?></th>
+											<th class="op"> <?php echo _OP ?> </th>
                                         </tr>
                                     </thead>
                                     <tfoot>
                                         <tr>
                                             <th><?php echo _EMPLOYES ?></th>
+                                            <th><?php echo _DATE ?></th>
                                             <th><?php echo _MONTANT ?></th>
+                                            <th><?php echo _MOTIFS ?></th>
+											<th class="op"> <?php echo _OP ?> </th>
                                         </tr>
                                     </tfoot>
                                     <tbody>
@@ -51,12 +62,42 @@
 											?>
                                         <tr>
                                             <td>
-												<a href="detail_avances.php?employes=<?php echo $ligne['id'] ?>"><?php echo $ligne['nom']." ".$ligne['prenom'] ?></a>
+												<?php echo getValeurChamp('nom','employes','id',$ligne['id_employes']) ?> <?php echo getValeurChamp('prenom','employes','id',$ligne['id_employes']) ?>
 								               
 								            </td>
-											<td>
-												<?php echo getSumAvance($ligne['id']) ?>               
+											 <td>
+												<?php echo $ligne['date_avance'] ?>
+								               
 								            </td>
+								            <td>
+												<?php echo $ligne['motif'] ?>
+								               
+								            </td>
+								            <td>
+												<?php echo $ligne['montant'] ?>
+								               
+								            </td>
+								            <td class="op">
+												<a href="modifier_avances.php?avances=<?php echo $ligne['id'] ?>" class="modifier2">
+													&nbsp;
+								                </a>
+												
+												&nbsp;
+												
+								                <a href="#ancre" 
+								                class="supprimer2" 
+								                onclick="javascript:supprimer(
+								                							'avances',
+								                                            '<?php echo $ligne['id'] ?>',
+								                                            'avances_employes.php',
+								                                            '1',
+								                                            '1')
+														" 
+												title="<?php echo _SUPPRIMER ?>">
+								                	
+								                    &nbsp;
+								                </a>
+											</td>
                                         </tr>
                                         <?php
 											$i++; 
