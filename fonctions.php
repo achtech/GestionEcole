@@ -1045,7 +1045,7 @@ function date_jour_suivant($date_a){
 	 $mois=intval($tab[1]);
 	 $jour=intval($tab[2]);
 	//recupererle nbr de jour du mois en cours
-	if($mois==04 or $mois==06 or $mois==09 or $mois==11 ){
+	if($mois==4 || $mois==6 || $mois==9 || $mois==11 ){
 		$nbr_jour=30;
 	} 
 	else if( $mois==02 ){
