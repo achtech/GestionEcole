@@ -90,7 +90,7 @@
                                             ?>
                                         <tr>
                                             <td>
-                                                <a href="details_paiement_employes.php?employes=<?php echo  $ligne['id']?>"><?php echo $ligne['prenom']." ".$ligne['nom'] ?></a>
+                                                <a href="details_paiement_employes.php?id_annees_scolaire=<?php echo $id_annees_scolaire ?>&employes=<?php echo  $ligne['id']?>"><?php echo $ligne['prenom']." ".$ligne['nom'] ?></a>
                                             </td>
                                             <?php for($i=1;$i<=count($tab_mois);$i++){
                                             $tab = getSumPaiedEmployeAnneScolaire($ligne['id'],$id_annees_scolaire,$i>4?$i-4:$i+8);

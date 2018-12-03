@@ -284,8 +284,8 @@ function getValeurChamp($champ1,$table,$champ2,$valeur){
 			
 }
 //pour ajouter un enregistement a une table
-//input: la table concerné
-		//les champs de la table concerné par l ajout 
+//input: la table concernÃ©
+		//les champs de la table concernÃ© par l ajout 
 		//les valeurs de ces champs envoyer par le formulaire ($_REQUEST)
 //output: un message de confirmation ou d'erreur		 
 			
@@ -332,8 +332,8 @@ function Ajout($table,$tab_champs,$tab_requetes){
 }
 
 //pour modifier un enregistrement dans une table
-//input: la table concerné
-		//les champs de la table concerné par la modification
+//input: la table concernÃ©
+		//les champs de la table concernÃ© par la modification
 		//les valeurs de ces champs envoyer par le formulaire ($_REQUEST)
 //output: un message de confirmation ou d'erreur	
 function Modification($table,$tab_champs,$tab_requetes,$id_nom,$id_valeur){
@@ -359,10 +359,10 @@ function Modification($table,$tab_champs,$tab_requetes,$id_nom,$id_valeur){
 			}
 		}		
 	}
-	//pour eleminer la ',' à la fin de la chaine de caractere
+	//pour eleminer la ',' Ã  la fin de la chaine de caractere
 	$champs_mod = substr($champs_val,0, -1);
 	
-	//préparation de la clause where
+	//prÃ©paration de la clause where
 	$tab_id_nom = split(',',$id_nom);
 	$tab_id_valeur = split(',',$id_valeur);
 	$where = "";
@@ -376,14 +376,14 @@ function Modification($table,$tab_champs,$tab_requetes,$id_nom,$id_valeur){
 	}	
 		
 	if($champs_mod!=''){
-		$sql="update ".$table." set ".$champs_mod." where ".$where." ";
+		echo $sql="update ".$table." set ".$champs_mod." where ".$where." ";
 	}	
 	return $bool = doQuery($sql) or die("ERREUR MODIFICATION CAT : ".mysql_error());
 }
 
-//cette fonction permet testé si une valeur existe ou non dans une table
+//cette fonction permet testÃ© si une valeur existe ou non dans une table
 function ExisteValeur($table,$champ,$valeur,$exep){
-	//recuperé les valeurs existantes
+	//recuperÃ© les valeurs existantes
 	 $query = "select * from ".$table." where ".$champ."='".$valeur."' and ". $champ ." <> '". $exep ."' ";
 	 $result = doQuery($query);
 	 
@@ -397,7 +397,7 @@ function ExisteValeur($table,$champ,$valeur,$exep){
 		return false;	
 }
 
-//cette fonction permet de récuperer le nom d'un seul champd'un table
+//cette fonction permet de rÃ©cuperer le nom d'un seul champd'un table
 function getChamp($table, $champ){
 	//recuperer lesnom du cham d'une table
 	 $query = "SHOW COLUMNS FROM " . $table ." LIKE '".$champ."'";
@@ -410,7 +410,7 @@ function getChamp($table, $champ){
 	else return false;	
 		
 }
-//cette fonction permet de récuperer les nom des champs d'un table
+//cette fonction permet de rÃ©cuperer les nom des champs d'un table
 //input: une table sql
 //output: un tableau avec les nom des champs
 
@@ -439,7 +439,7 @@ function datediff($debut,$fin){
 	input: table
 			le mon du champs que nous voulons modifier
 			la nouvelle valeur
-			le ou les enregistrements concernées
+			le ou les enregistrements concernÃ©es
 	output: un message de confirmation ou d'erreur		
 */
 function ModifValChamps($table,$champ,$valeur,$ids){
@@ -455,8 +455,8 @@ function ModifValChamps($table,$champ,$valeur,$ids){
 }
 /*fonction pour uploader une image dans une table
 	input : table
-			valeur: le fichier envoyé souqs forme array
-			id: l'identifiant de l'enregistrement conserné
+			valeur: le fichier envoyÃ© souqs forme array
+			id: l'identifiant de l'enregistrement consernÃ©
 	output : message de confirmation ou d'erreur		
 */ 
 
@@ -497,8 +497,8 @@ function get_list_simple($tableau,$nom_champs){
 <?php 
 }	
 /*foncion de liste
-input table concerné
-		champ qu"on veux listé
+input table concernÃ©
+		champ qu"on veux listÃ©
 		condition la condition where ou cas ou nous voulons selectionner les enregistrement
 */
 function get_list($table,$id_modif,$champ,$condition,$action){ 
@@ -937,15 +937,15 @@ function getTimeByDate($date,$sep){
 
 
 //fonction de pagination
-//recuperer le nombre de page en fonction du nombre de message que nous avons défini
+//recuperer le nombre de page en fonction du nombre de message que nous avons dÃ©fini
 /*
 function getNbrPages($requete,$messagesParPage){
 		connect ();
 		selectDb ();
 		$retour_total=doQuery($requete) or die("ERREUR : ".mysql_error()); 
-		//Nous récupérons le contenu de la requête dans $retour_total
+		//Nous rÃ©cupÃ©rons le contenu de la requÃªte dans $retour_total
 		$donnees_total=mysql_fetch_assoc($retour_total); //On range retour sous la forme d'un tableau.
-		$total=$donnees_total['total']; //On récupère le total pour le placer dans la variable $total.
+		$total=$donnees_total['total']; //On rÃ©cupÃ¨re le total pour le placer dans la variable $total.
 		//Nous allons maintenant compter le nombre de pages.
 		$nombreDePages=ceil($total/$messagesParPage);
 		return $nombreDePages;
@@ -959,14 +959,14 @@ function getPageActuelle($nombreDePages){
 			 $pageActuelle=intval($_GET['page']);
 			 
 			 if($pageActuelle>$nombreDePages) 
-			 // Si la valeur de $pageActuelle (le numéro de la page) est plus grande que $nombreDePages...
+			 // Si la valeur de $pageActuelle (le numÃ©ro de la page) est plus grande que $nombreDePages...
 			 {
 				  $pageActuelle=$nombreDePages;
 			 }
 		}
 		else // Sinon
 		{
-			 $pageActuelle=1; // La page actuelle est la n°1    
+			 $pageActuelle=1; // La page actuelle est la nÂ°1    
 		}
 		return 	$pageActuelle;
 }
@@ -979,8 +979,8 @@ function AffichagePagination($page,$pageActuelle,$nombreDePages){
 		if($pageActuelle>1) //Si il s'agit de la page actuelle...
 				 {
 					 $j=$pageActuelle-1;
-					 echo ' <a href="'.$page.'page='.$j.'"><< '. formater_texte("Page Précédente") .'</a> ';
-					 //echo ' <a href="'.$page.','.$j.'.html"><< '. formater_texte("Page Précédente") .'</a> ';
+					 echo ' <a href="'.$page.'page='.$j.'"><< '. formater_texte("Page PrÃ©cÃ©dente") .'</a> ';
+					 //echo ' <a href="'.$page.','.$j.'.html"><< '. formater_texte("Page PrÃ©cÃ©dente") .'</a> ';
 				 }	
 
 		 
@@ -1015,7 +1015,7 @@ echo '</p>';
 //fin fonction de pagination
 
 
-//fonction pour inseré des image pour le nbr d'etoiles
+//fonction pour inserÃ© des image pour le nbr d'etoiles
 function image_etoile($etoile){
 	if ($etoile=="1") return "1.png";
 	if ($etoile=="2") return "2.png";
@@ -1038,7 +1038,7 @@ function newChaine( $chrs = "") {
 		return $newstring;
 	}
 	
-//cette fonction permet de récuperer la date du jour suivant (yyyy/mm/jj) à une date donné	
+//cette fonction permet de rÃ©cuperer la date du jour suivant (yyyy/mm/jj) Ã  une date donnÃ©	
 function date_jour_suivant($date_a){
 	$tab=split("/",$date_a);
 	 $annee=intval($tab[0]);
@@ -1277,7 +1277,7 @@ function resize_picture($fichier,$maxWidth,$maxHeight,$extras){
 	echo " <img src=$fichier width=\"$nwidth\" height=\"$nheight\" $extras>";
 }
 
-//Les menus imbriqués
+//Les menus imbriquÃ©s
 function afficher_menu($parent, $niveau, $array) {
 				 
 	$html = "";
@@ -1312,7 +1312,7 @@ function afficher_menu($parent, $niveau, $array) {
 	 
 }
 
-//Les menus imbriqués
+//Les menus imbriquÃ©s
 function afficher_menu2($parent, $niveau, $array) {
 				 
 	$html = "";
@@ -1355,7 +1355,7 @@ function afficher_menu2($parent, $niveau, $array) {
 	 
 }
 
-//Les menus imbriqués
+//Les menus imbriquÃ©s
 function afficher_menu3($parent, $niveau, $array) {
 				 
 	$html = "";
@@ -1403,7 +1403,7 @@ function afficher_menu3($parent, $niveau, $array) {
 	 
 }
 
-//Les menus imbriqués
+//Les menus imbriquÃ©s
 function afficher_menu4($parent, $niveau, $array) {
 				 
 	$html = "";
@@ -1458,7 +1458,7 @@ function afficher_menu4($parent, $niveau, $array) {
 	return $html;
 }
 
-//Les menus imbriqués
+//Les menus imbriquÃ©s
 function afficher_menu5($parent, $niveau, $array) {
 				 
 	$html = "";
@@ -1495,7 +1495,7 @@ function afficher_menu5($parent, $niveau, $array) {
 	 
 }
 
-//Les menus imbriqués page accueil site public
+//Les menus imbriquÃ©s page accueil site public
 function afficher_menu6($parent, $niveau, $array) {
 				 
 	$html = "";
@@ -1857,13 +1857,13 @@ function formater_montant($montant){
 }
 
 function stripAccents($string){
-	return strtr($string,'àáâãäçèéêëìíîïñòóôõöùúûüýÿÀÁÂÃÄÇÈÉÊËÌÍÎÏÑÒÓÔÕÖÙÚÛÜÝ',
+	return strtr($string,'Ã Ã¡Ã¢Ã£Ã¤Ã§Ã¨Ã©ÃªÃ«Ã¬Ã­Ã®Ã¯Ã±Ã²Ã³Ã´ÃµÃ¶Ã¹ÃºÃ»Ã¼Ã½Ã¿Ã€ÃÃ‚ÃƒÃ„Ã‡ÃˆÃ‰ÃŠÃ‹ÃŒÃÃŽÃÃ‘Ã’Ã“Ã”Ã•Ã–Ã™ÃšÃ›ÃœÃ',
 'aaaaaceeeeiiiinooooouuuuyyAAAAACEEEEIIIINOOOOOUUUUY');
 }
 
 function no_accent($str_accent) {
-   $pattern = Array("/é/", "/è/", "/ê/", "/ç/", "/à/", "/â/", "/î/", "/ï/", "/ù/", "/ô/");
-   // notez bien les / avant et après les caractères
+   $pattern = Array("/Ã©/", "/Ã¨/", "/Ãª/", "/Ã§/", "/Ã /", "/Ã¢/", "/Ã®/", "/Ã¯/", "/Ã¹/", "/Ã´/");
+   // notez bien les / avant et aprÃ¨s les caractÃ¨res
    $rep_pat = Array("e", "e", "e", "c", "a", "a", "i", "i", "u", "o");
    $str_noacc = preg_replace($pattern, $rep_pat, $str_accent);
    return $str_noacc;
@@ -2232,7 +2232,7 @@ function getSumPaiedEmployeAnneScolaire($idEmployes,$idAnneScolaire,$mois){
 	$res = doQuery($sql);
 	$nb = mysql_num_rows($res);
 
-	$totAvance = getSumAvance($idEmployes,$mois);
+	 $totAvance = getSumAvance($idEmployes,$mois);
 
 	$tot =0;
 	while ($ligne = mysql_fetch_array($res)){
@@ -2241,12 +2241,18 @@ function getSumPaiedEmployeAnneScolaire($idEmployes,$idAnneScolaire,$mois){
 		}
 	}
 	$result = array();
-	$result[0] = ($tot+$totAvance)>0?0:($tot+$totAvance);	
+	$result[0] = ($tot+$totAvance)>0?($tot+$totAvance):0;	
 	$salaire = getValeurChamp('salaire_mensuelle','employes','id',$idEmployes);
-	$result[1] = $tot == 0 ? 'red':($tot < $salaire ? 'yellow':'green');
-	$result[2] = $tot == 0 ? 'white':($tot < $salaire ? 'black':'white');
+	$result[1] = $tot+$totAvance == 0 ? 'red':($tot+$totAvance < $salaire ? 'yellow':'green');
+	$result[2] = $tot+$totAvance == 0 ? 'white':($tot+$totAvance < $salaire ? 'black':'white');
 	return $result;
 
+}
+
+function getMontantAPayerEmployer($idEmployes,$idAnneScolaire,$mois){
+	$tot = getSumPaiedEmployeAnneScolaire($idEmployes,getCurrentAnneesScolaires(),date('m'))[0];
+	$salaire = getValeurChamp('salaire_mensuelle','employes','id',$idEmployes);
+	return $salaire - $tot;
 }
 
 /* les fonction de la base de donnes */
