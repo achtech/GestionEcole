@@ -232,8 +232,12 @@ if ($action == "ajouter_eleves"){
 }
 
 //MODIFICATION
+if ($action == "modifier_etablissement"){
+	//if()
+}
+
+//MODIFICATION
 if ($action == "m"){
-	print_r($_REQUEST);
 	if(isset($_REQUEST['id_nom'])){
 		$id_nom = $_REQUEST['id_nom'];
 	}

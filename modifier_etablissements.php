@@ -12,7 +12,7 @@
                     <div class="card">
                         <div class="body">
 							<form action="gestion.php" name="frm" method="post" enctype="multipart/form-data"	onsubmit="return checkForm(document.frm);" >
-								<input type="hidden" name="act" value="m"/>
+								<input type="hidden" name="act" value="modifier_etablissement"/>
 							    <input type="hidden" name="table" value="etablissements"/>
 								<input type="hidden" name="page" value="etablissements.php"/>
 
@@ -29,6 +29,7 @@
                                 <div class="form-group">
                                     <div class="form-line">
                                         <input type="file" id="photo" name="photo" class="form-control">
+                                        <img src="images/<?php echo getValeurChamp('photo','etablissements','id',$_REQUEST['etablissements']) ?>">
                                     </div>
                                 </div>
 
