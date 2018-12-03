@@ -363,8 +363,8 @@ function Modification($table,$tab_champs,$tab_requetes,$id_nom,$id_valeur){
 	$champs_mod = substr($champs_val,0, -1);
 	
 	//préparation de la clause where
-	$tab_id_nom = split(',',$id_nom);
-	$tab_id_valeur = split(',',$id_valeur);
+	$tab_id_nom = explode(',',$id_nom);
+	$tab_id_valeur = explode(',',$id_valeur);
 	$where = "";
 	for($i=0;$i<sizeof($tab_id_valeur);$i++){
 		if ($where==""){

@@ -32,7 +32,7 @@
                             <div class="row clearfix">
                                 <div class="col-md-6">
                                     <div class="form-group">                                      
-                                        <img src="images/<?php echo $etablissements['photo']; ?>" style="width:90%;height:100%" >
+                                        <img src="images/<?php echo $etablissements['logo']; ?>" style="width:90%;height:100%" >
                                     </div>
                                 </div>
                             
