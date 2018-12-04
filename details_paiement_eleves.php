@@ -80,7 +80,9 @@
                                     <a href="modifier_paiements_eleves.php?eleves=<?php echo $_REQUEST['eleves'] ?>&annees_scolaire=<?php echo $_REQUEST['annees_scolaire'] ?>&paiements=<?php echo $ligne['id'] ?>" class="modifier2" title="modifier paiements">
                                         &nbsp;
                                     </a>
-                                    
+                                    <a href="paiement_eleve_pdf.php?paiements=<?php echo $ligne['id'] ?>">
+                                        <i class="material-icons">print</i> 
+                                    </a>
                                     &nbsp;
                                     <a href="#ancre" 
                                     class="supprimer2" 
