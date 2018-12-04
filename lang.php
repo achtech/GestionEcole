@@ -623,4 +623,11 @@ define('_ISBN','isbn');
 define('_ABONNEE','abonnee');
 define('_INFORMATIONS','informations');
 define('_PAIEMENTS','Paiements');
+define('_LOGO','Logo');
+define('_PAGE_FACEBOOK','Page facebook');
+define('_PAGE_TWITTER','Page twitter');
+define('_GOOGLE_PLUS','Google plus');
+
+
+
 ?>

@@ -67,7 +67,6 @@
                         <div class="form-line">
                             <input  type="password" class="form-control" name="confirm" required>
                         </div>
-                        <label id="password_status" class="error" for="confirm"><?php if(isset($_REQUEST['passwordStatus'])) echo $_REQUEST['passwordStatus'] ?></label>
                     </div>
 
                     <button class="btn btn-block btn-lg bg-pink waves-effect" type="submit" id="submit">SIGN UP</button>
