@@ -25,14 +25,6 @@
                             <div class="row clearfix">
                                 <div class="col-md-6">
  
-                                <label for="email_address"><?php echo _LOGO ?> : </label>
-                                <div class="form-group">
-                                    <div class="form-line">
-                                        <input type="file" id="photo" name="photo" class="form-control">
-                                        <img src="images/<?php echo getValeurChamp('image','etablissements','id',$_REQUEST['etablissements']) ?>">
-                                    </div>
-                                </div>
-
                                 <label for="email_address"><?php echo _NOM ?> : </label>
                                 <div class="form-group">
                                     <div class="form-line">
@@ -40,6 +32,34 @@
                                     </div>
                                 </div>
 
+
+                                <label for="email_address"><?php echo _LOGO ?> : </label>
+                                <div class="form-group">
+                                    <div class="form-line">
+                                        <input type="file" id="photo" name="photo" class="form-control">
+                                        <img style="width:90%;height:100%" src="images/<?php echo getValeurChamp('image','etablissements','id',$_REQUEST['etablissements']) ?>">
+                                    </div>
+                                </div>
+
+                                <label for="email_address"><?php echo _PAGE_FACEBOOK ?> : </label>
+                                <div class="form-group">
+                                    <div class="form-line">
+                                        <input type="text" id="page_facebook" name="page_facebook" class="form-control" value="<?php echo getValeurChamp('page_facebook','etablissements','id',$_REQUEST['etablissements']) ?>">
+                                    </div>
+                                </div>
+
+
+                                <label for="email_address"><?php echo _PAGE_TWITTER ?> : </label>
+                                <div class="form-group">
+                                    <div class="form-line">
+                                        <input type="text" id="page_twitter" name="page_twitter" class="form-control" value="<?php echo getValeurChamp('page_twitter','etablissements','id',$_REQUEST['etablissements']) ?>">
+                                    </div>
+                                </div>
+
+
+                            </div>
+
+                            <div class="col-md-6">
                                 <label for="email_address"><?php echo _TEL ?> : </label>
                                 <div class="form-group">
                                     <div class="form-line">
@@ -62,9 +82,6 @@
                                         <input type="text" id="fax" name="fax" class="form-control" value="<?php echo getValeurChamp('fax','etablissements','id',$_REQUEST['etablissements']) ?>">
                                     </div>
                                 </div>
-                            </div>
-
-                            <div class="col-md-6">
                                     
                                 <label for="email_address"><?php echo _EMAIL ?> : </label>
                                 <div class="form-group">
@@ -80,21 +97,6 @@
                                     </div>
                                 </div>
 
-                                <label for="email_address"><?php echo _PAGE_FACEBOOK ?> : </label>
-                                <div class="form-group">
-                                    <div class="form-line">
-                                        <input type="text" id="page_facebook" name="page_facebook" class="form-control" value="<?php echo getValeurChamp('page_facebook','etablissements','id',$_REQUEST['etablissements']) ?>">
-                                    </div>
-                                </div>
-
-
-                                <label for="email_address"><?php echo _PAGE_TWITTER ?> : </label>
-                                <div class="form-group">
-                                    <div class="form-line">
-                                        <input type="text" id="page_twitter" name="page_twitter" class="form-control" value="<?php echo getValeurChamp('page_twitter','etablissements','id',$_REQUEST['etablissements']) ?>">
-                                    </div>
-                                </div>
-
 
                                 <label for="email_address"><?php echo _GOOGLE_PLUS ?> : </label>
                                 <div class="form-group">
@@ -102,7 +104,6 @@
                                         <input type="text" id="google_plus" name="google_plus" class="form-control" value="<?php echo getValeurChamp('google_plus','etablissements','id',$_REQUEST['etablissements']) ?>">
                                     </div>
                                 </div>
-                                <br>
                                 <input type="submit" class="btn btn-primary m-t-15 waves-effect" value="<?php echo _MODIFIER ?>" />            <input action="action" onclick="window.history.go(-1); return false;" class="btn btn-primary m-t-15 waves-effect"  type="button" value="<?php echo _ANNULER ?>" />
 
                                 </div>
