@@ -11,7 +11,7 @@ echo "<center><h2>"._REDIRECT."</h2></center>";
 
 connect ();
 //detection de la table et des champs concerné
-$tab_table = split(',',isset($_REQUEST['table']) && !empty($_REQUEST['table']) ? $_REQUEST['table'] :"");
+$tab_table = explode(',',isset($_REQUEST['table']) && !empty($_REQUEST['table']) ? $_REQUEST['table'] :"");
 $table=$tab_table[0];
 
 $action = isset($_REQUEST['act']) && !empty($_REQUEST['act'])?$_REQUEST['act']:"";
@@ -64,8 +64,8 @@ if ($action == "a"){
 		$_REQUEST['id_'.$tab_table[$i]]=mysql_insert_id(); 
 		writeInLogs($_SESSION['employeId'],"Ajouter l element ".$identif." de la table ".$tab_table[0]);
 		
-		if(isset($_FILES['photo']) and getChamp($tab_table[$i], "image")){
-			$retour2 = upload_image($tab_table[$i],$_FILES['photo'],$identif);
+		if(isset($_FILES['logo']) and getChamp($tab_table[$i], "image")){
+			$retour2 = upload_image($tab_table[$i],$_FILES['logo'],$identif);
 			unset($_FILES);
 			
 			if($retour2){
@@ -197,8 +197,8 @@ if ($action == "ajouter_eleves"){
 		doQuery("COMMIT");
 		writeInLogs($_SESSION['employeId'],"Inscription du nouveau eleve ".$_REQUEST['nom']." ".$_REQUEST['prenom']);
 		
-		if(isset($_FILES['photo']) and getChamp($tab_table[$i], "image")){
-			$retour2 = upload_image($tab_table[$i],$_FILES['photo'],$identif);
+		if(isset($_FILES['logo']) and getChamp($tab_table[$i], "image")){
+			$retour2 = upload_image($tab_table[$i],$_FILES['logo'],$identif);
 			unset($_FILES);
 			
 			if($retour2){
@@ -298,8 +298,8 @@ if ($action == "m"){
 		$idlog = isset($_REQUEST['id']) && !empty($_REQUEST['id']) ? $_REQUEST['id']:1;
 		writeInLogs($_SESSION['employeId'],"Modifier l element ".$idlog." de la table ".$tab_table[0]);
 
-		if(isset($_FILES['photo'])){
-			$retour2 = upload_image($tab_table[$i],$_FILES['photo'],$id_valeur);
+		if(isset($_FILES['image'])){
+			$retour2 = upload_image($tab_table[$i],$_FILES['image'],$id_valeur);
 			unset($_FILES);
 			
 			if($retour2)
@@ -366,8 +366,8 @@ else
 		for($i=0;$i<sizeof($tab_table);$i++){ 
 			$var[$i] = Modification($tab_table[$i],getNomChamps($tab_table[$i]),$_REQUEST,$id_nom,$id_valeur);
 			
-			if(isset($_FILES['photo'])){
-				$retour2 = upload_image($tab_table[$i],$_FILES['photo'],$id_valeur);
+			if(isset($_FILES['logo'])){
+				$retour2 = upload_image($tab_table[$i],$_FILES['logo'],$id_valeur);
 				unset($_FILES);
 				
 				if($retour2)

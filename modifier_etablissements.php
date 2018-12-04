@@ -36,7 +36,7 @@
                                 <label for="email_address"><?php echo _LOGO ?> : </label>
                                 <div class="form-group">
                                     <div class="form-line">
-                                        <input type="file" id="photo" name="photo" class="form-control">
+                                        <input type="file" id="image" name="image" class="form-control">
                                         <img style="width:90%;height:100%" src="images/<?php echo getValeurChamp('image','etablissements','id',$_REQUEST['etablissements']) ?>">
                                     </div>
                                 </div>
