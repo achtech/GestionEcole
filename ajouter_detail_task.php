@@ -33,13 +33,13 @@
                                 <label for="email_address"><?php echo _STATUS ?> : </label>
                                  <div class="form-group">
                                     <div class="form-line">
-                                         <?php getTabList($tab_status,"status",$valeur,$change,_STATUS); ?>
+                                         <?php getTabList($tab_status,"status","","",_STATUS); ?>
                                     </div>
                                 </div>
                                 <label for="email_address"><?php echo _PRIORITE ?> : </label>
                                  <div class="form-group">
                                     <div class="form-line">
-                                         <?php getTabList($tab_priorite,"priorite",$valeur,$change,_PRIORITE); ?>
+                                         <?php getTabList($tab_priorite,"priorite","","",_PRIORITE); ?>
                                     </div>
                                 </div>
                                 <label for="email_address"><?php echo _MANAGER ?> : </label>
@@ -49,8 +49,7 @@
                                     </div>
                                 </div>
                                 <br>
-                          		<input type="submit" class="btn btn-primary m-t-15 waves-effect" value="<?php echo _AJOUTER ?>" />
-                                		<input type="submit" class="btn btn-primary m-t-15 waves-effect" value="<?php echo _AJOUTER ?>" />            <input action="action" onclick="window.history.go(-1); return false;" class="btn btn-primary m-t-15 waves-effect"  type="button" value="<?php echo _ANNULER ?>" />
+                          		    <input type="submit" class="btn btn-primary m-t-15 waves-effect" value="<?php echo _AJOUTER ?>" />            <input action="action" onclick="window.history.go(-1); return false;" class="btn btn-primary m-t-15 waves-effect"  type="button" value="<?php echo _ANNULER ?>" />
                             </form>
                         </div>
                     </div>

@@ -52,7 +52,7 @@
                                 <div class="form-group">
                                     <div class="form-line">
                                         <?php
-                                        getTabList($tab_roles,"role",getValeurChamp('role','users','id',$_REQUEST['users']),$change,_ETAT);
+                                        getTabList($tab_roles,"role",getValeurChamp('role','users','id',$_REQUEST['users']),"",_TYPE);
                                         ?>
                                     </div>
                                 </div>

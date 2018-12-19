@@ -3,7 +3,7 @@
 <?php require_once('menu.php'); ?>
             <div class="block-header">
                 <h5>
-                    <?php echo _MODIFIER ?> <?php echo _ABSENCE ?> 
+                    <?php echo _MODIFIER ?> <?php echo _ABSENCES ?> 
                 </h5>
             </div>
             <!-- Vertical Layout -->

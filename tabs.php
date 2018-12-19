@@ -1,8 +1,8 @@
 <?php 
 $tab_salles = array(
-					1=>_TPS,
-					_COURS,
-					_ACTIVITES
+					1=>"TP",
+					"Cours",
+					"Activities"
 					);
 
 $tab_politesse = array(

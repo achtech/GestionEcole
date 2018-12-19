@@ -4,9 +4,9 @@
                                 <?php 
                                     $sql = "SELECT * FROM `etablissements`  order by id";       
                                     $res = doQuery($sql);
-                                    $nb = mysql_num_rows($res);
+                                    $nb = mysqli_num_rows($res);
                                     $ligne = "";
-                                    while ($ligne = mysql_fetch_array($res)){
+                                    while ($ligne = mysqli_fetch_array($res)){
                                         $etablissements =$ligne;
                                     } 
 

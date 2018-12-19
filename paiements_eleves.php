@@ -35,7 +35,7 @@
                                             <label for="email_address"><?php echo _NIVEAUX ?> : </label>
                                             <div class="form-group">
                                                 <div class="form-line">
-                                                    <?php  echo getTableList('niveaux','id_niveaux',$id_niveaux,'libelle','','','id_niveaux') ?>
+                                                    <?php  echo getTableList('niveaux','id_niveaux',$id_niveaux,'libelle',"onchange='document.f1.submit()'",'','id_niveaux') ?>
                                                 </div>
                                             </div>
                                         </div>
@@ -43,7 +43,7 @@
                                             <label for="email_address"><?php echo _CLASSES ?> : </label>
                                             <div class="form-group">
                                                 <div class="form-line">
-                                                    <?php   echo getTableList('classes','id_classes', $id_classes,'libelle','','','id_classes') ?>
+                                                    <?php   echo getTableList('classes','id_classes', $id_classes,'libelle','',!empty($id_niveaux)?" where id_niveaux=".$id_niveaux:"",'id_classes') ?>
                                                 </div>
                                             </div>
                                         </div>
@@ -73,7 +73,7 @@
 	
 								$res = doQuery($sql);
 
-								$nb = mysql_num_rows($res);
+								$nb = mysqli_num_rows($res);
 								if( $nb==0){
 									echo _VIDE;
 								}
@@ -105,7 +105,7 @@
                                     <tbody>
                                     	<?php 
 											$i = 0;
-											while ($ligne = mysql_fetch_array($res)){
+											while ($ligne = mysqli_fetch_array($res)){
 												
 												if($i%2==0)
 													$c = "c";

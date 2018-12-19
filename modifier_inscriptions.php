@@ -17,19 +17,9 @@
                 <input type="hidden" name="id_noms_retour" value="eleves"/>
                 <input type="hidden" name="id_valeurs_retour" value="<?php echo $_REQUEST['eleves'] ?>"/>  
                 <?php 
-                    if(isset($_REQUEST['id_annees_scolaire'])){
-                        $id_classes=isset($_REQUEST['id_classes'])?$_REQUEST['id_classes']:'';
-                        $id_niveaux=isset($_REQUEST['id_niveaux'])?$_REQUEST['id_niveaux']:'';    
-                        $id_annees_scolaire=isset($_REQUEST['id_annees_scolaire'])?$_REQUEST['id_annees_scolaire']:'';
-                    }else if(isset($_REQUEST['id_niveaux'])){
-                        $id_classes=isset($_REQUEST['id_classes'])?$_REQUEST['id_classes']:'';
-                        $id_niveaux=isset($_REQUEST['id_niveaux'])?$_REQUEST['id_niveaux']:'';    
-                        $id_annees_scolaire=isset($_REQUEST['id_annees_scolaire'])?$_REQUEST['id_annees_scolaire']:'';
-                    }else{
-                        $id_classes=isset($_REQUEST['id_classes'])?$_REQUEST['id_classes']:getValeurChamp('id_classes','inscriptions','id',$idInscription);
-                        $id_niveaux=isset($_REQUEST['id_niveaux'])?$_REQUEST['id_niveaux']:!empty($id_classes)?getValeurChamp('id_niveaux','classes','id',$id_classes):'';
-                        $id_annees_scolaire=isset($_REQUEST['id_annees_scolaire'])?$_REQUEST['id_annees_scolaire']:getValeurChamp('id_annees_scolaire','inscriptions','id',$idInscription);                        
-                    }
+                     $id_classes = (isset($_REQUEST['id_classes']) && !empty($_REQUEST['id_classes']))?$_REQUEST['id_classes']:getValeurChamp('id_classes','inscriptions','id',$idInscription);
+                     $id_niveaux = (isset($_REQUEST['id_niveaux']) && !empty($_REQUEST['id_niveaux']))?$_REQUEST['id_niveaux']:getValeurChamp('id_niveaux','classes','id',$id_classes);
+                     $id_annees_scolaire = (isset($_REQUEST['id_annees_scolaire']) && !empty($_REQUEST['id_annees_scolaire']))?$_REQUEST['id_annees_scolaire']:getValeurChamp('id_annees_scolaire','inscriptions','id',$idInscription);
                 ?>
                  <div class="row clearfix">
                         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
@@ -67,14 +57,6 @@
                         </div>
                     </div>
             </form>
-           <!-- Vertical Layout -->
-                <?php 
-                
-                     $id_classes = (isset($_REQUEST['id_classes']) && !empty($_REQUEST['id_classes']))?$_REQUEST['id_classes']:getValeurChamp('id_classes','inscriptions','id',$idInscription);
-                     $id_niveaux = (isset($_REQUEST['id_niveaux']) && !empty($_REQUEST['id_niveaux']))?$_REQUEST['id_niveaux']:getValeurChamp('id_niveaux','classes','id',$id_classes);
-                     $id_annees_scolaire = (isset($_REQUEST['id_annees_scolaire']) && !empty($_REQUEST['id_annees_scolaire']))?$_REQUEST['id_annees_scolaire']:getValeurChamp('id_annees_scolaire','inscriptions','id',$idInscription);
-
-                ?>
 
             <form action="gestion.php" name="frm" method="post" 
             onsubmit="return checkForm(document.frm);" >

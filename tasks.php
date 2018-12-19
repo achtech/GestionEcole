@@ -65,7 +65,7 @@
 									$sql = "select * from tasks order by id";		
 									$res = doQuery($sql);
 
-									$nb = mysql_num_rows($res);
+									$nb = mysqli_num_rows($res);
 									if( $nb==0){
 										echo _VIDE;
 									}
@@ -77,9 +77,9 @@
                                     <thead>
                                         <tr>
                                             <th><?php echo _DESCRIPTION ?></th>
-                                            <th><?php echo _NB." des "._TODO ?></th>
-                                            <th><?php echo _NB." des "._INPROGRESS ?></th>
-                                            <th><?php echo _NB." des "._DONE ?></th>
+                                            <th><?php echo _NB." des TODO" ?></th>
+                                            <th><?php echo _NB." des INPROGRESS" ?></th>
+                                            <th><?php echo _NB." des DONE" ?></th>
                                             <th><?php echo _NB." des "._TASKS ?></th>
                                             <th><?php echo _TAUX ?></th>
 											<th class="op"> <?php echo _OP ?> </th>
@@ -88,9 +88,9 @@
                                     <tfoot>
                                         <tr>
                                             <th><?php echo _DESCRIPTION ?></th>
-                                            <th><?php echo _NB." des "._TODO ?></th>
-                                            <th><?php echo _NB." des "._INPROGRESS ?></th>
-                                            <th><?php echo _NB." des "._DONE ?></th>
+                                            <th><?php echo _NB." des TODO" ?></th>
+                                            <th><?php echo _NB." des INPROGRESS" ?></th>
+                                            <th><?php echo _NB." des DONE" ?></th>
                                             <th><?php echo _NB." des "._TASKS ?></th>
                                             <th><?php echo _TAUX ?></th>
 											<th class="op"> <?php echo _OP ?> </th>
@@ -99,7 +99,7 @@
                                     <tbody>
                                     	<?php 
 											$i = 0;
-											while ($ligne = mysql_fetch_array($res)){
+											while ($ligne = mysqli_fetch_array($res)){
 												
 												if($i%2==0)
 													$c = "c";

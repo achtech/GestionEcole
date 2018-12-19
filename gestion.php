@@ -1,5 +1,5 @@
 <?php session_start(); ?>
-<?php //error_reporting(0) ?>
+<?php error_reporting(0) ?>
 
 <link href="style.css" rel="stylesheet" type="text/css" />
 
@@ -11,7 +11,7 @@ echo "<center><h2>"._REDIRECT."</h2></center>";
 
 connect ();
 //detection de la table et des champs concerné
-$tab_table = split(',',isset($_REQUEST['table']) && !empty($_REQUEST['table']) ? $_REQUEST['table'] :"");
+$tab_table = explode(',',isset($_REQUEST['table']) && !empty($_REQUEST['table']) ? $_REQUEST['table'] :"");
 $table=$tab_table[0];
 
 $action = isset($_REQUEST['act']) && !empty($_REQUEST['act'])?$_REQUEST['act']:"";
@@ -60,8 +60,8 @@ if ($action == "a"){
 	for($i=0;$i<sizeof($tab_table);$i++){ 
 	
 		$var[$i]= Ajout($tab_table[$i],getNomChamps($tab_table[$i]),$_REQUEST);
-		$identif=mysql_insert_id(); 
-		$_REQUEST['id_'.$tab_table[$i]]=mysql_insert_id(); 
+		$identif=mysqli_insert_id(); 
+		$_REQUEST['id_'.$tab_table[$i]]=mysqli_insert_id(); 
 		writeInLogs($_SESSION['employeId'],"Ajouter l element ".$identif." de la table ".$tab_table[0]);
 		
 		if(isset($_FILES['photo']) and getChamp($tab_table[$i], "image")){
@@ -108,7 +108,7 @@ if($action == "ajouter_paiements_eleves"){
 	$dateInscription = getValeurChamp('date_inscription','inscriptions','id',getLastInscription($_REQUEST['id_eleves']));
 	$sumMontant = getSum('paiements_eleves','montant','id_eleves,id_annees_scolaire',$_REQUEST['id_eleves'].",".$_REQUEST['id_annees_scolaire']);
 	$month = date('m');
-	$monthInscription = split("-",$dateInscription)[1];
+	$monthInscription = explode("-",$dateInscription)[1];
 	$montant = $_REQUEST['montant'];
 	$montantInscription = empty($montantInscription) ? 0 : $montantInscription;
 	if($montantInscription<$fraisInscription){
@@ -188,8 +188,8 @@ if ($action == "ajouter_eleves"){
 	for($i=0;$i<sizeof($tab_table);$i++){ 
 	
 		$var[$i]= Ajout($tab_table[$i],getNomChamps($tab_table[$i]),$_REQUEST);
-		$identif=mysql_insert_id(); 
-		$_REQUEST['id_'.$tab_table[$i]]=mysql_insert_id(); 
+		$identif=mysqli_insert_id(); 
+		$_REQUEST['id_'.$tab_table[$i]]=mysqli_insert_id(); 
 		doQuery("COMMIT");
 		
 		$sql2  ="insert into inscriptions(num_inscription,date_inscription,id_eleves,id_classes,frais_inscription,frais_mensuelle) values(".$_REQUEST['num_inscription'].",'".date('Y-m-d')."',".$identif.",".$_REQUEST['id_classes'].",".$_REQUEST['frais_inscription'].",".$_REQUEST['frais_mensuelle'].")";
@@ -341,7 +341,7 @@ if ($action == "m"){
 if ($action == "admin_password"){
 $sql="select * from administration where password='".md5($_REQUEST['password0'])."'";
 $res=DoQuery($sql);
-$nbr=mysql_num_rows($res);
+$nbr=mysqli_num_rows($res);
 if($nbr==0){
 	$msg_err = "Verifiez votre ancien mot de passe !";
 }
@@ -349,7 +349,7 @@ else
 {
 	if($_REQUEST['password']==$_REQUEST['password2'])
 	{
-		$ligne=mysql_fetch_array($res);
+		$ligne=mysqli_fetch_array($res);
 		
 		$_REQUEST['password']=md5($_REQUEST['password']);
 		if(isset($_REQUEST['id_nom'])){
@@ -426,7 +426,7 @@ if ($action == "s"){
 	if ($table == "mi_messages_pieces_jointes"){
 		unlink($fichier);
 	}
-	
+			
 	if($retour1){
 		$msg= _SUPPRESSION_OK;
 	}
@@ -492,7 +492,7 @@ if ($action == "messagerieeeeee"){
 	$bool1 = Ajout($table,getNomChamps($table),$_REQUEST);
 	
 	if($bool1){
-		$_REQUEST['id_messages'] = mysql_insert_id();
+		$_REQUEST['id_messages'] = mysqli_insert_id();
 		
 		//Destinataire
 		$tab_id_user = explode(',',$_REQUEST['id_utilisateurs']);
@@ -530,7 +530,7 @@ if ($action == "messagerie"){
 	$bool1 = Ajout($table,getNomChamps($table),$_REQUEST);
 		
 	if($bool1){
-		$chaine_retour = '&messages='.mysql_insert_id();
+		$chaine_retour = '&messages='.mysqli_insert_id();
 		$page = "mi_ajouter_messages2.php";
 		
 		doQuery("COMMIT");
@@ -593,7 +593,7 @@ if ($action == "messagerie_reponses"){
 	$bool1 = Ajout($table,getNomChamps($table),$_REQUEST);
 		
 	if($bool1){
-		$chaine_retour ='&messages='.$_REQUEST['id_messages'].'&reponses='.mysql_insert_id();
+		$chaine_retour ='&messages='.$_REQUEST['id_messages'].'&reponses='.mysqli_insert_id();
 		$page = "mi_ajouter_messages_reponses2.php";
 		
 		doQuery("COMMIT");
@@ -615,8 +615,8 @@ if ($action == 'conexion')
 //	$sql="select * from administration where email='".$email."' and password='".md5($password)."'";
 	$sql="select * from users where login='".$login."' and password='".$password."'";
 	$res=doQuery($sql);
-	$nbr=mysql_num_rows($res);
-	$ligne=mysql_fetch_array($res);
+	$nbr=mysqli_num_rows($res);
+	$ligne=mysqli_fetch_array($res);
 	if($nbr==1)
 	{
 		 $_SESSION['employe']=$ligne;

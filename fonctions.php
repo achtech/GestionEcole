@@ -8,26 +8,28 @@ function connect () {
 	$user = _BD_USER;
 	$pass = _BD_PASS;
 	
-	mysql_connect($host, $user, $pass) or die("Erreur de connexion au serveur (fonction.php)");
-				
-	selectDb ();
-}	
-	
-function selectDb () {	
+	mysqli_connect($host, $user, $pass) or die("Erreur de connexion au serveur (fonction.php)");
+	$con = mysqli_connect(_BD_HOST,_BD_USER,_BD_PASS,_DB);
 
-	$bd = _DB;
-		
-	mysql_select_db($bd) or die("Erreur de connexion a la base de donnees (fonction.php)");
+	// Check connection
+	if (mysqli_connect_errno())
+	  {
+	  echo "Failed to connect to MySQL: " . mysqli_connect_error();
+	  }
+	return $con;
+}	
+
+function close($c){
+	mysqli_close($c);
 }
 				
 function doQuery ($querystring) {	
 		
-	connect ();
-	selectDb ();
+	$cnx = connect ();
 	
 	$query=$querystring ;
 				
-	$result = mysql_query ($query) or die(mysql_errno()) ;
+	$result = mysqli_query ($cnx,$query) ;
 	
 		if(!$result) {
 		
@@ -35,7 +37,7 @@ function doQuery ($querystring) {
 		
 			return $msg;
 		}
-	
+	close($cnx);
 	return $result ;
 					
 }
@@ -76,7 +78,7 @@ function ifExist($table,$login){
 			";
 				
 	$res = doQuery($sql);
-	$ligne = mysql_fetch_array($res) or die(mysql_error());
+	$ligne = mysqli_fetch_array($res);
 	
 	$nb = $ligne['nb'];
 	
@@ -120,7 +122,7 @@ $sql = "select *
 //echo $sql;
 
 $res = doQuery($sql);
-$ligne = mysql_fetch_array($res) or die(mysql_error());
+$ligne = mysqli_fetch_array($res);
 
 if ($ligne['type'] == 1) $initial_type = "V";
 if ($ligne['type'] == 2) $initial_type = "L";
@@ -169,13 +171,12 @@ function lire_csv( $filename, $separateur){
 //cette fonction permet de supprimer un ou plusieurs enregistrement dans une table
 function Suppression($table,$valeur){
 	
-	$sql = "delete from ".$table." where id = '". $valeur ."'";
-	 
+	$sql = "delete from ".$table." where id = '". $valeur ."'";	
+	echo $sql;
 	$bool = doQuery($sql);
-	 
 	 //supression de l'image principale de l'element
 	if ($bool){
-		$tab_valeur=split(',',$valeur);
+		$tab_valeur=explode(',',$valeur);
 		
 		foreach($tab_valeur as $val){
 			$nom_image = $val."_".$table;
@@ -186,7 +187,7 @@ function Suppression($table,$valeur){
 		}	
 		
 	}	
-	
+	 
 	return $bool;
 }
 
@@ -246,12 +247,12 @@ function getValeurChamp3($table,$id,$champ){
 			where id=".$id."
 			";
 	$res= doQuery($sql); 
-	if (mysql_num_rows($res) == 0){
+	if (mysqli_num_rows($res) == 0){
 		return "";
 	}
 	else
 	{
-		$ligne = mysql_fetch_array($res) or die(mysql_error());
+		$ligne = mysqli_fetch_array($res);
 		return $ligne[$champ];
 	}
 }
@@ -261,7 +262,7 @@ function getValeurChamp2($table,$id,$id_val,$champ){
 			where ".$id."=".$id_val."
 			";
 	$res= doQuery($sql); 
-	$ligne = mysql_fetch_array($res) or die(mysql_error());
+	$ligne = mysqli_fetch_array($res);
 		
 	return $ligne[$champ];
 			
@@ -275,8 +276,8 @@ function getValeurChamp($champ1,$table,$champ2,$valeur){
 			where ". $where ." 1=1";
 	$res= doQuery($sql); 
 	
-	if(mysql_num_rows($res) != 0){
-		$ligne = mysql_fetch_array($res) or die(mysql_error());
+	if(mysqli_num_rows($res) != 0){
+		$ligne = mysqli_fetch_array($res);
 		return $ligne[$champ1];
 	}
 	else
@@ -311,13 +312,13 @@ function Ajout($table,$tab_champs,$tab_requetes){
 		}		
 	}	
 				
-		echo $sql = "
+		$sql = "
 				insert into 
 				".$table."(".$champs.") 
 				values(".$valeurs.")
 			";
 		
-		$bool = doQuery($sql) or die("ERREUR AJOUT : ".mysql_error());
+		$bool = doQuery($sql) or die("ERREUR AJOUT : ".mysqli_error());
 		
 		/*if ($bool){
 			//ajouter une ligne dans la table Historique_Connexion
@@ -363,8 +364,8 @@ function Modification($table,$tab_champs,$tab_requetes,$id_nom,$id_valeur){
 	$champs_mod = substr($champs_val,0, -1);
 	
 	//préparation de la clause where
-	$tab_id_nom = split(',',$id_nom);
-	$tab_id_valeur = split(',',$id_valeur);
+	$tab_id_nom = explode(',',$id_nom);
+	$tab_id_valeur = explode(',',$id_valeur);
 	$where = "";
 	for($i=0;$i<sizeof($tab_id_valeur);$i++){
 		if ($where==""){
@@ -376,9 +377,9 @@ function Modification($table,$tab_champs,$tab_requetes,$id_nom,$id_valeur){
 	}	
 		
 	if($champs_mod!=''){
-		echo $sql="update ".$table." set ".$champs_mod." where ".$where." ";
+		$sql="update ".$table." set ".$champs_mod." where ".$where." ";
 	}	
-	return $bool = doQuery($sql) or die("ERREUR MODIFICATION CAT : ".mysql_error());
+	return $bool = doQuery($sql) or die("ERREUR MODIFICATION CAT : ".mysqli_error());
 }
 
 //cette fonction permet testé si une valeur existe ou non dans une table
@@ -388,9 +389,9 @@ function ExisteValeur($table,$champ,$valeur,$exep){
 	 $result = doQuery($query);
 	 
 	 //traitement de l'existance d'un enregistrement
-	//echo mysql_num_rows($result);
+	//echo mysqli_num_rows($result);
 	
-	if (mysql_num_rows($result)!=0){
+	if (mysqli_num_rows($result)!=0){
 		return true;
 	}
 	else 
@@ -404,7 +405,7 @@ function getChamp($table, $champ){
 	 $result = doQuery($query);
 	 
 	 //traitement de l'existance d'un enregistrement
-	if (mysql_num_rows($result)!=0){
+	if (mysqli_num_rows($result)!=0){
 		return true;
 		}
 	else return false;	
@@ -420,12 +421,17 @@ function getNomChamps($table){
 	 $result = doQuery($query);
 	 
 	 //mettre les nom des champs sous form de tableau
-	 for($i=0;$i<mysql_num_rows($result);$i++)
+	 $i=0;
+	 while($ligne = mysqli_fetch_row($result)){
+	 	$cols[] = $ligne[0];
+	 	$i=$i+1;
+	 }
+/*	 for($i=0;$i<mysqli_num_rows($result);$i++)
 		  {
-			$cols[] = mysql_result($result, $i);
+			$cols[] = mysqli_result($result, $i);
 			
 		  }
-	return $cols;
+*/	return $cols;
 }
 
 function datediff($debut,$fin){
@@ -450,7 +456,7 @@ function ModifValChamps($table,$champ,$valeur,$ids){
 	
 	//echo $sql;
 			  
-	return $bool = doQuery($sql) or die("ERREUR MODIFICATION ETAT : ".mysql_error());
+	return $bool = doQuery($sql) or die("ERREUR MODIFICATION ETAT : ".mysqli_error());
 	
 }
 /*fonction pour uploader une image dans une table
@@ -522,7 +528,7 @@ function get_list($table,$id_modif,$champ,$condition,$action){
 		<?php echo $option_vide ?>
      <?php   
 		$s = "";
-			while($ligne = mysql_fetch_array($res)){
+			while($ligne = mysqli_fetch_array($res)){
 				if(isset($id_modif)){
 					if ($id_modif== $ligne['id']){
 						//return $ligne['id'];
@@ -541,7 +547,7 @@ function get_list($table,$id_modif,$champ,$condition,$action){
 		?>
 		</select>
         <?php 
-		return mysql_num_rows($res);
+		return mysqli_num_rows($res);
 }
 
 //fonction test
@@ -556,7 +562,7 @@ function get_table_valeur($table,$champs,$criteres){
 
 	$res = doQuery($sql);
 	$i=0;
-	while($ligne = mysql_fetch_array($res)){
+	while($ligne = mysqli_fetch_array($res)){
 	
 				foreach($champs as $champ){
 					$valeurs[$i][$champ]=$ligne[$champ];
@@ -662,7 +668,7 @@ function affiche_table($champs,$valeurs,$table,$page){
 					}
 					
 						reset($champs);
-						$tab=split('/',$page);
+						$tab=explode('/',$page);
 						$racine=$tab['0'];
 						
 					
@@ -726,7 +732,7 @@ function affichage_operation($lien,$action,$url,$libelle){
 //function verification de compte
 function verification_compte($comptes){
 
-	$tab_comptes = split(',',$comptes);
+	$tab_comptes = explode(',',$comptes);
 	
 	$i=0;
 	foreach($tab_comptes as $compte){
@@ -794,7 +800,7 @@ function affichage_galerie($table,$id_nom,$id_valeur,$page,$noms_retour,$valeurs
 				$sql= "select * from ".$table." where ".$id_nom."='". $id_valeur ."'";
 			  	$res = doQuery($sql);
 			  	$i=1;
-				while ($ligne = mysql_fetch_array($res)){	
+				while ($ligne = mysqli_fetch_array($res)){	
 			 	?>
 					<td width="210">
                            <?php $fichier = "galerie/".$ligne['image'] ?>
@@ -856,9 +862,11 @@ function getNb($table,$champ,$id){
 			where ". $chaine;
 			
 	$res_get = doQuery($sql_get);
-	$ligne_get = mysql_fetch_array($res_get) or die(mysql_error());
+	$n=0;
+	while($ligne_get = mysqli_fetch_array($res_get)) $n=$ligne_get['nb'];
 	
-	return $nb = $ligne_get['nb'];
+
+	return $n;
 }
 
 function getSum($table,$colonne,$champ,$id){
@@ -885,7 +893,7 @@ function getSum($table,$colonne,$champ,$id){
 	//echo "<br>______<br><br>";
 			
 	$res_get = doQuery($sql_get);
-	$ligne_get = mysql_fetch_array($res_get) or die(mysql_error());
+	$ligne_get = mysqli_fetch_array($res_get);
 	
 	if ($ligne_get['total'] == "") return "0";
 	return $ligne_get['total'];
@@ -916,7 +924,7 @@ function getSumByJours($table,$colonne,$champ,$id,$champ2,$debut,$fin){
 	//echo "<br>______<br><br>";
 			
 	$res_get = doQuery($sql_get);
-	$ligne_get = mysql_fetch_array($res_get) or die(mysql_error());
+	$ligne_get = mysqli_fetch_array($res_get);
 	
 	if ($ligne_get['total'] == "") return "0";
 	return $ligne_get['total'];
@@ -942,9 +950,9 @@ function getTimeByDate($date,$sep){
 function getNbrPages($requete,$messagesParPage){
 		connect ();
 		selectDb ();
-		$retour_total=doQuery($requete) or die("ERREUR : ".mysql_error()); 
+		$retour_total=doQuery($requete) or die("ERREUR : ".mysqli_error()); 
 		//Nous récupérons le contenu de la requête dans $retour_total
-		$donnees_total=mysql_fetch_assoc($retour_total); //On range retour sous la forme d'un tableau.
+		$donnees_total=mysqli_fetch_assoc($retour_total); //On range retour sous la forme d'un tableau.
 		$total=$donnees_total['total']; //On récupère le total pour le placer dans la variable $total.
 		//Nous allons maintenant compter le nombre de pages.
 		$nombreDePages=ceil($total/$messagesParPage);
@@ -1040,7 +1048,7 @@ function newChaine( $chrs = "") {
 	
 //cette fonction permet de récuperer la date du jour suivant (yyyy/mm/jj) à une date donné	
 function date_jour_suivant($date_a){
-	$tab=split("/",$date_a);
+	$tab=explode("/",$date_a);
 	 $annee=intval($tab[0]);
 	 $mois=intval($tab[1]);
 	 $jour=intval($tab[2]);
@@ -1152,17 +1160,17 @@ function getPrixTtc($prix,$taux){
 }
 
 
-function getTableList($table,$nom,$valeur,$champ,$change,$where,$libelle,$update){
+function getTableList($table,$nom,$valeur,$champ,$change,$where,$libelle){
 	//echo $table."<br>".$nom."<br>".$valeur."<br>".$champ."<br>".$change."<br>".$where."<br>".$libelle."<br>".$update."<br>";
 	$sql = "select * from ". $table ." ". $where ." order by ". $champ;
 	$res = doQuery($sql);
 	?>
 	
-	<select class="form-control show-tick" data-live-search="true"  id ="<?php echo $update ?>" name="<?php echo $nom ?>" <?php echo $change ?> 
+	<select class="form-control show-tick" data-live-search="true"  name="<?php echo $nom ?>" <?php echo $change ?> 
 	id="<?php echo $libelle ?>_required">
 		<option value="">____</option>
 	<?php
-	while($ligne = mysql_fetch_array($res)){	
+	while($ligne = mysqli_fetch_array($res)){	
 		
 		$s = "";
 		
@@ -1192,7 +1200,7 @@ function getTableList3($table,$nom,$valeur,$champ,$champ2,$change,$where,$libell
 		<option value="">____</option>
 		
 	<?php
-	while($ligne = mysql_fetch_array($res)){	
+	while($ligne = mysqli_fetch_array($res)){	
 		
 		$s = "";
 		
@@ -1223,7 +1231,7 @@ function getTableList2($table,$nom,$valeur,$champs,$value,$change,$where,$libell
 		<option value="">____</option>
 		
 	<?php
-	while($ligne = mysql_fetch_array($res)){	
+	while($ligne = mysqli_fetch_array($res)){	
 		
 		$s = "";
 		
@@ -1432,7 +1440,7 @@ function afficher_menu4($parent, $niveau, $array) {
 					//Lister les articles
 					$sql_artls2 = "SELECT * FROM articles where etat=1 and id_categories =".$noeud['categorie_id'];
 					$res_artls2 = doQuery($sql_artls2);
-					while($ligne_artls2 = mysql_fetch_array($res_artls2)){
+					while($ligne_artls2 = mysqli_fetch_array($res_artls2)){
 						$lien .= "	<li>
 										<a href='article.php?id=". $ligne_artls2['id']  ."'>"
 											.$ligne_artls2['nom'.$_SESSION['lang']].
@@ -1525,7 +1533,7 @@ function afficher_menu6($parent, $niveau, $array) {
 					//Lister les articles
 					$sql_artls = "SELECT * FROM articles where etat=1 and id_categories =".$noeud['categorie_id'];
 					$res_artls = doQuery($sql_artls);
-					while($ligne_artls = mysql_fetch_array($res_artls)){
+					while($ligne_artls = mysqli_fetch_array($res_artls)){
 						$lien .= "	<li>
 										<a href='article.php?id=". $ligne_artls['id']  ."'>"
 											.$ligne_artls['nom'.$_SESSION['lang']].
@@ -1559,27 +1567,27 @@ function afficher_menus($menus){
 $sql_menus = "select * from menus where libelle = '". $menus ."' order by id";		
 $res_menus = doQuery($sql_menus);
 
-$nb_menus = mysql_num_rows($res_menus);
+$nb_menus = mysqli_num_rows($res_menus);
 if( $nb_menus == 0){
 	
 }
 else
 {
-	while ($ligne_menus = mysql_fetch_array($res_menus)){
+	while ($ligne_menus = mysqli_fetch_array($res_menus)){
 	
 		//Afficher les elements de chaque menus
 		$sql_elements_menus = "	select * from menus_elements 
 								where id_menus = '". $ligne_menus['id'] ."' and etat=1 order by id";
 		$res_elements_menus = doQuery($sql_elements_menus);
 		
-		$nb_elements_menus = mysql_num_rows($res_elements_menus);
+		$nb_elements_menus = mysqli_num_rows($res_elements_menus);
 		if( $nb_elements_menus == 0){
 			
 		}
 		else
 		{
 		 
-			while ($ligne_elements_menus = mysql_fetch_array($res_elements_menus)){
+			while ($ligne_elements_menus = mysqli_fetch_array($res_elements_menus)){
 			?>
 
 			<div id="menu_left">
@@ -1591,14 +1599,14 @@ else
 				$sql_liens_elements_menus = "select * from menus_elements_liens where id_menus_elements = '". $ligne_elements_menus['id'] ."' and etat=1 order by ordre";		
 				$res_liens_elements_menus = doQuery($sql_liens_elements_menus);
 				
-				$nb_liens_elements_menus = mysql_num_rows($res_liens_elements_menus);
+				$nb_liens_elements_menus = mysqli_num_rows($res_liens_elements_menus);
 				if( $nb_liens_elements_menus == 0){
 					
 				}
 				else
 				{
 				
-					while ($ligne_liens_elements_menus = mysql_fetch_array($res_liens_elements_menus)){
+					while ($ligne_liens_elements_menus = mysqli_fetch_array($res_liens_elements_menus)){
 						
 						$liens = $ligne_liens_elements_menus['id'];
 						$lien_menu = $ligne_liens_elements_menus['url'];
@@ -1649,12 +1657,12 @@ function getDroitUtilisateur($utilisateurs,$lien){
 			where id_profils = '". $user_profil ."' and id_menus_elements_liens = '". $lien ."'";
 	$res = doQuery($sql);
 	
-	if (mysql_num_rows($res) == 0){
+	if (mysqli_num_rows($res) == 0){
 		return "";	
 	}
 	else
 	{
-		$ligne = mysql_fetch_array($res);
+		$ligne = mysqli_fetch_array($res);
 		$droit = $ligne['etat'];
 		
 		return $droit;
@@ -1666,12 +1674,12 @@ function getDroitProfil($profil,$lien){
 	$sql = "select * from profils_droits where id_profils = '". $profil ."' and id_menus_elements_liens = '". $lien ."'";		
 	$res = doQuery($sql);
 	
-	if (mysql_num_rows($res) == 0){
+	if (mysqli_num_rows($res) == 0){
 		return "";	
 	}
 	else
 	{
-		$ligne = mysql_fetch_array($res);
+		$ligne = mysqli_fetch_array($res);
 		$droit = $ligne['etat'];
 		
 		return $droit;
@@ -1879,7 +1887,7 @@ function traiter_pj($subject) {
 function getLastInscription($idEleves) {
 	$sql = "select max(id) as maxIds from inscriptions where id_eleves=".$idEleves;
 	$res = doQuery($sql);
-	$ligne = mysql_fetch_array($res);
+	$ligne = mysqli_fetch_array($res);
 	return  $ligne['maxIds'];		 
 }
 
@@ -1887,14 +1895,14 @@ function getLastInscription($idEleves) {
 function getSumAbsenceEleveByMonth($idEleves,$mois,$anneScolaire){
 	$m = $mois <=4 ? $mois + 8 : $mois - 4;
 	$anneScolaire= getValeurChamp('libelle','annees_scolaires','id',$anneScolaire);	
-	$year = split("-", $anneScolaire);
+	$year = explode("-", $anneScolaire);
 	$y = $mois <=4 ? $year[0] : $year[1];
 	$startMonth = date("Y-m-d",strtotime($y."-".($m<10?"0".$m:$m)."-01"));
 	$endMonth = date("Y-m-t",strtotime($y."-".($m<10?"0".$m:$m)."-01"));
 	
 	$sql = "select sum(nbr_heurs) as tot from absences_eleves where id_eleves=".$idEleves." and ((date_debut>'$startMonth' and date_debut<'$endMonth') or (date_debut<'$startMonth' and date_fin>'$startMonth'))";
 	$res = doQuery($sql);
-	 $nb = mysql_num_rows($res);
+	 $nb = mysqli_num_rows($res);
 
 	$tot =0;
 	if( $nb==0){
@@ -1902,7 +1910,7 @@ function getSumAbsenceEleveByMonth($idEleves,$mois,$anneScolaire){
 	}
 	else
 	{
-		while ($ligne = mysql_fetch_array($res)){
+		while ($ligne = mysqli_fetch_array($res)){
 			$tot = $ligne['tot'];
 		}
 	}
@@ -1912,14 +1920,14 @@ function getSumAbsenceEleveByMonth($idEleves,$mois,$anneScolaire){
 function getSumAbsenceEmployeByMonth($idEmploye,$mois,$anneScolaire){
 	$m = $mois <=4 ? $mois + 8 : $mois - 4;
 	$anneScolaire= getValeurChamp('libelle','annees_scolaires','id',$anneScolaire);	
-	$year = split("-", $anneScolaire);
+	$year = explode("-", $anneScolaire);
 	$y = $mois <=4 ? $year[0] : $year[1];
 	$startMonth = date("Y-m-d",strtotime($y."-".($m<10?"0".$m:$m)."-01"));
 	$endMonth = date("Y-m-t",strtotime($y."-".($m<10?"0".$m:$m)."-01"));
 	
 	$sql = "select sum(nbr_heurs) as tot from absences_employes where id_employes=".$idEmploye." and ((date_debut>'$startMonth' and date_debut<'$endMonth') or (date_debut<'$startMonth' and date_fin>'$startMonth'))";
 	$res = doQuery($sql);
-	 $nb = mysql_num_rows($res);
+	 $nb = mysqli_num_rows($res);
 
 	$tot =0;
 	if( $nb==0){
@@ -1927,7 +1935,7 @@ function getSumAbsenceEmployeByMonth($idEmploye,$mois,$anneScolaire){
 	}
 	else
 	{
-		while ($ligne = mysql_fetch_array($res)){
+		while ($ligne = mysqli_fetch_array($res)){
 			$tot = $ligne['tot'];
 		}
 	}
@@ -1937,17 +1945,17 @@ function getSumAbsenceEmployeByMonth($idEmploye,$mois,$anneScolaire){
 function getSumRetardsEleveByMonth($idEleves,$mois,$anneScolaire){
 	$m = $mois <=4 ? $mois + 8 : $mois - 4;
 	$anneScolaire= getValeurChamp('libelle','annees_scolaires','id',$anneScolaire);	
-	$year = split("-", $anneScolaire);
+	$year = explode("-", $anneScolaire);
 	$y = $mois <=4 ? $year[0] : $year[1];
 	$startMonth = date("Y-m-d",strtotime($y."-".($m<10?"0".$m:$m)."-01"));
 	$endMonth = date("Y-m-t",strtotime($y."-".($m<10?"0".$m:$m)."-01"));
 	
     $sql = "select sum(nbr_heurs) as tot from retards_eleves where id_eleves=".$idEleves." and date_retards>='$startMonth' and date_retards<='$endMonth'";
 	$res = doQuery($sql);
-	$nb = mysql_num_rows($res);
+	$nb = mysqli_num_rows($res);
 
 	$tot =0;
-		while ($ligne = mysql_fetch_array($res)){
+		while ($ligne = mysqli_fetch_array($res)){
 			$tot = $ligne['tot'];
 		}
 	return $tot>0?$tot:"0";
@@ -1956,7 +1964,7 @@ function getSumRetardsEleveByMonth($idEleves,$mois,$anneScolaire){
 function getCurrentClasses($idEleves){
     $sql = "select id_classes from inscriptions where id=(select max(id) from inscriptions where id_eleves=".$idEleves.")" ;
 	$res = doQuery($sql);
-	$nb = mysql_num_rows($res);
+	$nb = mysqli_num_rows($res);
 
 	$id =0;
 	if( $nb==0){
@@ -1964,7 +1972,7 @@ function getCurrentClasses($idEleves){
 	}
 	else
 	{
-		while ($ligne = mysql_fetch_array($res)){
+		while ($ligne = mysqli_fetch_array($res)){
 			$id = $ligne['id_classes'];
 		}
 	}
@@ -1986,7 +1994,7 @@ function getIdInscription($idEleves,$idAnneScolaire){
 
 	$sql = "select id from inscriptions where id_eleves=".$idEleves." and  id_annees_scolaire=".$idAnneScolaire ;
 	$res = doQuery($sql);
-	$nb = mysql_num_rows($res);
+	$nb = mysqli_num_rows($res);
 
 	$id =0;
 	if( $nb==0){
@@ -1994,7 +2002,7 @@ function getIdInscription($idEleves,$idAnneScolaire){
 	}
 	else
 	{
-		while ($ligne = mysql_fetch_array($res)){
+		while ($ligne = mysqli_fetch_array($res)){
 			$id = $ligne['id'];
 		}
 	}
@@ -2005,10 +2013,10 @@ function getSumMontantEleveAnneScolaire($idEleves,$idAnneScolaire,$mois){
  
  $sql="select sum(montant) as tot,id_annees_scolaire from paiements_eleves where id_eleves=".$idEleves."  and mois=".$mois;
 	$res = doQuery($sql);
-	$nb = mysql_num_rows($res);
+	$nb = mysqli_num_rows($res);
 
 	$tot =0;
-	while ($ligne = mysql_fetch_array($res)){
+	while ($ligne = mysqli_fetch_array($res)){
 		if($ligne['id_annees_scolaire']==$idAnneScolaire){
 			$tot=$tot+$ligne['tot'];
 		}
@@ -2033,7 +2041,7 @@ function getMontantAPayer($id_eleves){
 	$fraisInscription = getValeurChamp('frais_inscription','inscriptions','id',$idInscription);
 	$fraisMensuelle = getValeurChamp('frais_mensuelle','inscriptions','id',$idInscription);
 	$nbrMonth = 1;
-	$moisInscription = split("-",getValeurChamp('date_inscription','inscriptions','id',$idInscription))[1];
+	$moisInscription = explode("-",getValeurChamp('date_inscription','inscriptions','id',$idInscription))[1];
 	$mm = intval($moisInscription);
 	$mm  = $mm<9 ?9:$mm;
 	
@@ -2048,7 +2056,7 @@ function getMontantAPayer($id_eleves){
 	$res = doQuery($sql);
 
 	$montantPayer =0;
-	while ($ligne = mysql_fetch_array($res)){
+	while ($ligne = mysqli_fetch_array($res)){
 		if($ligne['id_annees_scolaire']==$idAnneScolaire){
 			$montantPayer = $montantPayer+$ligne['sommeP'];
 		}
@@ -2066,7 +2074,7 @@ function paiementsNonPaye($id_annees_scolaire){
 
 	$tab =[];
 	$i = 0;
-	while ($ligne = mysql_fetch_array($res)){
+	while ($ligne = mysqli_fetch_array($res)){
 		$montant = getMontantAPayer($ligne['id']);
 		if($montant>0){
 			$tab[$i][0]=$ligne['id'];
@@ -2085,7 +2093,7 @@ function getAllTasks(){
 
 	$tab =[];
 	$i = 0;
-	while ($ligne = mysql_fetch_array($res)){
+	while ($ligne = mysqli_fetch_array($res)){
 			$tab[$i][0]=$ligne['description'];
 			$tab[$i][1]=$ligne['taux'];
 			$tab[$i][2]=$ligne['id'];
@@ -2106,7 +2114,7 @@ function getAllTasksNotComplete(){
 
 	$tab =[];
 	$i = 0;
-	while ($ligne = mysql_fetch_array($res)){
+	while ($ligne = mysqli_fetch_array($res)){
 			$tab[$i][0]=$ligne['description'];
 			$tab[$i][1]=$ligne['taux'];
 			$tab[$i][2]=$ligne['id'];
@@ -2121,7 +2129,7 @@ function getmontantInscription($idEleves,$idAnneScolaire){
 
 	$tot =0;
 	$i = 0;
-	while ($ligne = mysql_fetch_array($res)){
+	while ($ligne = mysqli_fetch_array($res)){
 		if($ligne['id_annees_scolaire']==$idAnneScolaire){
 			$tot=$tot+$ligne['montant'];
 		}
@@ -2149,7 +2157,7 @@ function getClass($idEleves,$idAnneScolaire){
 
 	$idClasses =0;
 	$i = 0;
-	while ($ligne = mysql_fetch_array($res)){
+	while ($ligne = mysqli_fetch_array($res)){
 		if($ligne['id_annees_scolaire']==$idAnneScolaire){
 			$idClasses=$ligne['id_classes'];
 		}
@@ -2173,7 +2181,7 @@ function getAllNiveaux(){
 
 	$tot =[];
 	$i = 0;
-	while ($ligne = mysql_fetch_array($res)){
+	while ($ligne = mysqli_fetch_array($res)){
 		$tot[$i][0]=$ligne['id'];
 		$tot[$i][1]=$ligne['libelle'];
 		$i=$i+1;
@@ -2186,7 +2194,7 @@ $sql = "SELECT count(id) as tot FROM `inscriptions` where id_annees_scolaire=".g
 	$res = doQuery($sql);
 
 	$ct = 0;
-	while ($ligne = mysql_fetch_array($res)){
+	while ($ligne = mysqli_fetch_array($res)){
 		$ct=$ligne['tot'];
 	}
 	return $ct;
@@ -2221,7 +2229,7 @@ function getSumAvance($id,$mois){
 	$sql = "select sum(montant) as tot from avances where id_employes=".$id." and date_avance between '".$startMonth."' and '".$endMonth."'";
 	$res = doQuery($sql);
 	$ct = 0;
-	while ($ligne = mysql_fetch_array($res)){
+	while ($ligne = mysqli_fetch_array($res)){
 		$ct=$ligne['tot'];
 	}
 	return $ct==0?"0 Dh":$ct." Dh";
@@ -2230,12 +2238,12 @@ function getSumAvance($id,$mois){
 function getSumPaiedEmployeAnneScolaire($idEmployes,$idAnneScolaire,$mois){
 	$sql="select sum(montant) as tot,id_annees_scolaire from paiements_employes where id_employes=".$idEmployes."  and mois=".$mois;
 	$res = doQuery($sql);
-	$nb = mysql_num_rows($res);
+	$nb = mysqli_num_rows($res);
 
 	 $totAvance = getSumAvance($idEmployes,$mois);
 
 	$tot =0;
-	while ($ligne = mysql_fetch_array($res)){
+	while ($ligne = mysqli_fetch_array($res)){
 		if($ligne['id_annees_scolaire']==$idAnneScolaire){
 			$tot=$tot+$ligne['tot'];
 		}

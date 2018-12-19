@@ -48,7 +48,7 @@
                                 <div class="form-group">
                                     <div class="form-line">
                                         <?php
-                                        getTabList($tab_roles,"role",$valeur,$change,_ETAT);
+                                        getTabList($tab_roles,"role","","",_TYPE);
                                         ?>
                                     </div>
                                 </div>

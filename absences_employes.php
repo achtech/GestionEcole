@@ -71,7 +71,7 @@
 									$sql = "select * from employes ".$where." order by id";		
 									$res = doQuery($sql);
 
-									$nb = mysql_num_rows($res);
+									$nb = mysqli_num_rows($res);
 									if( $nb==0){
 										echo _VIDE;
 									}
@@ -102,7 +102,7 @@
                                     <tbody>
                                     	<?php 
 											$i = 0;
-											while ($ligne = mysql_fetch_array($res)){
+											while ($ligne = mysqli_fetch_array($res)){
 												$total = 0;
 												if($i%2==0)
 													$c = "c";

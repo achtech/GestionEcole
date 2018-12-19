@@ -34,7 +34,7 @@
                             <label for="email_address"><?php echo _CLASSES ?> : </label>
                             <div class="form-group">
                                 <div class="form-line">
-                                    <?php  echo getTableList('classes','id_classes',isset($_REQUEST['id_classes'])?$_REQUEST['id_classes']:'','libelle','onchange="document.f1.submit()"',isset($_REQUEST['id_niveaux']) && isset($_REQUEST['id_annees_scolaire'])?' where id_niveaux='.$_REQUEST['id_niveaux'].' and id_annees_scolaire='.$_REQUEST['id_annees_scolaire']:'','id_classes') ?>
+                                    <?php  echo getTableList('classes','id_classes',isset($_REQUEST['id_classes'])?$_REQUEST['id_classes']:'','libelle','onchange="document.f1.submit()"',isset($_REQUEST['id_niveaux']) ?' where id_niveaux='.$_REQUEST['id_niveaux']:'','id_classes') ?>
                                 </div>
                             </div>
                         </div>
@@ -85,7 +85,7 @@
                             <label for="nbr_place"><?php echo _TEL." "._DOMICILES ?> : </label>
                             <div class="form-group">
                                 <div class="form-line">
-                                    <input type="text" id="tel_domicile" name="tel_domicile" class="form-control" value="test">
+                                    <input type="text" id="tel_domicile" name="tel_domicile" class="form-control" >
                                 </div>
                             </div>
                         </div>
@@ -99,21 +99,20 @@
                             <label for="nbr_place"><?php echo _DATE." de "._NAISSANCES ?> : </label>
                             <div class="form-group">
                                 <div class="form-line">
-                                 <!--   <input type="text" class="datepicker form-control" name="date_naissance" placeholder="Please choose a date..."> -->
                                     <input type="text" class="datepicker form-control" name="date_naissance" placeholder="Please choose a date..."> 
                                 </div>
                             </div>
                             <label for="nbr_place"><?php echo _LIEUX." de "._NAISSANCES ?> : </label>
                             <div class="form-group">
                                 <div class="form-line">
-                                    <input type="text" class="form-control" name="lieu_naissance" value="test">
+                                    <input type="text" class="form-control" name="lieu_naissance" >
                                 </div>
                             </div>
 
                             <label for="nbr_place"><?php echo _ECOLE." "._PRECEDENTE ?> : </label>
                             <div class="form-group">
                                 <div class="form-line">
-                                    <input type="text" id="ecole_precedente" name="ecole_precedente" class="form-control" value="test">
+                                    <input type="text" id="ecole_precedente" name="ecole_precedente" class="form-control" >
                                 </div>
                             </div>
                         </div>
@@ -127,26 +126,26 @@
                             <label for="email_address"><?php echo _PRENOM." du "._PERE ?> : </label>
                             <div class="form-group">
                                 <div class="form-line">
-                                    <input type="text" id="nom_pere" name="nom_pere" class="form-control" value="test">
+                                    <input type="text" id="nom_pere" name="nom_pere" class="form-control" >
                                 </div>
                             </div>
                             <label for="nbr_place"><?php echo _PROFESSION." du "._PERE ?> : </label>
                             <div class="form-group">
                                 <div class="form-line">
-                                    <input type="text" id="profession_pere" name="profession_pere" class="form-control" value="test">
+                                    <input type="text" id="profession_pere" name="profession_pere" class="form-control" >
                                 </div>
                             </div>
 
                             <label for="nbr_place"><?php echo _CIN." du "._PERE ?> : </label>
                             <div class="form-group">
                                 <div class="form-line">
-                                    <input type="text" id="cin_pere" name="cin_pere" class="form-control" value="test">
+                                    <input type="text" id="cin_pere" name="cin_pere" class="form-control" >
                                 </div>
                             </div>
-                            <label for="nbr_place"><?php echo _TEL." "._GSM." des ".PARENTS ?> : </label>
+                            <label for="nbr_place"><?php echo _TEL." "._GSM." des "._PARENTS ?> : </label>
                             <div class="form-group">
                                 <div class="form-line">
-                                    <input type="text" id="tel_parents" name="tel_parents" class="form-control" value="test">
+                                    <input type="text" id="tel_parents" name="tel_parents" class="form-control" >
                                 </div>
                             </div>
                            
@@ -161,21 +160,21 @@
                             <label for="nbr_place"><?php echo _PRENOM." et "._NOM." de la "._MERE ?> : </label>
                             <div class="form-group">
                                 <div class="form-line">
-                                    <input type="text" id="nom_mere" name="nom_mere" class="form-control" value="test">
+                                    <input type="text" id="nom_mere" name="nom_mere" class="form-control" >
                                 </div>
                             </div>
 
                              <label for="nbr_place"><?php echo _PROFESSION." du "._MERE ?> : </label>
                             <div class="form-group">
                                 <div class="form-line">
-                                    <input type="text" id="profession_mere" name="profession_mere" class="form-control" value="test">
+                                    <input type="text" id="profession_mere" name="profession_mere" class="form-control" >
                                 </div>
                             </div>
 
                             <label for="nbr_place"><?php echo _CIN." de la "._MERE ?> : </label>
                             <div class="form-group">
                                 <div class="form-line">
-                                    <input type="text" id="cin_mere" name="cin_mere" class="form-control" value="test">
+                                    <input type="text" id="cin_mere" name="cin_mere" class="form-control" >
                                 </div>
                             </div>
 
@@ -183,7 +182,7 @@
                             <label class="form-label"><?php echo _TEL." de la "._MERE ?> : </label>
                             <div class="form-group">
                                 <div class="form-line">
-                                    <input type="text" id="tel_mere" name="tel_mere" class="form-control" value="test">
+                                    <input type="text" id="tel_mere" name="tel_mere" class="form-control" >
                                 </div>
                             </div>
 
@@ -203,7 +202,7 @@
                             <label for="nbr_place"><?php echo _FRAIS." d'"._INSCRIPTION ?> : </label>
                             <div class="form-group">
                                 <div class="form-line">
-                                    <input type="text" id="frais_inscription" name="frais_inscription" required="true" class="form-control" value="2500">
+                                    <input type="text" id="frais_inscription" name="frais_inscription" required="true" class="form-control" >
                                 </div>
                             </div>
                         </div>
@@ -211,7 +210,7 @@
                              <label for="nbr_place"><?php echo _FRAIS." "._MENSUELLE ?> : </label>
                             <div class="form-group">
                                 <div class="form-line">
-                                    <input type="text" id="frais_mensuelle" name="frais_mensuelle" required="true" class="form-control" value="1100">
+                                    <input type="text" id="frais_mensuelle" name="frais_mensuelle" required="true" class="form-control" >
                                 </div>
                             </div>
                         </div>

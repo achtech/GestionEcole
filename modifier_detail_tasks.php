@@ -33,14 +33,14 @@
                                 <label for="email_address"><?php echo _STATUS ?> : </label>
                                  <div class="form-group">
                                     <div class="form-line">
-                                         <?php getTabList($tab_status,"status",getValeurChamp('status','detail_tasks','id',$_REQUEST['detail_tasks']),$change,_ETAT); ?>
+                                         <?php getTabList($tab_status,"status",getValeurChamp('status','detail_tasks','id',$_REQUEST['detail_tasks']),"",_ETAT); ?>
                                     </div>
                                 </div>
 
                                 <label for="email_address"><?php echo _PRIORITE ?> : </label>
                                  <div class="form-group">
                                     <div class="form-line">
-                                         <?php getTabList($tab_priorite,"priorite",getValeurChamp('priorite','detail_tasks','id',$_REQUEST['detail_tasks']),$change,_PRIORITE); ?>
+                                         <?php getTabList($tab_priorite,"priorite",getValeurChamp('priorite','detail_tasks','id',$_REQUEST['detail_tasks']),"",_PRIORITE); ?>
                                     </div>
                                 </div>
                                 <label for="email_address"><?php echo _MANAGER ?> : </label>

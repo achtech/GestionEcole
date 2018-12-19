@@ -120,7 +120,7 @@
                                             <input type="text" id="cin_pere" name="cin_pere" class="form-control" value="<?php echo  getValeurChamp('cin_pere','eleves','id',$_REQUEST['eleves']) ?>">
                                         </div>
                                     </div>
-                                    <label for="nbr_place"><?php echo _TEL." "._GSM." des ".PARENTS ?> : </label>
+                                    <label for="nbr_place"><?php echo _TEL." "._GSM." des "._PARENTS ?> : </label>
                                     <div class="form-group">
                                         <div class="form-line">
                                             <input type="text" id="tel_parents" name="tel_parents" class="form-control" value="<?php echo  getValeurChamp('tel_parents','eleves','id',$_REQUEST['eleves']) ?>">

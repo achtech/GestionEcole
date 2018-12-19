@@ -52,6 +52,7 @@
                                         <div class="col-sm-4">
                                             <label for="email_address"><?php echo _NIVEAUX ?> : </label>
                                             <div class="form-group">
+
                                                 <div class="form-line">
         											<?php  echo getTableList('niveaux','id_niveaux',$id_niveaux,'libelle','onchange="document.f1.submit()"','','id_niveaux') ?>
                                                 </div>
@@ -96,7 +97,7 @@
 		
 									$res = doQuery($sql);
 
-									$nb = mysql_num_rows($res);
+									$nb = mysqli_num_rows($res);
 									if( $nb==0){
 										echo _VIDE;
 									}
@@ -110,7 +111,7 @@
                                             <th><?php echo _NOM ?></th>
 											<th><?php echo _TEL ?></th>
                                             <th><?php echo _ADRESSE ?></th>
-                                            <th><?php echo _DATE." de "._NAISSANCE ?></th>
+                                            <th><?php echo _DATE." de "._NAISSANCES ?></th>
 											<th class="op"> <?php echo _OP ?> </th>                                      
 									  </tr>
                                     </thead>
@@ -119,14 +120,14 @@
                                             <th><?php echo _NOM ?></th>
 											<th><?php echo _TEL ?></th>
                                             <th><?php echo _ADRESSE ?></th>
-                                            <th><?php echo _DATE." de "._NAISSANCE ?></th>
+                                            <th><?php echo _DATE." de "._NAISSANCES ?></th>
 											<th class="op"> <?php echo _OP ?> </th>     
 										</tr>
                                     </tfoot>
                                     <tbody>
                                     	<?php 
 											$i = 0;
-											while ($ligne = mysql_fetch_array($res)){
+											while ($ligne = mysqli_fetch_array($res)){
 												
 												if($i%2==0)
 													$c = "c";

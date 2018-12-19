@@ -96,7 +96,8 @@
                             <li class="<?php if($page=='etablissements') echo 'active'; ?>"> <a href="etablissements.php"> <?php echo _ETABLISSEMENTS ?> </a> </li>
                             <li class="<?php if($page=='users') echo 'active'; ?>"> <a href="users.php"> <?php echo _UTILISATEURS ?> </a> </li>
                             <li class="<?php if($page=='logs') echo 'active'; ?>"> <a href="logs.php"> <?php echo _JOURNAL ?> </a> </li>
-                              <li class="<?php if($page=='tasks') echo 'active'; ?>"> <a href="tasks.php"> <?php echo _TASKS ?> </a> </li>
+                            <li class="<?php if($page=='tasks') echo 'active'; ?>"> <a href="tasks.php"> <?php echo _TASKS ?> </a> </li>
+                            <li class="<?php if($page=='impressions') echo 'active'; ?>"> <a href="impressions.php"> <?php echo _IMPRESSION ?> </a> </li>
                         </ul>
                     </li>
                 </ul>

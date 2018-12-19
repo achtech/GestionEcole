@@ -8,7 +8,7 @@
             <div class="row clearfix">
                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                     <div class="card">
-                          <div class="body">
+                          <div class="body" style="height:60px">
                        	<form action="gestion.php" name="frm" method="post" 
                               onsubmit="return checkForm(document.frm);" >
                             <input type="hidden" name="act" value="exporter_database"/>
@@ -64,12 +64,11 @@
 													
 											?>
                                         <tr>
-                                            <td><?php echo getDateExport($files[$i]); ?></td>
+                                            <td><?php echo $files[$i]; ?></td>
 		                                    <td><a href="gestion.php?act=importer_database&page=database.php&files=backup/<?php echo $files[$i] ?>">Importer</a></td>
-
                                         </tr>
                                         <?php
-											$i++; 
+											
 										}
 										?>
                                     </tbody>

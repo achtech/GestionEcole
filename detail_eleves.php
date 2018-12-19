@@ -80,7 +80,7 @@
                                 <?php echo  getValeurChamp('cin_pere','eleves','id',$_REQUEST['eleves']) ?>
                             </div>
                         </div>
-                        <label for="nbr_place"><?php echo _TEL." "._GSM." des ".PARENTS ?> : </label>
+                        <label for="nbr_place"><?php echo _TEL." "._GSM." des "._PARENTS ?> : </label>
                         <div class="form-group">
                             <div class="form-line">
                                 <?php echo  getValeurChamp('tel_parents','eleves','id',$_REQUEST['eleves']) ?>
@@ -148,7 +148,7 @@
                         $sql = "select * from inscriptions where id_eleves=".$_REQUEST['eleves']." order by id";    
                         $res = doQuery($sql);
 
-                        $nb = mysql_num_rows($res);
+                        $nb = mysqli_num_rows($res);
                         if( $nb==0){
                             echo _VIDE;
                         }
@@ -161,7 +161,6 @@
                             <tr>
                                 <th><?php echo _ANNEES." "._SCOLAIRES ?></th>
                                 <th><?php echo _NIVEAUX ?></th>
-                                <th><?php echo _EDUCATRICES ?></th>
                                 <th><?php echo _ABSENCES ?></th>
                                 <th><?php echo _RETARDS ?></th>
                             </tr>
@@ -169,7 +168,7 @@
                         <tbody>
                             <?php 
                                 $i = 0;
-                                while ($ligne = mysql_fetch_array($res)){
+                                while ($ligne = mysqli_fetch_array($res)){
                                     
                                     if($i%2==0)
                                         $c = "c";
@@ -182,8 +181,6 @@
                                     <?php echo getValeurChamp('libelle','annees_scolaires','id',$ligne['id_annees_scolaire']) ?>
                             </td><td>
                                     <?php echo getValeurChamp('libelle','niveaux','id',getValeurChamp('id_niveaux','classes','id',$ligne['id_classes'])) ?>
-                            </td><td>
-                                    <?php echo $ligne['id_classes'] ?>
                             </td><td>       
                                     <?php 
                             $idClasses = getValeurChamp("id_classes",'inscriptions','id_eleves,id_annees_scolaire',$_REQUEST['eleves'].",".$ligne['id_annees_scolaire']);
@@ -219,7 +216,7 @@
                         $sql = "select * from paiements_eleves where id_eleves=".$_REQUEST['eleves']." order by id";      
                         $res = doQuery($sql);
 
-                        $nb = mysql_num_rows($res);
+                        $nb = mysqli_num_rows($res);
                         if( $nb==0){
                             echo _VIDE;
                         }
@@ -249,7 +246,7 @@
                         <tbody>
                             <?php 
                                 $i = 0;
-                                while ($ligne = mysql_fetch_array($res)){
+                                while ($ligne = mysqli_fetch_array($res)){
                                     
                                     if($i%2==0)
                                         $c = "c";
